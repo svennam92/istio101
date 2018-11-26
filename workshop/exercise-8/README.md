@@ -1,4 +1,4 @@
-# DO NOT USE IT - Exercise 8 - Enforce policies for microservices
+# Exercise 8 - Enforce policies for microservices
 
 Backend systems such as access control systems, telemetry capturing systems, quota enforcement systems, billing systems, and so forth, traditionally directly integrate with services, creating a hard coupling and baking-in specific semantics and usage options.
 
@@ -17,7 +17,6 @@ In this exercise we'll use the denier adapter.
     ```
 
     Let's examine the rule:
-
     ```yaml
         apiVersion: "config.istio.io/v1alpha2"
         kind: denier
@@ -53,7 +52,7 @@ In this exercise we'll use the denier adapter.
 
 2. Verify that the service is denied:
 
-   In [Exercise 5](../exercise-5/README.md), we created the Ingress resource. Make sure the $INGRESS_IP environment variable   is still present. Then in the terminal, try:
+   In [Exercise 5](../exercise-5/README.md), we created the Ingress resource. Make sure the $INGRESS_IP environment variable is still present. Then in the terminal, try:
 
     ```shell
     curl http://$INGRESS_IP/
