@@ -1,0 +1,405 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Enforce policies for microservices · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="../exercise-7/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">KubeCon Istio Workshop</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="../exercise-1/">
+            
+                <a href="../exercise-1/">
+            
+                    
+                    Accessing a cluster with IKS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="../exercise-2/">
+            
+                <a href="../exercise-2/">
+            
+                    
+                    Installing Istio
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.3" data-path="../exercise-3/">
+            
+                <a href="../exercise-3/">
+            
+                    
+                    Deploy Guestbook Application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.4" data-path="../exercise-4/">
+            
+                <a href="../exercise-4/">
+            
+                    
+                    Metrics and Tracing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.5" data-path="../exercise-5/">
+            
+                <a href="../exercise-5/">
+            
+                    
+                    Expose with Istio Gateway
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.6" data-path="../exercise-6/">
+            
+                <a href="../exercise-6/">
+            
+                    
+                    Traffic Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.7" data-path="../exercise-7/">
+            
+                <a href="../exercise-7/">
+            
+                    
+                    Secure your service mesh
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.1.8" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Enforce policies for microservices
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Enforce policies for microservices</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="exercise-8---enforce-policies-for-microservices">Exercise 8 - Enforce policies for microservices</h1>
+<p>Backend systems such as access control systems, telemetry capturing systems, quota enforcement systems, billing systems, and so forth, traditionally directly integrate with services, creating a hard coupling and baking-in specific semantics and usage options.</p>
+<p>Istio Mixer provides a generic intermediation layer between app code and infrastructure backends. Its design moves policy decisions out of the app layer and into configuration instead, under operator control. Instead of having app code integrate with specific backends, the app code instead does a fairly simple integration with Mixer, and Mixer takes responsibility for interfacing with the backend systems.</p>
+<p>Given that individual infrastructure backends each have different interfaces and operational models, Mixer needs custom code to deal with each and we call these custom bundles of code <strong>adapters</strong>. Here are some built-in adapters: denier, prometheus,  memquota, and stackdriver.</p>
+<p>In this exercise we&apos;ll use the denier adapter.</p>
+<h2 id="service-isolation-with-the-denier-adapter">Service isolation with the denier adapter</h2>
+<ol>
+<li><p>Block access to Guestbook service:</p>
+<pre><code class="lang-shell"> kubectl create -f mixer-rule-denial.yaml
+</code></pre>
+<p> Let&apos;s examine the rule:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">     apiVersion:</span> <span class="hljs-string">&quot;config.istio.io/v1alpha2&quot;</span>
+<span class="hljs-attr">     kind:</span> denier
+<span class="hljs-attr">     metadata:</span>
+<span class="hljs-attr">       name:</span> denyall
+<span class="hljs-attr">       namespace:</span> istio-system
+<span class="hljs-attr">     spec:</span>
+<span class="hljs-attr">       status:</span>
+<span class="hljs-attr">         code:</span> <span class="hljs-number">7</span>
+<span class="hljs-attr">         message:</span> Not allowed
+<span class="hljs-bullet">     -</span>--
+     <span class="hljs-comment"># The (empty) data handed to denyall at run time</span>
+<span class="hljs-attr">     apiVersion:</span> <span class="hljs-string">&quot;config.istio.io/v1alpha2&quot;</span>
+<span class="hljs-attr">     kind:</span> checknothing
+<span class="hljs-attr">     metadata:</span>
+<span class="hljs-attr">       name:</span> denyrequest
+<span class="hljs-attr">       namespace:</span> istio-system
+<span class="hljs-attr">     spec:</span>
+<span class="hljs-bullet">     -</span>--
+     <span class="hljs-comment"># The rule that uses denier to deny requests to the guestbook service</span>
+<span class="hljs-attr">     apiVersion:</span> <span class="hljs-string">&quot;config.istio.io/v1alpha2&quot;</span>
+<span class="hljs-attr">     kind:</span> rule
+<span class="hljs-attr">     metadata:</span>
+<span class="hljs-attr">       name:</span> deny-hello-world
+<span class="hljs-attr">       namespace:</span> istio-system
+<span class="hljs-attr">     spec:</span>
+<span class="hljs-attr">       match:</span> destination.service==<span class="hljs-string">&quot;guestbook.default.svc.cluster.local&quot;</span>
+<span class="hljs-attr">       actions:</span>
+<span class="hljs-attr">       - handler:</span> denyall.denier
+<span class="hljs-attr">         instances:</span>
+<span class="hljs-bullet">         -</span> denyrequest.checknothing
+</code></pre>
+</li>
+<li><p>Verify that the service is denied:</p>
+<p>In <a href="../exercise-5/">Exercise 5</a>, we created the Ingress resource. Make sure the $INGRESS_IP environment variable is still present. Then in the terminal, try:</p>
+<pre><code class="lang-shell"> curl http://$INGRESS_IP/
+</code></pre>
+<p> You should see the error message <code>PERMISSION_DENIED:denyall.denier.istio-system:Not allowed</code>.</p>
+</li>
+<li><p>Clean up the rule.</p>
+<pre><code class="lang-shell"> kubectl delete -f mixer-rule-denial.yaml
+</code></pre>
+</li>
+</ol>
+<h2 id="quiz">Quiz</h2>
+<ol>
+<li>Does creating mixer rules require app code changes? (Yes/No) No</li>
+<li>The custom code that interacts with the backend system, i.e. Prometheus, is called
+A. Rule B. Instance C. Adapter
+Answer is C</li>
+</ol>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li><a href="https://istio.io/docs/concepts/policy-and-control/mixer.html" target="_blank">Istio Mixer</a></li>
+<li><a href="https://medium.com/@szihai_37982/how-to-write-istio-mixer-policies-50dc639acf75" target="_blank">How to write istio mixer policies</a></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../exercise-7/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Secure your service mesh">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Enforce policies for microservices","level":"1.1.8","depth":2,"previous":{"title":"Secure your service mesh","level":"1.1.7","depth":2,"path":"exercise-7/README.md","ref":"exercise-7/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"root":"./workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"exercise-8/README.md","mtime":"2018-12-04T14:26:03.142Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-04T14:50:20.706Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

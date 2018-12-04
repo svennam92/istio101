@@ -1,0 +1,451 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Metrics and Tracing · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../exercise-5/" />
+    
+    
+    <link rel="prev" href="../exercise-3/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">KubeCon Istio Workshop</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="../exercise-1/">
+            
+                <a href="../exercise-1/">
+            
+                    
+                    Accessing a cluster with IKS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="../exercise-2/">
+            
+                <a href="../exercise-2/">
+            
+                    
+                    Installing Istio
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.3" data-path="../exercise-3/">
+            
+                <a href="../exercise-3/">
+            
+                    
+                    Deploy Guestbook Application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Metrics and Tracing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.5" data-path="../exercise-5/">
+            
+                <a href="../exercise-5/">
+            
+                    
+                    Expose with Istio Gateway
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.6" data-path="../exercise-6/">
+            
+                <a href="../exercise-6/">
+            
+                    
+                    Traffic Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.7" data-path="../exercise-7/">
+            
+                <a href="../exercise-7/">
+            
+                    
+                    Secure your service mesh
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.8" data-path="../exercise-8/">
+            
+                <a href="../exercise-8/">
+            
+                    
+                    Enforce policies for microservices
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Metrics and Tracing</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="exercise-4---observe-service-telemetry-metrics-and-tracing">Exercise 4 - Observe service telemetry: metrics and tracing</h1>
+<h3 id="challenges-with-microservices">Challenges with microservices</h3>
+<p>We all know that microservice architecture is the perfect fit for cloud native applications and it increases the delivery velocities greatly. Envision you have many microservices that are delivered by multiple teams, how do you observe the the overall platform and each of the service to find out exactly what is going on with each of the services?  When something goes wrong, how do you know which service or which communication among the few services are causing the problem?</p>
+<h3 id="istio-telemetry">Istio telemetry</h3>
+<p>Istio&apos;s tracing and metrics features are designed to provide broad and granular insight into the health of all services. Istio&apos;s role as a service mesh makes it the ideal data source for observability information, particularly in a microservices environment. As requests pass through multiple services, identifying performance bottlenecks becomes increasingly difficult using traditional debugging techniques. Distributed tracing provides a holistic view of requests transiting through multiple services, allowing for immediate identification of latency issues. With Istio, distributed tracing comes by default. This will expose latency, retry, and failure information for each hop in a request.</p>
+<p>You can read more about how <a href="https://istio.io/docs/concepts/policy-and-control/mixer.html" target="_blank">Istio mixer enables telemetry reporting</a>.</p>
+<h3 id="configure-istio-to-receive-telemetry-data">Configure Istio to receive telemetry data</h3>
+<ol>
+<li><p>Verify that the Grafana, Prometheus, ServiceGraph and Jaeger add-ons were installed successfully. All add-ons are installed into the <code>istio-system</code> namespace.</p>
+<pre><code class="lang-shell"> kubectl get pods -n istio-system
+ kubectl get services -n istio-system
+</code></pre>
+</li>
+<li><p>Configure Istio to automatically gather telemetry data for services that run in the service mesh.</p>
+<p> a. Go back to the plans directory at <code>istio101/workshop/plans</code>.</p>
+<pre><code class="lang-shell"> cd ../../plans
+</code></pre>
+<p> b. Create a rule to collect telemetry data.</p>
+<pre><code class="lang-shell"> kubectl create -f guestbook-telemetry.yaml
+</code></pre>
+</li>
+<li><p>Obtain the guestbook endpoint to access the guestbook.</p>
+<p> a. For a paid cluster, you can access the guestbook via the external IP for your service as guestbook is deployed as a load balancer service. Get the EXTERNAL-IP of the guestbook service via output below:</p>
+<pre><code class="lang-shell"> kubectl get service guestbook -n default
+</code></pre>
+<p> Go to this external ip address in the browser to try out your guestbook.</p>
+<p> b. For a lite cluster, first, get the worker&apos;s public IP:</p>
+<pre><code class="lang-shell"> ibmcloud cs workers &lt;cluster_name&gt;
+</code></pre>
+<p> Output:</p>
+<pre><code class="lang-shell"> ID             Public IP      Private IP      Machine Type        State    Status   Zone    Version
+ kube-xxx       169.60.87.20   10.188.80.69    u2c.2x4.encrypted   normal   Ready    wdc06   1.9.7_1510*
+</code></pre>
+<p> Second, get the node port:</p>
+<pre><code class="lang-shell"> kubectl get svc guestbook -n default
+</code></pre>
+<p> Output:</p>
+<pre><code class="lang-shell"> NAME        TYPE           CLUSTER-IP     EXTERNAL-IP    PORT(S)        AGE
+ guestbook   LoadBalancer   172.21.134.6   pending        80:31702/TCP   4d
+</code></pre>
+<p> The node port in above sample output is <code>169.60.87.20:31702</code></p>
+<p> Go to this address in the browser to try out your guestbook.</p>
+</li>
+<li><p>Generate a small load to the app.</p>
+<pre><code class="lang-shell"> while sleep 0.5; do curl http://&lt;guestbook_endpoint/; done
+</code></pre>
+</li>
+</ol>
+<h2 id="view-guestbook-telemetry-data">View guestbook telemetry data</h2>
+<h4 id="jaeger">Jaeger</h4>
+<ol>
+<li><p>Establish port forwarding from local port 16686 to the Tracing instance:</p>
+<pre><code class="lang-shell"> kubectl port-forward -n istio-system \
+   $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath=&apos;{.items[0].metadata.name}&apos;) \
+   16686:16686 &amp;
+</code></pre>
+</li>
+<li>In your browser, go to <code>http://127.0.0.1:16686</code></li>
+<li>From the <strong>Services</strong> menu, select either the <strong>guestbook</strong> or <strong>analyzer</strong> service.</li>
+<li>Scroll to the bottom and click on <strong>Find Traces</strong> button to see traces</li>
+</ol>
+<h4 id="grafana">Grafana</h4>
+<ol>
+<li><p>Establish port forwarding from local port 3000 to the Grafana instance:</p>
+<pre><code class="lang-shell"> kubectl -n istio-system port-forward \
+   $(kubectl -n istio-system get pod -l app=grafana -o jsonpath=&apos;{.items[0].metadata.name}&apos;) \
+   3000:3000 &amp;
+</code></pre>
+</li>
+<li><p>Browse to <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> and navigate to the Istio Mesh Dashboard by clicking on the Home menu on the top left.</p>
+</li>
+</ol>
+<h4 id="prometheus">Prometheus</h4>
+<ol>
+<li><p>Establish port forwarding from local port 9090 to the Prometheus instance.</p>
+<pre><code class="lang-shell"> kubectl -n istio-system port-forward \
+   $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath=&apos;{.items[0].metadata.name}&apos;) \
+   9090:9090 &amp;
+</code></pre>
+</li>
+<li>Browse to <a href="http://localhost:9090/graph" target="_blank">http://localhost:9090/graph</a>, and in the &#x201C;Expression&#x201D; input box, enter: <code>istio_request_byte_count</code>. Click Execute.</li>
+</ol>
+<h4 id="service-graph">Service Graph</h4>
+<ol>
+<li><p>Establish port forwarding from local port 8088 to the Service Graph instance:</p>
+<pre><code class="lang-shell"> kubectl -n istio-system port-forward \
+   $(kubectl -n istio-system get pod -l app=servicegraph -o jsonpath=&apos;{.items[0].metadata.name}&apos;) \
+   8088:8088 &amp;
+</code></pre>
+</li>
+<li><p>Browse to <a href="http://localhost:8088/dotviz" target="_blank">http://localhost:8088/dotviz</a></p>
+</li>
+</ol>
+<h2 id="understand-what-happened">Understand what happened</h2>
+<p>Although Istio proxies are able to automatically send spans, they need some hints to tie together the entire trace. Apps need to propagate the appropriate HTTP headers so that when the proxies send span information to Zipkin or Jaeger, the spans can be correlated correctly into a single trace.</p>
+<p>In the example, when a user visits the Guestbook app, the HTTP request is sent from the guestbook service to Watson Tone Analyzer. In order for the individual spans of guestbook service and Watson Tone Analyzer to be tied together, we have modified the guestbook service to extract the required headers (x-request-id, x-b3-traceid, x-b3-spanid, x-b3-parentspanid, x-b3-sampled, x-b3-flags, x-ot-span-context) and forward them onto the analyzer service when calling the analyzer service from the guestbook service. The change is in the <code>v2/guestbook/main.go</code>. By using the <code>getForwardHeaders()</code> method, we are able to extract the required headers, and then we use the required headers further when calling the analyzer service via the <code>getPrimaryTone()</code> method.</p>
+<h2 id="questions">Questions</h2>
+<ol>
+<li><p>Does a user need to modify their app to get metrics for their apps?   A: 1. Yes 2. No. (2 is correct)</p>
+</li>
+<li><p>Does a user need to modify their app to get distributed tracing for their app to work properly? A: 1. Yes 2. No. (1 is correct)</p>
+</li>
+<li><p>What distributed tracing system does Istio support by default?  A: 1. Zipkin 2. Kibana 3. LogStash 4. Jaeger. (1 and 4 are correct)</p>
+</li>
+</ol>
+<h4 id="continue-to-exercise-5---expose-the-service-mesh-with-the-istio-ingress-gateway"><a href="../exercise-5/">Continue to Exercise 5 - Expose the service mesh with the Istio Ingress Gateway</a></h4>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../exercise-3/" class="navigation navigation-prev " aria-label="Previous page: Deploy Guestbook Application">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../exercise-5/" class="navigation navigation-next " aria-label="Next page: Expose with Istio Gateway">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Metrics and Tracing","level":"1.1.4","depth":2,"next":{"title":"Expose with Istio Gateway","level":"1.1.5","depth":2,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"previous":{"title":"Deploy Guestbook Application","level":"1.1.3","depth":2,"path":"exercise-3/README.md","ref":"exercise-3/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"root":"./workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"exercise-4/README.md","mtime":"2018-12-04T14:26:03.141Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-04T14:50:20.706Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

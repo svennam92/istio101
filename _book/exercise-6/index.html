@@ -1,0 +1,472 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Traffic Management · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../exercise-7/" />
+    
+    
+    <link rel="prev" href="../exercise-5/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">KubeCon Istio Workshop</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="../exercise-1/">
+            
+                <a href="../exercise-1/">
+            
+                    
+                    Accessing a cluster with IKS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="../exercise-2/">
+            
+                <a href="../exercise-2/">
+            
+                    
+                    Installing Istio
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.3" data-path="../exercise-3/">
+            
+                <a href="../exercise-3/">
+            
+                    
+                    Deploy Guestbook Application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.4" data-path="../exercise-4/">
+            
+                <a href="../exercise-4/">
+            
+                    
+                    Metrics and Tracing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.5" data-path="../exercise-5/">
+            
+                <a href="../exercise-5/">
+            
+                    
+                    Expose with Istio Gateway
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.1.6" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Traffic Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.7" data-path="../exercise-7/">
+            
+                <a href="../exercise-7/">
+            
+                    
+                    Secure your service mesh
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.8" data-path="../exercise-8/">
+            
+                <a href="../exercise-8/">
+            
+                    
+                    Enforce policies for microservices
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Traffic Management</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="exercise-6---perform-traffic-management">Exercise 6 - Perform traffic management</h1>
+<h2 id="using-rules-to-manage-traffic">Using rules to manage traffic</h2>
+<p>The core component used for traffic management in Istio is Pilot, which manages and configures all the Envoy proxy instances deployed in a particular Istio service mesh. It lets you specify what rules you want to use to route traffic between Envoy proxies, which run as sidecars to each service in the mesh. Each service consists of any number of instances running on pods, containers, VMs etc. Each service can have any number of versions (a.k.a. subsets). There can be distinct subsets of service instances running different variants of the app binary. These variants are not necessarily different API versions. They could be iterative changes to the same service, deployed in different environments (prod, staging, dev, etc.). Pilot translates high-level rules into low-level configurations and distributes this config to Envoy instances. Pilot uses three types of configuration resources to manage traffic within its service mesh: Virtual Services, Destination Rules, and Service Entries.</p>
+<h3 id="virtual-services">Virtual Services</h3>
+<p>A <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3/#VirtualService" target="_blank">VirtualService</a> defines a set of traffic routing rules to apply when a host is addressed. Each routing rule defines matching criteria for traffic of a specific protocol. If the traffic is matched, then it is sent to a named <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3.html#Destination" target="_blank">destination</a> service (or <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3/#Subset" target="_blank">subset</a> or version of it) defined in the service registry.</p>
+<h3 id="destination-rules">Destination Rules</h3>
+<p>A <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3/#Destination" target="_blank">DestinationRule</a> defines policies that apply to traffic intended for a service after routing has occurred. These rules specify configuration for load balancing, connection pool size from the sidecar, and outlier detection settings to detect and evict unhealthy hosts from the load balancing pool. Any destination <code>host</code> and <code>subset</code> referenced in a <code>VirtualService</code> rule must be defined in a corresponding <code>DestinationRule</code>.</p>
+<h3 id="service-entries">Service Entries</h3>
+<p>A <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3.html#ServiceEntry" target="_blank">ServiceEntry</a> configuration enables services within the mesh to access a service not necessarily managed by Istio. The rule describes the endpoints, ports and protocols of a white-listed set of mesh-external domains and IP blocks that services in the mesh are allowed to access.</p>
+<h2 id="the-guestbook-app">The Guestbook app</h2>
+<p>In the Guestbook app, there is one service: guestbook. The guestbook service has two distinct versions: the base version (version 1) and the modernized version (version 2). Each version of the service has three instances based on the number of replicas in <a href="https://github.com/linsun/examples/blob/master/guestbook-go/guestbook-deployment.yaml" target="_blank">guestbook-deployment.yaml</a> and <a href="https://github.com/linsun/examples/blob/master/guestbook-go/guestbook-v2-deployment.yaml" target="_blank">guestbook-v2-deployment.yaml</a>. By default, prior to creating any rules, Istio will route requests equally across version 1 and version 2 of the guestbook service and their respective instances in a round robin manner. However, new versions of a service can easily introduce bugs to the service mesh, so following A/B Testing and Canary Deployments is good practice.</p>
+<h3 id="ab-testing-with-istio">A/B testing with Istio</h3>
+<p>A/B testing is a method of performing identical tests against two separate service versions in order to determine which performs better. To prevent Istio from performing the default routing behavior between the original and modernized guestbook service, define the following rules (found in <a href="https://github.com/IBM/istio101/tree/master/workshop/plans" target="_blank">istio101/workshop/plans</a>):</p>
+<pre><code class="lang-shell">kubectl replace -f virtualservice-all-v1.yaml
+</code></pre>
+<p>Let&apos;s examine the rule:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> networking.istio.io/v1alpha3
+<span class="hljs-attr">kind:</span> VirtualService
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> virtual-service-guestbook
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  hosts:</span>
+<span class="hljs-bullet">    -</span> <span class="hljs-string">&apos;*&apos;</span>
+<span class="hljs-attr">  gateways:</span>
+<span class="hljs-bullet">    -</span> guestbook-gateway
+<span class="hljs-attr">  http:</span>
+<span class="hljs-attr">    - route:</span>
+<span class="hljs-attr">        - destination:</span>
+<span class="hljs-attr">            host:</span> guestbook
+<span class="hljs-attr">            subset:</span> v1
+</code></pre>
+<pre><code class="lang-shell">kubectl create -f guestbook-destination.yaml
+</code></pre>
+<p>Let&apos;s examine the rule:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> networking.istio.io/v1alpha3
+<span class="hljs-attr">kind:</span> DestinationRule
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> destination-guestbook
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  host:</span> guestbook
+<span class="hljs-attr">  subsets:</span>
+<span class="hljs-attr">    - name:</span> v1
+<span class="hljs-attr">      labels:</span>
+<span class="hljs-attr">        version:</span> <span class="hljs-string">&apos;1.0&apos;</span>
+<span class="hljs-attr">    - name:</span> v2
+<span class="hljs-attr">      labels:</span>
+<span class="hljs-attr">        version:</span> <span class="hljs-string">&apos;2.0&apos;</span>
+</code></pre>
+<p>The <code>VirtualService</code> defines a rule that captures all HTTP traffic coming in through the Istio ingress gateway, <code>guestbook-gateway</code>, and routes 100% of the traffic to pods of the guestbook service with label &quot;version: v1&quot;. A subset or version of a route destination is identified with a reference to a named service subset which must be declared in a corresponding <code>DestinationRule</code>. Since there are three instances matching the criteria of hostname <code>guestbook</code> and subset <code>version: v1</code>, by default Envoy will send traffic to all three instances in a round robin manner. You can view the guestbook service UI using the IP address and port obtained in <a href="../exercise-5/">Exercise 5</a> and enter it as a URL in Firefox or Chrome web browsers.</p>
+<p>To enable the Istio service mesh for A/B testing against the new service version, modify the original <code>VirtualService</code> rule:</p>
+<pre><code class="lang-shell">kubectl replace -f virtualservice-test.yaml
+</code></pre>
+<p>Let&apos;s examine the rule:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> networking.istio.io/v1alpha3
+<span class="hljs-attr">kind:</span> VirtualService
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> virtual-service-guestbook
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  hosts:</span>
+<span class="hljs-bullet">    -</span> <span class="hljs-string">&apos;*&apos;</span>
+<span class="hljs-attr">  gateways:</span>
+<span class="hljs-bullet">    -</span> guestbook-gateway
+<span class="hljs-attr">  http:</span>
+<span class="hljs-attr">    - match:</span>
+<span class="hljs-attr">        - headers:</span>
+<span class="hljs-attr">            user-agent:</span>
+<span class="hljs-attr">              regex:</span> <span class="hljs-string">&apos;.*Firefox.*&apos;</span>
+<span class="hljs-attr">      route:</span>
+<span class="hljs-attr">        - destination:</span>
+<span class="hljs-attr">            host:</span> guestbook
+<span class="hljs-attr">            subset:</span> v2
+<span class="hljs-attr">    - route:</span>
+<span class="hljs-attr">        - destination:</span>
+<span class="hljs-attr">            host:</span> guestbook
+<span class="hljs-attr">            subset:</span> v1
+</code></pre>
+<p>In Istio <code>VirtualService</code> rules, there can be only one rule for each service and therefore when defining multiple <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3/#HTTPRoute" target="_blank">HTTPRoute</a> blocks, the order in which they are defined in the yaml matters. Hence, the original <code>VirtualService</code> rule is modified rather than creating a new rule. With the modified rule, incoming requests originating from <code>Firefox</code> browsers will go to the newer version of guestbook. All other requests fall-through to the next block, which routes all traffic to the original version of guestbook.</p>
+<p>In exercise 3, we set up some egress rules to allow the guestbook service to call the Watson Tone Analyzer service created in <a href="../exercise-3/">Exercise 3</a>. By default Istio blocks calls to services outside the service mesh. In order for calls to reach the Watson service, we applied the <code>VirtualService</code> and <code>ServiceEntry</code> found in <code>/istio101/workshop/plans/analyzer-egress.yaml</code>.</p>
+<p>The <code>ServiceEntry</code> defines addresses and ports services within the mesh are allowed to make requests to. If two browsers are available on your system, observe the modernized guestbook service in Firefox and the original guestbook service in any other browser.</p>
+<h3 id="canary-deployment">Canary deployment</h3>
+<p>In <code>Canary Deployments</code>, newer versions of services are incrementally rolled out to users to minimize the risk and impact of any bugs introduced by the newer version. To begin incrementally routing traffic to the newer version of the guestbook service, modify the original <code>VirtualService</code> rule:</p>
+<pre><code class="lang-shell">kubectl replace -f virtualservice-80-20.yaml
+</code></pre>
+<p>Let&apos;s examine the rule:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> networking.istio.io/v1alpha3
+<span class="hljs-attr">kind:</span> VirtualService
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> virtual-service-guestbook
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  hosts:</span>
+<span class="hljs-bullet">    -</span> <span class="hljs-string">&apos;*&apos;</span>
+<span class="hljs-attr">  gateways:</span>
+<span class="hljs-bullet">    -</span> guestbook-gateway
+<span class="hljs-attr">  http:</span>
+<span class="hljs-attr">    - route:</span>
+<span class="hljs-attr">        - destination:</span>
+<span class="hljs-attr">            host:</span> guestbook
+<span class="hljs-attr">            subset:</span> v1
+<span class="hljs-attr">          weight:</span> <span class="hljs-number">80</span>
+<span class="hljs-attr">        - destination:</span>
+<span class="hljs-attr">            host:</span> guestbook
+<span class="hljs-attr">            subset:</span> v2
+<span class="hljs-attr">          weight:</span> <span class="hljs-number">20</span>
+</code></pre>
+<p>In the modified rule, the routed traffic is split between two different subsets of the guestbook service. In this manner, traffic to the modernized version 2 of guestbook is controlled on a percentage basis to limit the impact of any unforeseen bugs. This rule can be modified over time until eventually all traffic is directed to the newer version of the service.</p>
+<p>You can see this in action by going to the ingress ip address (that you saved in exercise-5) in your browser. Ensure that you are using a hard refresh (command + Shift + R on Mac or Ctrl + F5 on windows) to remove any browser caching. You should notice that the guestbook should swap between V1 or V2 at about the weight you specified.</p>
+<h3 id="implementing-circuit-breakers-with-destination-rules">Implementing circuit breakers with destination rules</h3>
+<p>Istio <code>DestinationRules</code> allow users to configure Envoy&apos;s implementation of <a href="https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/circuit_breaking" target="_blank">circuit breakers</a>. Circuit breakers are critical for defining the behavior for service-to-service communication in the service mesh. In the event of a failure for a particular service, circuit breakers allow users to set global defaults for failure recovery on a per service and/or per service version basis. Users can apply a <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3.html#TrafficPolicy" target="_blank">traffic policy</a> at the top level of the <code>DestinationRule</code> to create circuit breaker settings for an entire service, or it can be defined at the subset level to create settings for a particular version of a service.</p>
+<p>Depending on whether a service handles <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3/#ConnectionPoolSettings.HTTPSettings" target="_blank">HTTP</a> requests or <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3/#ConnectionPoolSettings.TCPSettings" target="_blank">TCP</a> connections, <code>DestinationRules</code> expose a number of ways for Envoy to limit traffic to a particular service as well as define failure recovery behavior for services initiating the connection to an unhealthy service.</p>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li><a href="https://istio.io/docs/concepts/traffic-management/" target="_blank">Istio Concept</a></li>
+<li><a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3" target="_blank">Istio Rules API</a></li>
+<li><a href="https://istio.io/docs/reference/commands/istioctl.html#istioctl%20experimental%20convert-networking-config" target="_blank">Istio V1alpha1 to V1alpha3 Converter Tool</a></li>
+<li><a href="https://istio.io/docs/reference/commands/istioctl/#istioctl%20proxy-config" target="_blank">Istio Proxy Debug Tool</a></li>
+<li><a href="https://blog.openshift.com/istio-traffic-management-diving-deeper/" target="_blank">Traffic Management</a></li>
+<li><a href="https://blog.openshift.com/microservices-patterns-envoy-part-i/" target="_blank">Circuit Breaking</a></li>
+<li><a href="https://blog.openshift.com/microservices-patterns-envoy-proxy-part-ii-timeouts-retries/" target="_blank">Timeouts and Retries</a></li>
+</ul>
+<h2 id="questions">Questions</h2>
+<ol>
+<li>Where are routing rules defined?  Options: (VirtualService, DestinationRule, ServiceEntry)  Answer: VirtualService</li>
+<li>Where are service versions (subsets) defined?  Options: (VirtualService, DestinationRule, ServiceEntry)  Answer: DestinationRule</li>
+<li>Which Istio component is responsible for sending traffic management configurations to Istio sidecars?  Options: (Mixer, Citadel, Pilot, Kubernetes)  Answer: Pilot</li>
+<li>What is the name of the default proxy that runs in Istio sidecars and routes requests within the service mesh?  Options: (NGINX, Envoy, HAProxy)  Answer: Envoy</li>
+</ol>
+<h4 id="continue-to-exercise-7---security"><a href="../exercise-7/">Continue to Exercise 7 - Security</a></h4>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../exercise-5/" class="navigation navigation-prev " aria-label="Previous page: Expose with Istio Gateway">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../exercise-7/" class="navigation navigation-next " aria-label="Next page: Secure your service mesh">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Traffic Management","level":"1.1.6","depth":2,"next":{"title":"Secure your service mesh","level":"1.1.7","depth":2,"path":"exercise-7/README.md","ref":"exercise-7/README.md","articles":[]},"previous":{"title":"Expose with Istio Gateway","level":"1.1.5","depth":2,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"root":"./workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"exercise-6/README.md","mtime":"2018-12-04T14:26:03.141Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-04T14:50:20.706Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

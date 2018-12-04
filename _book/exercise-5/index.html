@@ -1,0 +1,439 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Expose with Istio Gateway · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../exercise-6/" />
+    
+    
+    <link rel="prev" href="../exercise-4/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">KubeCon Istio Workshop</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="../exercise-1/">
+            
+                <a href="../exercise-1/">
+            
+                    
+                    Accessing a cluster with IKS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="../exercise-2/">
+            
+                <a href="../exercise-2/">
+            
+                    
+                    Installing Istio
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.3" data-path="../exercise-3/">
+            
+                <a href="../exercise-3/">
+            
+                    
+                    Deploy Guestbook Application
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.4" data-path="../exercise-4/">
+            
+                <a href="../exercise-4/">
+            
+                    
+                    Metrics and Tracing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.1.5" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Expose with Istio Gateway
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.6" data-path="../exercise-6/">
+            
+                <a href="../exercise-6/">
+            
+                    
+                    Traffic Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.7" data-path="../exercise-7/">
+            
+                <a href="../exercise-7/">
+            
+                    
+                    Secure your service mesh
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.8" data-path="../exercise-8/">
+            
+                <a href="../exercise-8/">
+            
+                    
+                    Enforce policies for microservices
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Expose with Istio Gateway</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="exercise-5---expose-the-service-mesh-with-the-istio-ingress-gateway">Exercise 5 - Expose the service mesh with the Istio Ingress Gateway</h1>
+<p>The components deployed on the service mesh by default are not exposed outside the cluster. External access to individual services so far has been provided by creating an external load balancer or node port on each service.</p>
+<p>An Ingress Gateway resource can be created to allow external requests through the Istio Ingress Gateway to the backing services.</p>
+<h3 id="expose-the-guestbook-app-with-ingress-gateway">Expose the Guestbook app with Ingress Gateway</h3>
+<ol>
+<li><p>If you have a paid cluster:</p>
+<p> a. Configure the guestbook default route with the Istio Ingress Gateway. The <code>guestbook-gateway.yaml</code> file is in this repository (istio101) in the <code>workshop/plans</code> directory</p>
+<pre><code class="lang-shell"> kubectl create -f guestbook-gateway.yaml
+</code></pre>
+<p> b. Get the <strong>EXTERNAL-IP</strong> of the Istio Ingress Gateway.</p>
+<pre><code class="lang-shell"> kubectl get service istio-ingressgateway -n istio-system
+</code></pre>
+<p> Output:</p>
+<pre><code class="lang-shell"> NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)                                       AGE
+ istio-ingressgateway   LoadBalancer   172.21.254.53    169.6.1.1       80:31380/TCP,443:31390/TCP,31400:31400/TCP    1m
+ 2d
+</code></pre>
+<p> c. Make note of the external IP address that you retrieved in the previous step, as it will be used to access the Guestbook app in later parts of the course. You can create an environment variable called $INGRESS_IP with your IP address.</p>
+<p> Example:</p>
+<pre><code> export INGRESS_IP=169.61.37.141
+</code></pre></li>
+<li><p>If you have a lite cluster:</p>
+<p> a. Configure the guestbook default route with the Istio Ingress Gateway.</p>
+<pre><code class="lang-shell"> kubectl create -f guestbook-gateway.yaml
+</code></pre>
+<p> b. Now check the node port of the ingress.</p>
+<pre><code class="lang-shell"> kubectl get svc istio-ingressgateway -n istio-system
+</code></pre>
+<p> Output:</p>
+<pre><code class="lang-shell"> NAME            TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S)                      AGE
+ istio-ingress   LoadBalancer                    *              80:31702/TCP,443:32290/TCP   10d
+</code></pre>
+<p> Get the Public IP of your cluster.</p>
+<pre><code class="lang-shell"> ibmcloud cs workers &lt;cluster_name&gt;
+</code></pre>
+<p> Output:</p>
+<pre><code class="lang-shell"> ID             Public IP      Private IP      Machine Type        State    Status   Zone    Version
+ kube-xxx       169.60.87.20   10.188.80.69    u2c.2x4.encrypted   normal   Ready    wdc06   1.9.7_1510*
+</code></pre>
+<p> The node port in above sample output is <code>169.60.87.20:31702</code>.</p>
+<p> c. Make note of the IP and node port that you retrieved in the previous step as it will be used to access the Guestbook app in later parts of the course. You can create an environment variable called $INGRESS_IP with your IP address.</p>
+<p> Example:</p>
+<pre><code> export INGRESS_IP=169.60.72.58:31702
+</code></pre></li>
+</ol>
+<h2 id="do-not-run-this-please-continue-to-exercise-6-optional-set-up-the-istio-ingress-gateway-to-work-with-ibm-cloud-kubernetes-service"><strong>DO NOT RUN THIS, please continue to <a href="../exercise-6/">exercise-6</a></strong> (Optional) Set up the Istio Ingress Gateway to work with IBM Cloud Kubernetes Service</h2>
+<p><strong>Note:</strong> This task requires a standard cluster.</p>
+<p>To have an IBM-provided DNS for the Guestbook app, you must set up the Istio Ingress Gateway to route traffic to the Kubernetes Ingress application load balancer (ALB).</p>
+<p>The IBM Ingress service provides IBM Cloud users with a secure, reliable, and scalable network stack to distribute incoming network traffic to apps in IBM Cloud. You can enhance the IBM-provided Ingress application load balancer by adding annotations. Learn more about <a href="https://console.bluemix.net/docs/containers/cs_ingress.html#ingress" target="_blank">Ingress for IBM Cloud Kubernetes Service</a>.</p>
+<ol>
+<li><p>Let&apos;s first check the IBM Ingress subdomain information.</p>
+<pre><code class="lang-shell"> ibmcloud cs cluster-get &lt;cluster_name&gt;
+</code></pre>
+<p> Output:</p>
+<pre><code class="lang-shell"> Ingress subdomain:    guestbook-242887.us-east.containers.mybluemix.net
+</code></pre>
+</li>
+<li><p>Add the subdomain that you retrieved in the previous step as <code>host</code> in the <code>guestbook-frontdoor.yaml</code> file, which you can find in the <code>istio101/workshop/plans</code> directory.</p>
+</li>
+<li><p>Create the Ingress with the IBM-provided subdomain.</p>
+<pre><code class="lang-shell"> kubectl apply -f guestbook-frontdoor.yaml
+</code></pre>
+</li>
+<li><p>List the details for your Ingress.</p>
+<pre><code class="lang-shell"> kubectl get ingress guestbook-ingress  -o yaml
+</code></pre>
+<p> Example output:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">    apiVersion:</span> extensions/v1beta1
+<span class="hljs-attr">    kind:</span> Ingress
+<span class="hljs-attr">    metadata:</span>
+    <span class="hljs-comment">#  annotations:</span>
+    <span class="hljs-comment">#    kubernetes.io/ingress.class: istio</span>
+<span class="hljs-attr">      name:</span> guestbook-ingress
+<span class="hljs-attr">    spec:</span>
+<span class="hljs-attr">      rules:</span>
+<span class="hljs-attr">        - host:</span> guestbook.us-south.containers.mybluemix.net
+<span class="hljs-attr">          http:</span>
+<span class="hljs-attr">            paths:</span>
+<span class="hljs-attr">              - path:</span> /
+<span class="hljs-attr">                backend:</span>
+<span class="hljs-attr">                  serviceName:</span> guestbook
+<span class="hljs-attr">                  servicePort:</span> <span class="hljs-number">3000</span>
+</code></pre>
+</li>
+<li><p>Make note of the IBM-provided subdomain as it will be used to access your Guestbook app in later parts of the course.</p>
+<p> Example:</p>
+<pre><code> http://[guestbook].us-east.containers.mybluemix.net
+</code></pre></li>
+</ol>
+<p>Congratulations! You extended the base Ingress features by providing a DNS entry to the Istio service.</p>
+<h2 id="references">References:</h2>
+<p><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" target="_blank">Kubernetes Ingress</a>
+<a href="https://istio.io/docs/tasks/traffic-management/ingress.html" target="_blank">Istio Ingress</a></p>
+<h4 id="continue-to-exercise-6---traffic-management"><a href="../exercise-6/">Continue to Exercise 6 - Traffic Management</a></h4>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../exercise-4/" class="navigation navigation-prev " aria-label="Previous page: Metrics and Tracing">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../exercise-6/" class="navigation navigation-next " aria-label="Next page: Traffic Management">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Expose with Istio Gateway","level":"1.1.5","depth":2,"next":{"title":"Traffic Management","level":"1.1.6","depth":2,"path":"exercise-6/README.md","ref":"exercise-6/README.md","articles":[]},"previous":{"title":"Metrics and Tracing","level":"1.1.4","depth":2,"path":"exercise-4/README.md","ref":"exercise-4/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"root":"./workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"exercise-5/README.md","mtime":"2018-12-04T14:26:03.141Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-04T14:50:20.706Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
