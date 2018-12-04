@@ -1,10 +1,10 @@
 # Exercise 1 - Accessing a Kubernetes cluster with IBM Cloud Kubernetes Service
 
-You must already have a [cluster created](https://console.bluemix.net/docs/containers/container_index.html#container_index). Here are the steps to access your cluster.
+You must already have an IBM account, with a cluster created or assigned to you as documented in [previous step](./WORKSHOP.md).
 
-## Install IBM Cloud Kubernetes Service command line utilities
+## Connect to your cluster using the Cloud Shell
 
-1. Install the IBM Cloud [command line interface](https://console.bluemix.net/docs/cli/reference/bluemix_cli/get_started.html#getting-started).
+1. Go to the [Cloud Shell](http://cloudshell-console.ng.bluemix.net) and login using the Login button.
 
 2.  Log in to the IBM Cloud CLI.
 
