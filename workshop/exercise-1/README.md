@@ -5,7 +5,7 @@ You must already have an IBM account, with a cluster created or assigned to you 
 ## Connect to your cluster using the Cloud Shell
 For this lab a hosted shell is provided for you with all the necessary tools. Use this web shell to perform the tasks in this lab.
 
-1. Go to the [Cloud Shell](http://cloudshell-console.ng.bluemix.net) and login using the Login button.
+1. Go to the [Cloud Shell](https://istio-workshop.ng.bluemix.net/) and login using the Login button.
 2. Log in to the IBM Cloud.
 
     ```shell
