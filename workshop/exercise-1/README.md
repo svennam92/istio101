@@ -30,12 +30,8 @@ Learn how to set the context to work with your cluster by using the `kubectl` CL
     ibmcloud ks cluster-config <your_cluster_name>
     ```
 
-    c. Copy and paste the output command from the previous step to set the `KUBECONFIG` environment variable and configure your CLI to run `kubectl` commands against your cluster.
-
-    Example:
-    ```shell
-    export KUBECONFIG=/Users/user-name/.bluemix/plugins/container-service/clusters/mycluster/kube-config-hou02-mycluster.yml
-    ```
+    c. Copy and paste the output export command from the previous step to set the `KUBECONFIG` environment variable and configure your CLI to run `kubectl` commands against your cluster. Example:
+    `export KUBECONFIG=/Users...`
 
 2.  Get basic information about your cluster and its worker nodes. This information can help you manage your cluster and troubleshoot issues.
 
