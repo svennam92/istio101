@@ -1,7 +1,7 @@
 # Summary
 
 * [Workshop](WORKSHOP.md)
-    * [Create account and get cluster](exercise-1/README.md)
+    * [Create account and get cluster](GETSTARTED.md)
     * [Accessing a cluster with IKS](exercise-1/README.md)
     * [Installing Istio](exercise-2/README.md)
     * [Deploy Guestbook application](exercise-3/README.md)
