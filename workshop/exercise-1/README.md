@@ -1,54 +1,17 @@
-# Exercise 1 - Accessing a Kubernetes cluster with IBM Cloud Kubernetes Service
+# Exercise 1 - Accessing your Kubernetes Cluster
 
 You must already have an IBM account, with a cluster created or assigned to you as documented in [previous step](../GETSTARTED.md).
 
 ## Connect to your cluster using the Cloud Shell
+For this lab a hosted shell is provided for you with all the necessary tools. Use this web shell to perform the tasks in this lab.
 
 1. Go to the [Cloud Shell](http://cloudshell-console.ng.bluemix.net) and login using the Login button.
-
-2.  Log in to the IBM Cloud CLI.
+2. Log in to the IBM Cloud.
 
     ```shell
     ibmcloud login
     ```
-
-    If you have a federated account, include the `--sso` flag.
-
-    ```shell
-    ibmcloud login --sso
-    ```
-
-    If you have an api key, use:
-
-    ```shell
-    ibmcloud login --apikey <apikey>
-    ```
-
-3.  Install the IBM Cloud Kubernetes Service plug-in.
-
-    ```shell
-    ibmcloud plugin install container-service
-    ```
-
-4. To verify that the plug-in is installed properly, run `ibmcloud plugin list`. The Container Service plug-in is displayed in the results as `container-service/kubernetes-service`.
-
-5.  Initialize the Container Service plug-in and point the endpoint to your region. For example when prompted, enter `5` for `us-east`.
-
-    Example:
-
-    ```shell
-    ibmcloud cs region-set
-    Choose a region:
-    1. ap-north
-    2. ap-south
-    3. eu-central
-    4. uk-south
-    5. us-east
-    6. us-south
-    Enter a number> 5
-    ```
-
-6. Install the Kubernetes CLI. Go to the [Kubernetes page](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl), and follow the steps to install the CLI.
+3. Choose the `IBM` account.
 
 ## Access your cluster
 Learn how to set the context to work with your cluster by using the `kubectl` CLI, access the Kubernetes dashboard, and gather basic information about your cluster.
@@ -58,13 +21,13 @@ Learn how to set the context to work with your cluster by using the `kubectl` CL
     a. List the available clusters.
 
     ```shell
-    ibmcloud cs clusters
+    ibmcloud ks clusters
     ```
 
     b. Download the configuration file and certificates for your cluster using the `cluster-config` command.
 
     ```shell
-    ibmcloud cs cluster-config <your_cluster_name>
+    ibmcloud ks cluster-config <your_cluster_name>
     ```
 
     c. Copy and paste the output command from the previous step to set the `KUBECONFIG` environment variable and configure your CLI to run `kubectl` commands against your cluster.
@@ -79,14 +42,14 @@ Learn how to set the context to work with your cluster by using the `kubectl` CL
     a.  View details of your cluster.
 
     ```shell
-    ibmcloud cs cluster-get <your_cluster_name>
+    ibmcloud ks cluster-get <your_cluster_name>
     ```
 
     b.  Verify the worker nodes in the cluster.
 
     ```shell
-    ibmcloud cs workers <your_cluster_name>
-    ibmcloud cs worker-get <worker_ID>
+    ibmcloud ks workers <your_cluster_name>
+    ibmcloud ks worker-get <worker_ID>
     ```
 
 3.  Validate access to your cluster.
