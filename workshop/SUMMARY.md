@@ -1,7 +1,6 @@
 # Summary
 
-### KubeCon Istio Workshop
-* [Introduction](./README.md)
+* [KubeCon Istio Workshop](./README.md)
     * [Accessing a cluster with IKS](exercise-1/README.md)
     * [Installing Istio](exercise-2/README.md)
     * [Deploy Guestbook Application](exercise-3/README.md)
