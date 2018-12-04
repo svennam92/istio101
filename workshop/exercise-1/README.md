@@ -5,13 +5,9 @@ You must already have an IBM account, with a cluster created or assigned to you 
 ## Connect to your cluster using the Cloud Shell
 For this lab a hosted shell is provided for you with all the necessary tools. Use this web shell to perform the tasks in this lab.
 
-1. Go to the [Cloud Shell](https://istio-workshop.ng.bluemix.net/) and login using the Login button.
-2. Log in to the IBM Cloud.
-
-    ```shell
-    ibmcloud login
-    ```
-3. Choose the `IBM` account.
+1. Go to the [Cloud Shell](https://cloudshell-console-istio.ng.bluemix.net/) and login using the Login button.
+2. Using the account drop down, choose the `IBM` account.
+3. Click on the Terminal icon to launch your web shell.
 
 ## Access your cluster
 Learn how to set the context to work with your cluster by using the `kubectl` CLI, access the Kubernetes dashboard, and gather basic information about your cluster.
