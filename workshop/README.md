@@ -13,9 +13,12 @@ The Result: Spend more time coding and less time with the infrastructure.
 
 ### Lab Instructors
 
-- Daniel Berg, Distinguished Engineer, IBM Cloud Kubernetes Service Architect, IBM
-- Ram Vennam, Lead Technical Manager, IBM Cloud Kubernetes Service, IBM
-- Lin Sun, STSM & Master Inventor, Istio, IBM
+- Ram Vennam, Product Manager, IBM Cloud Kubernetes Service
+- Daniel Berg, Distinguished Engineer, IBM Cloud Kubernetes Service Architect
+- Lin Sun, STSM & Master Inventor, Istio
+- Jake Kitchener, IBM Cloud Kubernetes Service STSM
+- Belinda Vennam, Developer Advocate
+- Sai Vennam, Developer Advocate
 
 ### Agenda
 
