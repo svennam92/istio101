@@ -1,6 +1,6 @@
 # Exercise 1 - Accessing a Kubernetes cluster with IBM Cloud Kubernetes Service
 
-You must already have an IBM account, with a cluster created or assigned to you as documented in [previous step](./WORKSHOP.md).
+You must already have an IBM account, with a cluster created or assigned to you as documented in [previous step](./GETSTARTED.md).
 
 ## Connect to your cluster using the Cloud Shell
 
