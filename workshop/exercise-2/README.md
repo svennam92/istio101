@@ -1,5 +1,5 @@
 # Exercise 2 - Installing Istio on IBM Cloud Kubernetes Service
-In this module, you download and install Istio.
+In this module, you will download the Istio installation files and then deploy it to your cluster.
 
 1.  Either download Istio directly from [https://github.com/istio/istio/releases](https://github.com/istio/istio/releases) or get the latest version by using curl:
 
@@ -7,31 +7,25 @@ In this module, you download and install Istio.
     curl -L https://git.io/getLatestIstio | sh -
     ```
 
-2. Extract the installation files if the script doesn't do it for you.
+2. Add the `istioctl` client to your PATH.
 
     ```shell
-    tar -xvzf istio-<istio-version>-linux.tar.gz
+    export PATH="$PATH:/home/rvennam/istio101/workshop/istio-1.0.4/bin"
     ```
 
-3. Add the `istioctl` client to your PATH. The `<version-number>` is in the directory name. For example, run the following command on a MacOS or Linux system:
+3. Change the directory to the Istio installation files location.
 
     ```shell
-    export PATH=$PWD/istio-<version-number>/bin:$PATH
+    cd istio-1.0.4
     ```
 
-4. Change the directory to the Istio file location.
-
-    ```shell
-    cd istio-<version-number>
-    ```
-
-5. Now let's install Istio into the `istio-system` namespace in your Kubernetes cluster:
+4. Now let's deploy Istio into the `istio-system` namespace in your Kubernetes cluster:
 
     ```shell
     kubectl apply -f $PWD/install/kubernetes/istio-demo.yaml
     ```
 
-6. Ensure that the `istio-*` Kubernetes services are deployed before you continue.
+5. Ensure that the `istio-*` Kubernetes services are deployed before you continue.
 
     ```shell
     kubectl get svc -n istio-system
