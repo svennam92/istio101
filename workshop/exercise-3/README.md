@@ -120,44 +120,41 @@ These commands will inject the Istio Envoy sidecar into the guestbook pods, as w
 Watson Tone Analyzer detects the tone from the words that users enter into the Guestbook app. The tone is converted to the corresponding emoticons.
 
 Create Watson Tone Analyzer in your own account.
-1. List all your accounts and find your account ID next to your name.
+
+1. Switch to the IBM account where your cluster resides by logging in again.
 
     ```shell
-    ibmcloud account list
+    ibmcloud login
     ```
 
-2. Change the `ibmcloud` cli target account to your account ID
-
-    ```shell
-    ibmcloud target -c <ACCOUNT_ID>
-    ```
-2. Create Watson Tone Analyzer service.
+2. Choose your own account (NOT IBM)
+3. Create Watson Tone Analyzer service.
 
     ```shell
     ibmcloud resource service-instance-create my-tone-analyzer-service tone-analyzer lite us-south
     ```
-3. Create the service key for the Tone Analyzer service. This command should output the credentials you just created. You will need the value for **apikey** & **url** later.
+4. Create the service key for the Tone Analyzer service. This command should output the credentials you just created. You will need the value for **apikey** & **url** later.
 
     ```shell
     ibmcloud resource service-key-create tone-analyzer-key Manager --instance-name my-tone-analyzer-service
     ```
-4. If you need to get the service-keys later, you can use the following command:
+5. If you need to get the service-keys later, you can use the following command:
 
     ```shell
     ibmcloud resource service-key tone-analyzer-key
     ```
-5. Open the web file browser by clicking the Pen icon. ![](../README_images/fileeditor.png)
-6. Navigate to `istio101/workshop/guestbook/v2/analyzer-deployment.yaml`  ![](../README_images/fileeditor2.png)
-7. Find the env section near the end of the file. Replace YOUR_API_KEY with your API key, and replace YOUR_URL with the url from the steps above. YOUR_URL should look something like `gateway.watsonplatform.net/tone-analyzer/api`. Save the file.
+6. Open the web file browser by clicking the Pen icon. ![](../README_images/fileeditor.png)
+7. Navigate to `istio101/workshop/guestbook/v2/analyzer-deployment.yaml`  ![](../README_images/fileeditor2.png)
+8. Find the env section near the end of the file. Replace YOUR_API_KEY with your API key, and replace YOUR_URL with the url from the steps above. YOUR_URL should look something like `gateway.watsonplatform.net/tone-analyzer/api`. Save the file.
 
-8. The analyzer service will use IBM Cloud Identity and Access management (IAM) tokens to make authenticated requests to the Tone Analyzer service. IAM authentication uses access tokens for authentication, which are acquired by sending a request to a url with an API key. As a result, we will need to set up egress rules to allow the analyzer service access to those external urls. Apply the egress rules found in the `istio101/workshop/plans` directory
+9. The analyzer service will use IBM Cloud Identity and Access management (IAM) tokens to make authenticated requests to the Tone Analyzer service. IAM authentication uses access tokens for authentication, which are acquired by sending a request to a url with an API key. As a result, we will need to set up egress rules to allow the analyzer service access to those external urls. Apply the egress rules found in the `istio101/workshop/plans` directory
 
     ```shell
     cd ../../plans
     kubectl apply -f analyzer-egress.yaml
     ```
 
-9.  Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.
+10.  Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.
 
     ```shell
     cd ../guestbook/v2/

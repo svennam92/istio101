@@ -41,17 +41,27 @@ The Ingress resource provides IBM Cloud users with a secure, reliable, and scala
 
 To use this IBM provided DNS for the Guestbook app, you must set the Kubernetes Ingress application load balancer (ALB) to route traffic to the Istio Ingress Gateway.
 
-1. Let's first check the IBM Ingress subdomain information.
+1. Switch to the IBM account where your cluster resides by logging in again.
+
+    ```shell
+    ibmcloud login
+    ```
+
+2. Choose the IBM account.
+
+3. Let's first check the IBM Ingress subdomain information.
 
     ```shell
     ibmcloud cs cluster-get <cluster_name>
     ```
     Output:
     ```shell
-    Ingress subdomain:	mycluster.us-east.containers.mybluemix.net
+    Ingress subdomain:	myclusterXXXXXXX.us-south.containers.mybluemix.net
     ```
 
-2. Prepend `guestbook.` to the subdomain that you retrieved in the previous step. This new url will serve as `host` in the `guestbook-frontdoor.yaml` file, which you can find and edit in the `istio101/workshop/plans` directory.
+4. Use the web file editor to modify the  `istio101/workshop/plans` directory.
+
+5. Change the `host` field to `guestbook.<Ingress Subdomain>`
 
     The file should now look something like this:
 
@@ -63,7 +73,7 @@ To use this IBM provided DNS for the Guestbook app, you must set the Kubernetes 
       namespace: istio-system
     spec:
       rules:
-        - host: guestbook.mycluster.us-east.containers.appdomain.cloud
+        - host: guestbook.myclusterXXXXXXX.us-south.containers.mybluemix.net
           http:
             paths:
               - path: /
@@ -72,13 +82,13 @@ To use this IBM provided DNS for the Guestbook app, you must set the Kubernetes 
                   servicePort: 80
     ```
 
-3. Create the Ingress with the IBM-provided subdomain.
+6. Create the Ingress with the IBM-provided subdomain.
 
     ```shell
     kubectl apply -f guestbook-frontdoor.yaml
     ```
 
-4. List the details for your Ingress.
+7. List the details for your Ingress.
 
     ```shell
     kubectl get ingress guestbook-ingress -n istio-system -o yaml
@@ -110,7 +120,7 @@ To use this IBM provided DNS for the Guestbook app, you must set the Kubernetes 
               path: /
     ```
 
-5. Make note of the IBM-provided subdomain as it will be used to access your Guestbook app in later parts of the course.
+8. Make note of the IBM-provided subdomain as it will be used to access your Guestbook app in later parts of the course.
 
     Example:
     ```
