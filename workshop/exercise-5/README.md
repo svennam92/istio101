@@ -4,6 +4,8 @@ The components deployed on the service mesh by default are not exposed outside t
 
 An Ingress Gateway resource can be created to allow external requests through the Istio Ingress Gateway to the backing services.
 
+![](../README_images/istio2.jpg)
+
 ### Expose the Guestbook app with Ingress Gateway
 
 1. Configure the guestbook default route with the Istio Ingress Gateway. The `guestbook-gateway.yaml` file is in this repository (istio101) in the `workshop/plans` directory
@@ -40,6 +42,8 @@ Standard IBM Cloud Kubernetes Clusters can expose applications deployed within y
 The Ingress resource provides IBM Cloud users with a secure, reliable, and scalable network stack to distribute incoming network traffic to apps in IBM Cloud. You can enhance the IBM-provided Ingress application load balancer by adding annotations. Learn more about [Ingress for IBM Cloud Kubernetes Service](https://console.bluemix.net/docs/containers/cs_ingress.html#ingress).
 
 To use this IBM provided DNS for the Guestbook app, you must set the Kubernetes Ingress application load balancer (ALB) to route traffic to the Istio Ingress Gateway.
+
+![](../README_images/istio3.jpg)
 
 1. Switch to the IBM account where your cluster resides by logging in again.
 
