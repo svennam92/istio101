@@ -41,8 +41,10 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
     ```
 
     Go to this external ip address in the browser to try out your guestbook.
-    ![](../README_images/guestbook1.png)
-4. Generate a small load to the app.
+    
+![](../README_images/guestbook1.png)
+
+1. Generate a small load to the app.
 
     ```shell
     for i in {1..20}; sleep 0.5; do curl http://<guestbook_IP>/; done
@@ -62,6 +64,7 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
 2. Click on the web preview icon and select port 8081. ![](../README_images/webpreview1.png)
 3. From the **Services** menu, select either the **guestbook** or **analyzer** service.
 4. Scroll to the bottom and click on **Find Traces** button to see traces
+
 ![](../README_images/jaeger.png)
 
 Use Ctrl-C to exit the port-foward when you are done.
@@ -91,6 +94,7 @@ Use Ctrl-C to exit the port-foward when you are done.
       8083:9090
     ```
 2. Click on the web preview icon and select port 8083, and in the “Expression” input box, enter: `istio_request_byte_count`. Click Execute.
+
 ![](../README_images/prometheus.png)
 
 Use Ctrl-C to exit the port-foward when you are done.
