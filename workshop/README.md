@@ -15,10 +15,11 @@ The Result: Spend more time coding and less time with the infrastructure.
 
 - Ram Vennam, Product Manager, IBM Cloud Kubernetes Service
 - Daniel Berg, Distinguished Engineer, IBM Cloud Kubernetes Service Architect
-- Lin Sun, STSM & Master Inventor, Istio
+- Lin Sun, IBM STSM & Master Inventor, Istio
 - Jake Kitchener, IBM Cloud Kubernetes Service STSM
-- Belinda Vennam, Developer Advocate
-- Sai Vennam, Developer Advocate
+- Belinda Vennam, IBM Developer Advocate
+- Sai Vennam, IBM Developer Advocate
+- JJ Asghar, IBM Developer Advocate
 
 ### Agenda
 
