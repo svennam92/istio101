@@ -146,7 +146,7 @@ Create Watson Tone Analyzer in your own account.
     ```shell
     ibmcloud resource service-key tone-analyzer-key
     ```
-5. Open the web file browser by clicking the Pen icon.
+5. Open the web file browser by clicking the Pen icon. ![](../README_images/fileeditor.png)
 6. Navigate to `istio101/workshop/guestbook/v2/analyzer-deployment.yaml`
 7. Find the env section near the end of the file. Replace YOUR_API_KEY with your API key, and replace YOUR_URL with the url from the steps above. YOUR_URL should look something like `gateway.watsonplatform.net/tone-analyzer/api`. Save the file.
 
@@ -157,7 +157,7 @@ Create Watson Tone Analyzer in your own account.
     kubectl apply -f analyzer-egress.yaml
     ```
 
-9. Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.
+9.  Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.
 
     ```shell
     cd ../guestbook/v2/
