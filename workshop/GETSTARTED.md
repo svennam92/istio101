@@ -10,3 +10,5 @@ In this section, you will create your own IBM Cloud account, and then get access
 7. Under **Kubernetes Clusters**, click on the cluster that has been assigned to you.
 
 You will use this cluster for this lab. Note that this is a *Standard/Paid* cluster (as opposed to FREE cluster.)
+
+![](README_images/dashbaord.png)

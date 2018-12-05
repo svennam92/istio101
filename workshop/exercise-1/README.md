@@ -9,6 +9,8 @@ For this lab a hosted shell is provided for you with all the necessary tools. Us
 2. Using the account drop down, choose the `IBM` account.
 3. Click on the Terminal icon to launch your web shell.
 
+![](../README_images/cloudshell.png)
+
 ## Access your cluster
 Learn how to set the context to work with your cluster by using the `kubectl` CLI, access the Kubernetes dashboard, and gather basic information about your cluster.
 
