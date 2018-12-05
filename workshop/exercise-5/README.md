@@ -128,6 +128,7 @@ To use this IBM provided DNS for the Guestbook app, you must set the Kubernetes 
     ```
 
 ![](../README_images/guestbook2.png)
+
 Congratulations! You extended the base Ingress features by providing a DNS entry to the Istio service.
 
 ## References:
