@@ -124,6 +124,8 @@ Use Ctrl-C to exit the port-foward when you are done.
 
 #### Forward logs to LogDNA
 
+LogDNA enables administrators, devops teams, and developers to filter, search, and tail log data. Define alerts and design custom views to monitor application and system logs. After you provision an instance of IBM Log Analysis with LogDNA on IBM Cloud, an account is created in LogDNA, and you receive the ingestion key for your account. Then, you must configure a LogDNA agent for each log source.
+
 1. In your [IBM Cloud Dashboard](https://cloud.ibm.com) switch to your account using the drop down in the upper right corner.
 2. Click on **Create Resource**, search for `logDNA` and **Create** an instance.
 3. Click on **Edit Log Sources** 
