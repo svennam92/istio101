@@ -7,11 +7,7 @@ In this module, you will download the Istio installation files and then deploy i
     curl -L https://git.io/getLatestIstio | sh -
     ```
 
-2. Add the `istioctl` client to your PATH.
-
-    ```shell
-    export PATH="$PATH:/home/rvennam/istio101/workshop/istio-1.0.4/bin"
-    ```
+2. Add the `istioctl` client to your PATH by copying and pasting the `export PATH=` line in the output of the previous command.
 
 3. Change the directory to the Istio installation files location.
 
