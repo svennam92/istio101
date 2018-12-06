@@ -1,6 +1,6 @@
 # Exercise 3 - Deploy the Guestbook app with Istio Proxy
 
-The Guestbook app is a sample app for users to leave comments. It consists of a web front end, Redis master for storage, and a replicated set of Redis slaves. We will also integrate the app with Watson Tone Analyzer that detects the sentiment in users' comments and replies with emoticons. 
+The Guestbook app is a sample app for users to leave comments. It consists of a web front end, Redis master for storage, and a replicated set of Redis slaves. We will also integrate the app with Watson Tone Analyzer that detects the sentiment in users' comments and replies with emoticons.
 
 ![](../README_images/istio1.jpg)
 
@@ -123,7 +123,7 @@ Watson Tone Analyzer detects the tone from the words that users enter into the G
 
 Create Watson Tone Analyzer in your own account.
 
-1. Switch to the IBM account where your cluster resides by logging in again.
+1. Switch to your own account by logging in again.
 
     ```shell
     ibmcloud login
