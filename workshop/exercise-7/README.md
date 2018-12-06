@@ -81,24 +81,24 @@ mtls-to-analyzer  1m
 
 1. Enable mTLS from guestbook using a Destination rule
 
-    ```shell
-    cat <<EOF | kubectl create -f -
-    apiVersion: networking.istio.io/v1alpha3
-    kind: DestinationRule
-    metadata:
-      name: route-with-mtls-for-analyzer
-      namespace: default
-    spec:
-      host: "analyzer.default.svc.cluster.local"
-      trafficPolicy:
-        tls:
-          mode: ISTIO_MUTUAL
-    EOF
-    ```
-    Output:
-    ```
-    Created config destination-rule/default/route-with-mtls-for-analyzer at revision 3934279
-    ```
+```
+cat <<EOF | kubectl create -f -
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+    name: route-with-mtls-for-analyzer
+    namespace: default
+spec:
+    host: "analyzer.default.svc.cluster.local"
+    trafficPolicy:
+    tls:
+        mode: ISTIO_MUTUAL
+EOF
+```
+Output:
+```
+Created config destination-rule/default/route-with-mtls-for-analyzer at revision 3934279
+```
 
 ## Verifying the Authenticated Connection
 
