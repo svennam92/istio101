@@ -64,6 +64,7 @@ In this exercise we'll use the denier adapter.
 
     ```shell
     kubectl delete -f mixer-rule-denial.yaml
+    ```
 
 ## Further reading
 * [Istio Mixer](https://istio.io/docs/concepts/policy-and-control/mixer.html)

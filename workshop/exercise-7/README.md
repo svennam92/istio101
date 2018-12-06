@@ -49,56 +49,56 @@ When Envoy proxies establish a connection, they exchange and validate certificat
 
     Define mTLS authentication policy for the analyzer service:
 
-    ```shell
-    cat <<EOF | kubectl create -f -
-    apiVersion: authentication.istio.io/v1alpha1
-    kind: Policy
-    metadata:
-      name: mtls-to-analyzer
-      namespace: default
-    spec:
-      targets:
-      - name: analyzer
-      peers:
-      - mtls:
-    EOF
-    ```
+```
+cat <<EOF | kubectl create -f -
+apiVersion: authentication.istio.io/v1alpha1
+kind: Policy
+metadata:
+    name: mtls-to-analyzer
+    namespace: default
+spec:
+    targets:
+    - name: analyzer
+    peers:
+    - mtls:
+EOF
+```
 
-    You should see:
-    ```shell
-    Created config policy/default/mtls-to-analyzer at revision 3934195
-    ```
+You should see:
+```shell
+Created config policy/default/mtls-to-analyzer at revision 3934195
+```
 
-    Confirm the policy has been created:
-    ```shell
-    kubectl get policies.authentication.istio.io
-    ```
-    Output:
-    ```shell
-    NAME              AGE
-    mtls-to-analyzer  1m
-    ```
+Confirm the policy has been created:
+```shell
+kubectl get policies.authentication.istio.io
+```
+Output:
+```shell
+NAME              AGE
+mtls-to-analyzer  1m
+```
 
-3. Enable mTLS from guestbook using a Destination rule
+1. Enable mTLS from guestbook using a Destination rule
 
-    ```shell
-    cat <<EOF | kubectl create -f -
-    apiVersion: networking.istio.io/v1alpha3
-    kind: DestinationRule
-    metadata:
-      name: route-with-mtls-for-analyzer
-      namespace: default
-    spec:
-      host: "analyzer.default.svc.cluster.local"
-      trafficPolicy:
-        tls:
-          mode: ISTIO_MUTUAL
-    EOF
-    ```
-    Output:
-    ```
-    Created config destination-rule/default/route-with-mtls-for-analyzer at revision 3934279
-    ```
+```
+cat <<EOF | kubectl create -f -
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+    name: route-with-mtls-for-analyzer
+    namespace: default
+spec:
+    host: "analyzer.default.svc.cluster.local"
+    trafficPolicy:
+    tls:
+        mode: ISTIO_MUTUAL
+EOF
+```
+Output:
+```
+Created config destination-rule/default/route-with-mtls-for-analyzer at revision 3934279
+```
 
 ## Verifying the Authenticated Connection
 
@@ -139,7 +139,7 @@ If mTLS is working correctly, the Guestbook app should continue to operate as ex
 
 4. Exit the container.
 
-    ``shell
+    ```shell
     exit
     ```
 

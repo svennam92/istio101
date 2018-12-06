@@ -47,7 +47,7 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
 1. Generate a small load to the app.
 
     ```shell
-    for i in {1..20}; sleep 0.5; do curl http://<guestbook_IP>/; done
+    for i in {1..20}; do sleep 0.5; curl http://<guestbook_IP>/; done
     ```
 
 ## View guestbook telemetry data
@@ -80,7 +80,13 @@ Use Ctrl-C to exit the port-foward when you are done.
     ```
 
 2. Click on the web preview icon and select port 8082.
-3. TODO
+3. Click on Home -> Istio -> Istio Service Dashboard.
+4. Select guestbook in the Service drop down.
+5. In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.
+
+![](../README_images/grafana.png)
+
+This Grafana dashboard provides metrics for each workload. Explore the other dashboard provided as well.
 
 Use Ctrl-C to exit the port-foward when you are done.
 
@@ -115,6 +121,23 @@ Use Ctrl-C to exit the port-foward when you are done.
 ![](../README_images/dotviz.png) 
 
 Use Ctrl-C to exit the port-foward when you are done.
+
+#### Forward logs to LogDNA
+
+LogDNA enables administrators, devops teams, and developers to filter, search, and tail log data. Define alerts and design custom views to monitor application and system logs. After you provision an instance of IBM Log Analysis with LogDNA on IBM Cloud, an account is created in LogDNA, and you receive the ingestion key for your account. Then, you must configure a LogDNA agent for each log source.
+
+1. In your [IBM Cloud Dashboard](https://cloud.ibm.com) switch to your account using the drop down in the upper right corner.
+2. Click on **Create Resource**, search for `logDNA` and **Create** an instance.
+3. Click on **Edit Log Sources** 
+4. Copy and paste the two commands in to your terminal. 
+5. Return to the LogDNA window and click on **View LogDNA**
+5. Visit your guestbook application in another window.
+6. In the LogDNA dashboard, select guestbook in the All Apps dropdown.
+
+You should see live logs in the dashboard. 
+
+![](../README_images/logDNA.png) 
+
 
 ## Understand what happened
 
