@@ -86,13 +86,13 @@ cat <<EOF | kubectl create -f -
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-    name: route-with-mtls-for-analyzer
-    namespace: default
+  name: route-with-mtls-for-analyzer
+  namespace: default
 spec:
-    host: "analyzer.default.svc.cluster.local"
-    trafficPolicy:
+  host: "analyzer.default.svc.cluster.local"
+  trafficPolicy:
     tls:
-        mode: ISTIO_MUTUAL
+      mode: ISTIO_MUTUAL
 EOF
 ```
 Output:
