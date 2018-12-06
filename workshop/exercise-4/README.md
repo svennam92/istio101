@@ -47,7 +47,7 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
 1. Generate a small load to the app.
 
     ```shell
-    for i in {1..20}; sleep 0.5; do curl http://<guestbook_IP>/; done
+    for i in {1..20}; do sleep 0.5; curl http://<guestbook_IP>/; done
     ```
 
 ## View guestbook telemetry data
