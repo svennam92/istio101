@@ -64,13 +64,6 @@ In this exercise we'll use the denier adapter.
 
     ```shell
     kubectl delete -f mixer-rule-denial.yaml
-    ```
-
-## Quiz
-1. Does creating mixer rules require app code changes? (Yes/No) No
-2. The custom code that interacts with the backend system, i.e. Prometheus, is called
-A. Rule B. Instance C. Adapter
-Answer is C
 
 ## Further reading
 * [Istio Mixer](https://istio.io/docs/concepts/policy-and-control/mixer.html)

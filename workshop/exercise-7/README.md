@@ -143,15 +143,6 @@ If mTLS is working correctly, the Guestbook app should continue to operate as ex
     exit
     ```
 
-## Quiz
-
-**True or False?**
-
-1. Istio Citadel provides each microservice with a strong, cryptographic, identity in the form of a certificate. The certificates' life cycle is fully managed by Istio. (True)
-
-2. Istio provides microservices with mutually authenticated connections, without requiring app code changes. (True)
-
-3. Mutual authentication must be on or off for the entire cluster, gradual adoption is not possible. (False)
 
 ## Further Reading
 
