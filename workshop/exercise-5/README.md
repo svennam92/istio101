@@ -56,7 +56,7 @@ To use this IBM provided DNS for the Guestbook app, you must set the Kubernetes 
 3. Let's first check the IBM Ingress subdomain information.
 
     ```shell
-    ibmcloud cs cluster-get <cluster_name>
+    ibmcloud ks cluster-get <cluster_name>
     ```
     Output:
     ```shell
