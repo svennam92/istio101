@@ -60,6 +60,8 @@ In this exercise we'll use the denier adapter.
 
     You should see the error message `PERMISSION_DENIED:denyall.denier.istio-system:Not allowed`.
 
+    You can also try visiting the guestbook app in the browser, and you should see the same error message.
+
 3. Clean up the rule.
 
     ```shell
