@@ -77,7 +77,7 @@ To use this IBM provided DNS for the Guestbook app, you must set the Kubernetes 
       namespace: istio-system
     spec:
       rules:
-        - host: guestbook.myclusterXXXXXXX.us-south.containers.mybluemix.net
+        - host: guestbook.myclusterXXXXXXX.us-south.containers.appdomain.cloud
           http:
             paths:
               - path: /
