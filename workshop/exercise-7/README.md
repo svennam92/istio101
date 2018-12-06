@@ -49,20 +49,20 @@ When Envoy proxies establish a connection, they exchange and validate certificat
 
     Define mTLS authentication policy for the analyzer service:
 
-    ```shell
-    cat <<EOF | kubectl create -f -
-    apiVersion: authentication.istio.io/v1alpha1
-    kind: Policy
-    metadata:
-      name: mtls-to-analyzer
-      namespace: default
-    spec:
-      targets:
-      - name: analyzer
-      peers:
-      - mtls:
-    EOF
-    ```
+```shell
+cat <<EOF | kubectl create -f -
+apiVersion: authentication.istio.io/v1alpha1
+kind: Policy
+metadata:
+    name: mtls-to-analyzer
+    namespace: default
+spec:
+    targets:
+    - name: analyzer
+    peers:
+    - mtls:
+EOF
+```
 
     You should see:
     ```shell
@@ -79,7 +79,7 @@ When Envoy proxies establish a connection, they exchange and validate certificat
     mtls-to-analyzer  1m
     ```
 
-3. Enable mTLS from guestbook using a Destination rule
+1. Enable mTLS from guestbook using a Destination rule
 
     ```shell
     cat <<EOF | kubectl create -f -
