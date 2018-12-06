@@ -60,7 +60,7 @@ To use this IBM provided DNS for the Guestbook app, you must set the Kubernetes 
     ```
     Output:
     ```shell
-    Ingress subdomain:	myclusterXXXXXXX.us-south.containers.mybluemix.net
+    Ingress subdomain:	myclusterXXXXXXX.us-south.containers.appdomain.cloud
     ```
 
 4. Use the web file editor to modify the `guestbook-frontdoor.yaml` file in the `istio101/workshop/plans` directory.
