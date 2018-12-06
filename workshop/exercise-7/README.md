@@ -49,7 +49,7 @@ When Envoy proxies establish a connection, they exchange and validate certificat
 
     Define mTLS authentication policy for the analyzer service:
 
-```shell
+```
 cat <<EOF | kubectl create -f -
 apiVersion: authentication.istio.io/v1alpha1
 kind: Policy
@@ -64,20 +64,20 @@ spec:
 EOF
 ```
 
-    You should see:
-    ```shell
-    Created config policy/default/mtls-to-analyzer at revision 3934195
-    ```
+You should see:
+```shell
+Created config policy/default/mtls-to-analyzer at revision 3934195
+```
 
-    Confirm the policy has been created:
-    ```shell
-    kubectl get policies.authentication.istio.io
-    ```
-    Output:
-    ```shell
-    NAME              AGE
-    mtls-to-analyzer  1m
-    ```
+Confirm the policy has been created:
+```shell
+kubectl get policies.authentication.istio.io
+```
+Output:
+```shell
+NAME              AGE
+mtls-to-analyzer  1m
+```
 
 1. Enable mTLS from guestbook using a Destination rule
 
