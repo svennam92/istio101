@@ -80,7 +80,13 @@ Use Ctrl-C to exit the port-foward when you are done.
     ```
 
 2. Click on the web preview icon and select port 8082.
-3. TODO
+3. Click on Home -> Istio -> Istio Service Dashboard.
+4. Select guestbook in the Service drop down.
+5. In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.
+
+![](../README_images/grafana.png)
+
+This Grafana dashboard provides metrics for each workload. Explore the other dashboard provided as well.
 
 Use Ctrl-C to exit the port-foward when you are done.
 
