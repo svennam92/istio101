@@ -139,7 +139,7 @@ If mTLS is working correctly, the Guestbook app should continue to operate as ex
 
 4. Exit the container.
 
-    ``shell
+    ```shell
     exit
     ```
 

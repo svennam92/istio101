@@ -122,6 +122,21 @@ Use Ctrl-C to exit the port-foward when you are done.
 
 Use Ctrl-C to exit the port-foward when you are done.
 
+#### Forward logs to LogDNA
+
+1. In your [IBM Cloud Dashboard](https://cloud.ibm.com) switch to your account using the drop down in the upper right corner.
+2. Click on **Create Resource**, search for `logDNA` and **Create** an instance.
+3. Click on **Edit Log Sources** 
+4. Copy and paste the two commands in to your terminal. 
+5. Return to the LogDNA window and click on **View LogDNA**
+5. Visit your guestbook application in another window.
+6. In the LogDNA dashboard, select guestbook in the All Apps dropdown.
+
+You should see live logs in the dashboard. 
+
+![](../README_images/logDNA.png) 
+
+
 ## Understand what happened
 
 Although Istio proxies are able to automatically send spans, they need some hints to tie together the entire trace. Apps need to propagate the appropriate HTTP headers so that when the proxies send span information to Zipkin or Jaeger, the spans can be correlated correctly into a single trace.
