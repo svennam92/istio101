@@ -66,7 +66,6 @@ Learn how to set the context to work with your cluster by using the `kubectl` CL
 
     ```shell
     git clone https://github.com/IBM/istio101
-
     cd istio101/workshop
     ```
 

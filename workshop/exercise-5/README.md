@@ -30,7 +30,7 @@ An Ingress Gateway resource can be created to allow external requests through th
 
     Example:
     ```
-    export INGRESS_IP=169.61.37.141
+    export INGRESS_IP=169.6.1.1
     ```
 
 ## Connect Istio Ingress Gateway to the IBM Cloud Kubernetes Service Provided Domain Name
