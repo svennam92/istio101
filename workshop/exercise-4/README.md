@@ -98,22 +98,52 @@ Use Ctrl-C to exit the port-foward when you are done.
 
 Use Ctrl-C to exit the port-foward when you are done.
 
-#### Service Graph
+#### Kiali
 
-1. Establish port forwarding from local port 8084 to the Service Graph instance:
+Kiali is an open-source project that installs on top of Istio to visualize your service mesh. It provides deeper insight into how your microservices interact with one another, and provides features such as circuit breakers and request rates for your services.
 
-    ```shell
-    kubectl -n istio-system port-forward \
-      $(kubectl -n istio-system get pod -l app=servicegraph -o jsonpath='{.items[0].metadata.name}') \
-      8084:8088
+1. To get started with Kiali, you'll need to install it to your cluster. Run the full script below:
+
+    ```
+    JAEGER_URL="http://jaeger-query-istio-system.127.0.0.1.nip.io"
+    GRAFANA_URL="http://grafana-istio-system.127.0.0.1.nip.io"
+    VERSION_LABEL="v0.10.0"
+
+    curl https://raw.githubusercontent.com/kiali/kiali/${VERSION_LABEL}/deploy/kubernetes/kiali-configmap.yaml | \
+    VERSION_LABEL=${VERSION_LABEL} \
+    JAEGER_URL=${JAEGER_URL}  \
+    ISTIO_NAMESPACE=istio-system  \
+    GRAFANA_URL=${GRAFANA_URL} envsubst | kubectl create -n istio-system -f -
+
+    curl https://raw.githubusercontent.com/kiali/kiali/${VERSION_LABEL}/deploy/kubernetes/kiali-secrets.yaml | \
+    VERSION_LABEL=${VERSION_LABEL} envsubst | kubectl create -n istio-system -f -
+
+    curl https://raw.githubusercontent.com/kiali/kiali/${VERSION_LABEL}/deploy/kubernetes/kiali.yaml | \
+    VERSION_LABEL=${VERSION_LABEL}  \
+    IMAGE_NAME=kiali/kiali \
+    IMAGE_VERSION=${VERSION_LABEL}  \
+    NAMESPACE=istio-system  \
+    VERBOSE_MODE=4  \
+    IMAGE_PULL_POLICY_TOKEN="imagePullPolicy: Always" envsubst | kubectl create -n istio-system -f -
     ```
 
-2. Click on the web preview icon and select port 8084.
-3. Add `/dotviz` to the end of the URL
+    > Note: To run this script, you need the “envsubst” utility which is packed with Ubuntu by default. If you do not have envsubst installed, you can get it via the Gnu gettext package. For example, on a Mac, run the following command:
+    > ```
+    > $ brew install gettext
+    > $ brew link --force gettext
+    > ``` 
+    > This will enable envsubst on OS X and force it to link properly. It requires homebrew to be installed.
 
-![](../README_images/dotviz.png) 
+1. Access Kiali by first identifying the External IP and Port:
+    ```
+    $ kubectl get svc kiali -n istio-system
+    ```
+1. Access the Kiali dashboard in a browser at `<EXTERNAL_IP>:<PORT>`
 
-Use Ctrl-C to exit the port-foward when you are done.
+Kiali has a number of views to help you visualize your services. Click through the various tabs to explore the service graph, and the various views for workloads, applications and services.
+
+![](../README_images/kiali.png) 
+
 
 #### Forward logs to LogDNA
 
