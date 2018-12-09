@@ -127,18 +127,23 @@ Kiali is an open-source project that installs on top of Istio to visualize your 
     IMAGE_PULL_POLICY_TOKEN="imagePullPolicy: Always" envsubst | kubectl create -n istio-system -f -
     ```
 
-    > Note: To run this script, you need the “envsubst” utility which is packed with Ubuntu by default. If you do not have envsubst installed, you can get it via the Gnu gettext package. For example, on a Mac, run the following command:
+    > Note: To run this script, you need the “envsubst” utility which is packed with Ubuntu by default. The webshell has this utility already. If you do not have envsubst installed, you can get it via the Gnu gettext package. For example, on a Mac, run the following command:
     > ```
     > $ brew install gettext
     > $ brew link --force gettext
     > ``` 
     > This will enable envsubst on OS X and force it to link properly. It requires homebrew to be installed.
 
-1. Access Kiali by first identifying the External IP and Port:
+1. Establish port forwarding from local port 8083 to the Prometheus instance.
+
+    ```shell
+    kubectl -n istio-system port-forward \
+        $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') \
+        8084:20001
     ```
-    $ kubectl get svc kiali -n istio-system
-    ```
-1. Access the Kiali dashboard in a browser at `<EXTERNAL_IP>:<PORT>`
+1. Click on the web preview icon and select port 8084 to access the Kiali dashboard. Login with the following username/password: `admin/admin`.
+
+1. Click the "Graph" tab on the left side to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the "Edge Labels" tab and choosing "Traffic rate per second".
 
 Kiali has a number of views to help you visualize your services. Click through the various tabs to explore the service graph, and the various views for workloads, applications and services.
 
