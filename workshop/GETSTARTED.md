@@ -16,3 +16,5 @@ In this section, you will create your own IBM Cloud account, and then get access
 You will use this cluster for this lab. Note that this is a *Standard/Paid* cluster (as opposed to FREE cluster.)
 
 ![](README_images/dashboard.png)
+
+[Exercise 1 - Accessing your Kubernetes Cluster](exercise-1/README.md)
