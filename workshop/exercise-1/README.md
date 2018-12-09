@@ -2,14 +2,16 @@
 
 You must already have an IBM account, with a cluster created or assigned to you as documented in [previous step](../GETSTARTED.md).
 
-## Connect to your cluster using the Cloud Shell
-For this lab a hosted shell is provided for you with all the necessary tools. Use this web shell to perform the tasks in this lab.
+## Start your local sandbox environment
+A docker container with the required tools for this lab is provided for you. Use this container as your local terminal. It exposes a few ports for use with web applications. If you do NOT want to use this container, you can directly [download](https://console.bluemix.net/docs/cli/reference/ibmcloud/download_cli.html) the `ibmcloud` cli to your laptop.
 
-1. Go to the [Cloud Shell](https://cloudshell-console-istio.ng.bluemix.net/) and login using the Login button.
-2. Using the account drop down, choose the `IBM` account.
-3. Click on the Terminal icon to launch your web shell.
-
-![](../README_images/cloudshell.png)
+1. Download and install [Docker](https://www.docker.com/get-started) if you don't already have one.
+2. Start the container 
+```
+docker run -it -p 8080-8085:8080-8085 jjasghar/ibm-cloud-cli
+```
+3. Log in to IBM Cloud: `ibmcloud login`
+4. Choose `us-south` and the `IBM` account
 
 ## Access your cluster
 Learn how to set the context to work with your cluster by using the `kubectl` CLI, access the Kubernetes dashboard, and gather basic information about your cluster.

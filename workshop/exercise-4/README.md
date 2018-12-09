@@ -50,11 +50,11 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
 1. Establish port forwarding from local port 8081 to the Tracing instance:
 
     ```shell
-    kubectl port-forward -n istio-system \
+    kubectl port-forward -n istio-system --address 0.0.0.0 \
       $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') \
       8081:16686
     ```
-2. Click on the web preview icon and select port 8081. ![](../README_images/webpreview1.png)
+2. In another browser tab, go to localhost:8081
 3. From the **Services** menu, select either the **guestbook** or **analyzer** service.
 4. Scroll to the bottom and click on **Find Traces** button to see traces
 
@@ -67,12 +67,12 @@ Use Ctrl-C to exit the port-foward when you are done.
 1. Establish port forwarding from local port 8082 to the Grafana instance:
 
     ```shell
-    kubectl -n istio-system port-forward \
+    kubectl -n istio-system port-forward --address 0.0.0.0 \
       $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') \
       8082:3000
     ```
 
-2. Click on the web preview icon and select port 8082.
+2. In another browser tab, go to localhost:8082
 3. Click on Home -> Istio -> Istio Service Dashboard.
 4. Select guestbook in the Service drop down.
 5. In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.
@@ -88,11 +88,12 @@ Use Ctrl-C to exit the port-foward when you are done.
 1. Establish port forwarding from local port 8083 to the Prometheus instance.
 
     ```shell
-    kubectl -n istio-system port-forward \
+    kubectl -n istio-system port-forward --address 0.0.0.0 \
       $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') \
       8083:9090
     ```
-2. Click on the web preview icon and select port 8083, and in the “Expression” input box, enter: `istio_request_byte_count`. Click Execute.
+2. In a browser tab, go to localhost:8083
+3. In the “Expression” input box, enter: `istio_request_byte_count`. Click Execute.
 
 ![](../README_images/prometheus.png)
 
@@ -103,12 +104,12 @@ Use Ctrl-C to exit the port-foward when you are done.
 1. Establish port forwarding from local port 8084 to the Service Graph instance:
 
     ```shell
-    kubectl -n istio-system port-forward \
+    kubectl -n istio-system port-forward --address 0.0.0.0 \
       $(kubectl -n istio-system get pod -l app=servicegraph -o jsonpath='{.items[0].metadata.name}') \
       8084:8088
     ```
 
-2. Click on the web preview icon and select port 8084.
+2. In a browser tab, go to localhost:8084
 3. Add `/dotviz` to the end of the URL
 
 ![](../README_images/dotviz.png) 
