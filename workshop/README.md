@@ -34,3 +34,5 @@ Transportation will be provided to/from the Washington State Convention Center (
 - 12:00PM-1:00PM: Lunch
 - 1:00PM-4:00PM: Hands-on-Lab
 - 4:00PM-6:00PM: Reception (Optional)
+
+[Get Started](./GETSTARTED.md)
