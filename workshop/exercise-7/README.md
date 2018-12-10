@@ -24,10 +24,12 @@ When an application microservice connects to another microservice, the communica
 
 When Envoy proxies establish a connection, they exchange and validate certificates to confirm that each is indeed connected to a valid and expected peer. The established identities can later be used as basis for policy checks (e.g., access authorization).
 
+![](https://istio.io/docs/concepts/security/architecture.svg)
+
 ## Steps
 
-> Version 2 of the guestbook application uses an external service (tone analyzer) which is not Istio-enabled.
-> Thus, we will disable mTLS globally and enable it only for communication between internal cluster services in this lab.
+Version 2 of the guestbook application uses an external service (tone analyzer) which is not Istio-enabled.
+Thus, we will disable mTLS globally and enable it only for communication between internal cluster services in this lab.
 
 1. Ensure Citadel is running
 

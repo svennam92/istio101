@@ -104,20 +104,22 @@ These commands will inject the Istio Envoy sidecar into the guestbook pods, as w
 4. Verify that the pods are up and running.
 
     ```shell
-    kubectl get pods
+    kubectl get pods --show-labels
     ```
     Output:
-    ```shell
-    NAME                            READY     STATUS    RESTARTS   AGE
-    guestbook-v1-89cd4b7c7-frscs    2/2       Running   0          5d
-    guestbook-v1-89cd4b7c7-jn224    2/2       Running   0          5d
-    guestbook-v1-89cd4b7c7-m7hmd    2/2       Running   0          5d
-    guestbook-v2-56d98b558c-7fvd5   2/2       Running   0          5d
-    guestbook-v2-56d98b558c-dshkh   2/2       Running   0          5d
-    guestbook-v2-56d98b558c-mzbxk   2/2       Running   0          5d
-    ```
+```shell
+NAME                            READY   STATUS    LABELS
+guestbook-v1-8495f7ff7-8xjxp    2/2     Running   app=guestbook,pod-template-hash=405193993,version=1.0
+guestbook-v1-8495f7ff7-cdtn6    2/2     Running   app=guestbook,pod-template-hash=405193993,version=1.0
+guestbook-v1-8495f7ff7-z7qn4    2/2     Running   app=guestbook,pod-template-hash=405193993,version=1.0
+guestbook-v2-7d88fcd7f-8rq56    2/2     Running   app=guestbook,pod-template-hash=384497839,version=2.0
+guestbook-v2-7d88fcd7f-mks4n    2/2     Running   app=guestbook,pod-template-hash=384497839,version=2.0
+guestbook-v2-7d88fcd7f-stw67    2/2     Running   app=guestbook,pod-template-hash=384497839,version=2.0
+```
 
     Note that each guestbook pod has 2 containers in it. One is the guestbook container, and the other is the Envoy proxy sidecar.
+
+    Note the version label. This will be used to route traffic in later exercises.
 
 ### Use Watson Tone Analyzer
 Watson Tone Analyzer detects the tone from the words that users enter into the Guestbook app. The tone is converted to the corresponding emoticons.

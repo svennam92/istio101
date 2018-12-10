@@ -26,18 +26,13 @@ An Ingress Gateway resource can be created to allow external requests through th
     2d
     ```
 
-3.. Make note of the external IP address that you retrieved in the previous step, as it will be used to access the Guestbook app in later parts of the course. You can create an environment variable called $INGRESS_IP with your IP address.
-
-    Example:
-    ```
-    export INGRESS_IP=169.6.1.1
-    ```
+3.. Make note of the external IP address that you retrieved in the previous step, as it will be used to access the Guestbook app in later parts of the course. You can create an environment variable called $INGRESS_IP with your IP address. Example: `export INGRESS_IP=169.6.1.1`
 
 ## Connect Istio Ingress Gateway to the IBM Cloud Kubernetes Service Provided Domain Name
 
 **Note:** This task requires a standard cluster.
 
-Standard IBM Cloud Kubernetes Clusters can expose applications deployed within your cluster using a Kubernetes Ingress application load balancer (ALB). IBM Cloud Kubernetes Service automatically creates a highly available ALB for your cluster and assigns a unique public route to it in the format: <cluster_name>.<region_or_zone>.containers.appdomain.cloud.
+Standard IBM Cloud Kubernetes Clusters can expose applications deployed within your cluster using a Kubernetes Ingress application load balancer (ALB). IBM Cloud Kubernetes Service automatically creates a highly available ALB for your cluster and assigns a unique public route to it in the format: `<cluster_name>.<region_or_zone>.containers.appdomain.cloud`
 
 The Ingress resource provides IBM Cloud users with a secure, reliable, and scalable network stack to distribute incoming network traffic to apps in IBM Cloud. You can enhance the IBM-provided Ingress application load balancer by adding annotations. Learn more about [Ingress for IBM Cloud Kubernetes Service](https://console.bluemix.net/docs/containers/cs_ingress.html#ingress).
 
@@ -45,7 +40,7 @@ To use this IBM provided DNS for the Guestbook app, you must set the Kubernetes 
 
 ![](../README_images/istio3.jpg)
 
-1. Switch to the IBM account where your cluster resides by logging in again.
+1. Switch to the **IBM** account where your cluster resides by logging in again.
 
     ```shell
     ibmcloud login
