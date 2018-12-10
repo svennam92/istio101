@@ -85,7 +85,7 @@ These commands will inject the Istio Envoy sidecar into the guestbook pods, as w
 2. Create the guestbook service.
 
     ```shell
-        kubectl create -f guestbook-service.yaml
+    kubectl create -f guestbook-service.yaml
     ```
 
 3. Verify that the service was created.
@@ -98,8 +98,6 @@ These commands will inject the Istio Envoy sidecar into the guestbook pods, as w
     NAME           TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
     guestbook      LoadBalancer   172.21.36.181   169.61.37.140   80:32149/TCP   5d
     ```
-
-    **Note: For Lite clusters, the external ip will not be available. That is expected.**
 
 4. Verify that the pods are up and running.
 
@@ -158,7 +156,7 @@ Create Watson Tone Analyzer in your own account.
     ```shell
     kubectl apply -f ../../plans/analyzer-egress.yaml
     ```
-    
+
 10.  Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message. Ensure you are still in the `guestbook/v2` directory.
 
       ```shell
