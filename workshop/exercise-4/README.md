@@ -22,6 +22,7 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
 2. Configure Istio to automatically gather telemetry data for services that run in the service mesh. Create a rule to collect telemetry data.
 
     ```shell
+    cd ../../plans/
     kubectl create -f guestbook-telemetry.yaml
     ```
 
@@ -34,7 +35,7 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
     ```
 
     Go to this external ip address in the browser to try out your guestbook.
-    
+
 ![](../README_images/guestbook1.png)
 
 1. Generate a small load to the app.
@@ -149,15 +150,15 @@ LogDNA enables administrators, devops teams, and developers to filter, search, a
 
 1. In your [IBM Cloud Dashboard](https://cloud.ibm.com) switch to your account using the drop down in the upper right corner.
 2. Click on **Create Resource**, search for `logDNA` and **Create** an instance.
-3. Click on **Edit Log Sources** 
-4. Copy and paste the two commands in to your terminal. 
+3. Click on **Edit Log Sources**
+4. Copy and paste the two commands in to your terminal.
 5. Return to the LogDNA window and click on **View LogDNA**
 5. Visit your guestbook application in another window.
 6. In the LogDNA dashboard, select guestbook in the All Apps dropdown.
 
-You should see live logs in the dashboard. 
+You should see live logs in the dashboard.
 
-![](../README_images/logDNA.png) 
+![](../README_images/logDNA.png)
 
 
 ## Understand what happened
