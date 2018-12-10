@@ -104,46 +104,23 @@ destinationrule.networking.istio.io/route-with-mtls-for-analyzer created
 
 ## Verifying the Authenticated Connection
 
-If mTLS is working correctly, the Guestbook app should continue to operate as expected, without any user visible impact. Istio will automatically add (and manage) the required certificates and private keys. To confirm their presence in the Envoy containers, do the following:
+If mTLS is working correctly, the Guestbook app should continue to operate as expected, without any user visible impact. Istio will automatically add (and manage) the required certificates and private keys. To confirm the mTLS traffic, you can launch your Grafana instance and look at the traffic for the analyzer service.
 
-1. Get the name of a guestbook pod. Make sure the pod is “Running”.
-
-    ```shell
-    kubectl get pods -l app=guestbook
-    ```
-    Output:
-    ```shell
-    NAME                            READY     STATUS    RESTARTS   AGE
-    guestbook-v2-784546fbb9-299jz   2/2       Running   0          13h
-    guestbook-v2-784546fbb9-hsbnq   2/2       Running   0          13h
-    guestbook-v2-784546fbb9-lcxdz   2/2       Running   0          13h
-    ```
-
-2. SSH into the Envoy container. Make sure to change the pod name into the corresponding one on your system. This command will execute into istio-proxy container (sidecar) of the pod.
+1. Establish port forwarding from local port 8082 to the Grafana instance:
 
     ```shell
-    kubectl exec -it guestbook-v2-xxxxxxxx -c istio-proxy /bin/bash
+    kubectl -n istio-system port-forward \
+      $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') \
+      8082:3000
     ```
 
-3. Verify that the certificate and keys are present.
+2. Click on the web preview icon and select port 8082.
+3. Click on Home -> Istio -> Istio Service Dashboard.
+4. Select analyzer in the Service drop down.
+5. Scroll down to **Incoming Requests by Destination and Response Code**
+6. Add more comments to your V2 guestbook application.
 
-    ```shell
-    ls /etc/certs/
-    ```
-
-    You should see the following (plus some others):
-
-    ```shell
-    cert-chain.pem   key.pem   root-cert.pem
-    ```
-
-    Note that `cert-chain.pem` is Envoy’s public certificate (i.e., presented to the peer), and `key.pem` is the corresponding private key. The `root-cert.pem` file is Citadel's root certificate, used to verify peer certificates.
-
-4. Exit the container.
-
-    ```shell
-    exit
-    ```
+![](../README_images/mtlsTraffic.png)
 
 
 ## Further Reading
