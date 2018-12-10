@@ -158,11 +158,10 @@ Create Watson Tone Analyzer in your own account.
 
 10.  Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.
 
-    ```shell
-    kubectl apply -f <(istioctl kube-inject -f analyzer-deployment.yaml)
-    kubectl apply -f analyzer-service.yaml
-    ```
-
+      ```shell
+      kubectl apply -f <(istioctl kube-inject -f analyzer-deployment.yaml)
+      kubectl apply -f analyzer-service.yaml
+      ```
 
 Great! Your guestbook app is up and running. In Exercise 4, you'll be able to see the app in action by directly accessing the service endpoint. You'll also be able to view Telemetry data for the app.
 
