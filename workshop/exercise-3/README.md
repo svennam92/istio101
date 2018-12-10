@@ -5,16 +5,17 @@ The Guestbook app is a sample app for users to leave comments. It consists of a 
 ![](../README_images/istio1.jpg)
 
 ### Download the Guestbook app
-1. Open your preferred terminal and download the Guestbook app from GitHub into the `workshop` directory.
+1. In your terminal and download the Guestbook app from GitHub into the `workshop` directory.
 
     ```shell
-    git clone https://github.com/IBM/guestbook.git ../guestbook
+    cd ..
+    git clone https://github.com/IBM/guestbook.git
     ```
 
 2. Navigate into the app directory.
 
     ```shell
-    cd ../guestbook/v2
+    cd guestbook/v2
     ```
 
 ### Create a Redis database
@@ -72,7 +73,7 @@ In Kubernetes, a sidecar is a utility container in the pod, and its purpose is t
 
 ## Install the Guestbook app with manual sidecar injection
 
-1. Inject the Istio Envoy sidecar into the guestbook pods, and deploy the Guestbook app on to the Kubernetes cluster.
+1. Inject the Istio Envoy sidecar into the guestbook pods, and deploy the Guestbook app on to the Kubernetes cluster.  Deploy both the v1 and v2 versions of the app:
 
     ```shell
     kubectl apply -f <(istioctl kube-inject -f ../v1/guestbook-deployment.yaml)
@@ -103,7 +104,7 @@ These commands will inject the Istio Envoy sidecar into the guestbook pods, as w
 4. Verify that the pods are up and running.
 
     ```shell
-    kubectl get pods
+    kubectl get pods --show-labels
     ```
     Output:
     ```shell
@@ -117,6 +118,8 @@ These commands will inject the Istio Envoy sidecar into the guestbook pods, as w
     ```
 
     Note that each guestbook pod has 2 containers in it. One is the guestbook container, and the other is the Envoy proxy sidecar.
+
+    Note the version label. This will be used to route traffic in later exercises.
 
 ### Use Watson Tone Analyzer
 Watson Tone Analyzer detects the tone from the words that users enter into the Guestbook app. The tone is converted to the corresponding emoticons.

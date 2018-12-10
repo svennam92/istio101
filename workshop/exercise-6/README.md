@@ -37,6 +37,9 @@ spec:
       labels:
         version: '2.0'
 ```
+
+Next, apply the VirtualService
+
 ```shell
 kubectl replace -f virtualservice-all-v1.yaml
 ```

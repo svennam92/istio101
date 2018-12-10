@@ -60,8 +60,6 @@ In this module, you will download the Istio installation files and then deploy i
 
     ```
 
-  **Note: For Lite clusters, the istio-ingressgateway service will be in `pending` state with no external ip. That is normal.**
-
 7. Ensure the corresponding pods `istio-citadel-*`, `istio-ingressgateway-*`, `istio-pilot-*`, and `istio-policy-*` are all in **`Running`** state before you continue.
 
     ```shell
