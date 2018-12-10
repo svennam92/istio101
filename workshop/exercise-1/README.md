@@ -3,9 +3,9 @@
 You must already have an IBM account, with a cluster created or assigned to you as documented in [previous step](../GETSTARTED.md).
 
 ## Connect to your cluster using the Cloud Shell
-For this lab a hosted shell is provided for you with all the necessary tools. Use this web shell to perform the tasks in this lab.
+For this lab, a hosted shell is provided for you with all the necessary tools. Use this web shell to perform the tasks in this lab. If you are having problems with this web shell, you can use a local docker container and follow the instructions [here](https://github.com/rvennam/istio101/blob/docker-env/workshop/exercise-1/README.md) instead.
 
-1. Go to the [Cloud Shell](https://cloudshell-console-istio.ng.bluemix.net/) and login using the Login button.
+1. Using Chrome or Firefox, go to the [Cloud Shell](https://cloudshell-console-istio.ng.bluemix.net/) and login using the Login button.
 2. Using the account drop down, choose the `IBM` account.
 3. Click on the Terminal icon to launch your web shell.
 
@@ -69,6 +69,6 @@ Learn how to set the context to work with your cluster by using the `kubectl` CL
     cd istio101/workshop
     ```
 
-    This is the working directory for the workshop. You will use the example `.yaml` files that are located in the `workshop/plans` directory in the following exercises.
+    This is the working directory for the workshop. You will use the `.yaml` files that are located in the `workshop/plans` directory in the following exercises.
 
 ### [Continue to Exercise 2 - Installing Istio](../exercise-2/README.md)

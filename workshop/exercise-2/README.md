@@ -9,10 +9,7 @@ In this module, you will download the Istio installation files and then deploy i
 
 2. Add the `istioctl` client to your PATH by copying and pasting the `export PATH=` line in the output of the previous command.
 
-    Your command will look something like this:
-    ```shell
-    export PATH="$PATH:/home/<your_id>/istio101/workshop/istio-1.0.4/bin"
-    ```
+    Your command will look something like `export PATH="$PATH:/home/<your_id>/istio101/workshop/istio-1.0.4/bin`
 
 3. Change the directory to the Istio installation files location.
 
@@ -59,8 +56,6 @@ In this module, you will download the Istio installation files and then deploy i
     zipkin                     ClusterIP      172.21.76.162    <none>           9411/TCP                                                                                                                  5d
 
     ```
-
-  **Note: For Lite clusters, the istio-ingressgateway service will be in `pending` state with no external ip. That is normal.**
 
 7. Ensure the corresponding pods `istio-citadel-*`, `istio-ingressgateway-*`, `istio-pilot-*`, and `istio-policy-*` are all in **`Running`** state before you continue.
 
