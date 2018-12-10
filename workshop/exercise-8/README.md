@@ -71,3 +71,7 @@ In this exercise we'll use the denier adapter.
 ## Further reading
 * [Istio Mixer](https://istio.io/docs/concepts/policy-and-control/mixer.html)
 * [How to write istio mixer policies](https://medium.com/@szihai_37982/how-to-write-istio-mixer-policies-50dc639acf75)
+
+## You're done with the Workshop!
+
+You should be all prepared to take the test. Head on over to the [Certification](https://cognitiveclass.ai/courses/beyond-the-basics-istio-and-ibm-cloud-kubernetes-service/) and answer the questions in each module. Then, take the final exam. Good Luck!
