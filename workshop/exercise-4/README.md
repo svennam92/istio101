@@ -98,7 +98,7 @@ Use Ctrl-C to exit the port-foward when you are done.
 2. Click on the web preview icon and select port 8083, and in the “Expression” input box, enter: `istio_request_bytes_count`. Click Execute.
 3. Then try another query: `istio_requests_total{destination_service="guestbook.default.svc.cluster.local", destination_version="2.0"}`
 
-![](../README_images/prometheus.png)
+![](../README_images/prometheus.jpg)
 
 Use Ctrl-C to exit the port-foward when you are done.
 
@@ -161,7 +161,7 @@ LogDNA enables administrators, devops teams, and developers to filter, search, a
 
 You should see live logs in the dashboard.
 
-![](../README_images/logDNA.png)
+![](../README_images/logDNA.jpg)
 
 
 ## Understand what happened
