@@ -155,8 +155,8 @@ Create Watson Tone Analyzer in your own account.
     ```shell
     kubectl apply -f ../../plans/analyzer-egress.yaml
     ```
-
-10.  Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.
+    
+10.  Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message. Ensure you are still in the `guestbook/v2` directory.
 
       ```shell
       kubectl apply -f <(istioctl kube-inject -f analyzer-deployment.yaml)

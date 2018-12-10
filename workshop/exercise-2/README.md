@@ -9,6 +9,11 @@ In this module, you will download the Istio installation files and then deploy i
 
 2. Add the `istioctl` client to your PATH by copying and pasting the `export PATH=` line in the output of the previous command.
 
+    Your command will look something like this:
+    ```shell
+    export PATH="$PATH:/home/<your_id>/istio101/workshop/istio-1.0.4/bin"
+    ```
+
 3. Change the directory to the Istio installation files location.
 
     ```shell

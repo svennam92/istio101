@@ -56,6 +56,8 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
       8081:16686
     ```
 2. Click on the web preview icon and select port 8081. ![](../README_images/webpreview1.png)
+> Note: You may need to add browser exceptions to access the dashboards in this exercise.
+
 3. From the **Services** menu, select either the **guestbook** or **analyzer** service.
 4. Scroll to the bottom and click on **Find Traces** button to see traces
 
@@ -93,7 +95,7 @@ Use Ctrl-C to exit the port-foward when you are done.
       $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') \
       8083:9090
     ```
-2. Click on the web preview icon and select port 8083, and in the “Expression” input box, enter: `istio_request_byte_count`. Click Execute.
+2. Click on the web preview icon and select port 8083, and in the “Expression” input box, enter: `istio_request_bytes_count`. Click Execute.
 
 ![](../README_images/prometheus.png)
 

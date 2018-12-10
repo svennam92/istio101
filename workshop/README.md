@@ -10,6 +10,8 @@ The Result: Spend more time coding and less time with the infrastructure.
 - Time: 12:00 PM – 4:00 PM
 - Registration Fees: Free
 
+Get started with the [first exercise](exercise-1/README.md).
+
 ## Location: 
 Bell Harbor International Conference Center
 Room: Bay Auditorium (Third Floor) 
