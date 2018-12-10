@@ -127,13 +127,6 @@ Kiali is an open-source project that installs on top of Istio to visualize your 
     IMAGE_PULL_POLICY_TOKEN="imagePullPolicy: Always" envsubst | kubectl create -n istio-system -f -
     ```
 
-    > Note: To run this script, you need the “envsubst” utility which is packed with Ubuntu by default. The webshell has this utility already. If you do not have envsubst installed, you can get it via the Gnu gettext package. For example, on a Mac, run the following command:
-    > ```
-    > $ brew install gettext
-    > $ brew link --force gettext
-    > ``` 
-    > This will enable envsubst on OS X and force it to link properly. It requires homebrew to be installed.
-
 1. Establish port forwarding from local port 8083 to the Prometheus instance.
 
     ```shell
