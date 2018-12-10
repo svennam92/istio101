@@ -10,6 +10,8 @@ The Result: Spend more time coding and less time with the infrastructure.
 - Time: 12:00 PM – 4:00 PM
 - Registration Fees: Free
 
+Join the Gitter at [gitter.im/istio101](https://gitter.im/istio101/) to quickly get answers to your questions -- the instructors will be regularly checking it!
+
 [Get Started](GETSTARTED.md)
 
 ## Location: 
