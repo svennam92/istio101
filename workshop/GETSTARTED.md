@@ -3,7 +3,7 @@ In this section, you will create your own IBM Cloud account, and then get access
 
 1. Create your own [IBM Cloud account](https://cloud.ibm.com).
 2. After the email verification, confirm by logging in to https://cloud.ibm.com
-3. Go to [Get Cluster](https://get-cluster.mybluemix.net) web page and enter your IBM ID (the email you used to sign up) and the lab key `istiorocks`.
+3. [REMOVED - email rvennam@us.ibm.com] Go to [Get Cluster](https://get-cluster.mybluemix.net) web page and enter your IBM ID (the email you used to sign up) and the lab key `istiorocks`.
 
     ![](README_images/get-cluster.png)
 
