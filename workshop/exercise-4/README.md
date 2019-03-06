@@ -103,41 +103,16 @@ Use Ctrl-C to exit the port-foward when you are done.
 Use Ctrl-C to exit the port-foward when you are done.
 
 #### Kiali
-
 Kiali is an open-source project that installs on top of Istio to visualize your service mesh. It provides deeper insight into how your microservices interact with one another, and provides features such as circuit breakers and request rates for your services.
 
-1. To get started with Kiali, you'll need to install it to your cluster. Run the full script below:
-
-    ```
-    JAEGER_URL="http://jaeger-query-istio-system.127.0.0.1.nip.io"
-    GRAFANA_URL="http://grafana-istio-system.127.0.0.1.nip.io"
-    VERSION_LABEL="v0.10.0"
-
-    curl https://raw.githubusercontent.com/kiali/kiali/${VERSION_LABEL}/deploy/kubernetes/kiali-configmap.yaml | \
-    VERSION_LABEL=${VERSION_LABEL} \
-    JAEGER_URL=${JAEGER_URL}  \
-    ISTIO_NAMESPACE=istio-system  \
-    GRAFANA_URL=${GRAFANA_URL} envsubst | kubectl create -n istio-system -f -
-
-    curl https://raw.githubusercontent.com/kiali/kiali/${VERSION_LABEL}/deploy/kubernetes/kiali-secrets.yaml | \
-    VERSION_LABEL=${VERSION_LABEL} envsubst | kubectl create -n istio-system -f -
-
-    curl https://raw.githubusercontent.com/kiali/kiali/${VERSION_LABEL}/deploy/kubernetes/kiali.yaml | \
-    VERSION_LABEL=${VERSION_LABEL}  \
-    IMAGE_NAME=kiali/kiali \
-    IMAGE_VERSION=${VERSION_LABEL}  \
-    NAMESPACE=istio-system  \
-    VERBOSE_MODE=4  \
-    IMAGE_PULL_POLICY_TOKEN="imagePullPolicy: Always" envsubst | kubectl create -n istio-system -f -
-    ```
-
-2. Establish port forwarding from local port 8084.
+1. Establish port forwarding from local port 8084 to the Kiali instance.
 
     ```shell
     kubectl -n istio-system port-forward \
-        $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') \
-        8084:20001
+    $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') \
+    8084:20001 &
     ```
+    
 3. Click on the web preview icon and select port 8084 to access the Kiali dashboard. Login with the following username/password: `admin/admin`.
 
 4. Click the "Graph" tab on the left side to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the "Edge Labels" tab and choosing "Traffic rate per second".

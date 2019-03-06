@@ -14,24 +14,6 @@ In this module, you will download the Istio installation files and then deploy i
 
 2. Add the `istioctl` client to your PATH by copying and pasting the `export PATH=` line in the output of the previous command. Your command will look something like `export PATH="$PATH:/h...`
 
-3. Change the directory to the Istio installation files location.
-
-    ```shell
-    cd istio-1.0.6
-    ```
-
-4. Install Istio’s Custom Resource Definitions via kubectl apply, and wait a few seconds for the CRDs to be committed in the kube-apiserver:
-
-    ```shell
-    kubectl apply -f $PWD/install/kubernetes/helm/istio/templates/crds.yaml
-    ```
-
-5. Now let's deploy Istio into the `istio-system` namespace in your Kubernetes cluster:
-
-    ```shell
-    kubectl apply -f $PWD/install/kubernetes/istio-demo.yaml
-    ```
-
 6. Ensure that the `istio-*` Kubernetes services are deployed before you continue.
 
     ```shell
@@ -85,7 +67,7 @@ In this module, you will download the Istio installation files and then deploy i
     servicegraph-5d64b457b4-z2ctz               1/1       Running     0          5d
     ```
 
-    Before you continue, make sure all the pods are deployed and either in the **`Running`** or **`Completed`** state. If they're in `pending` state, wait a few minutes to let the deployment finish.
+    Before you continue, make sure all the pods are deployed and either in the **`Running`** or **`Completed`** state. If they're in `pending` state, wait a few minutes to let the installation and deployment finish.
 
     Congratulations! You successfully installed Istio into your cluster.
 
