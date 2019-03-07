@@ -115,34 +115,12 @@ Kiali is an open-source project that installs on top of Istio to visualize your 
     
 3. Click on the web preview icon and select port 8084 to access the Kiali dashboard. Login with the following username/password: `admin/admin`.
 
-4. Click the "Graph" tab on the left side to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the "Edge Labels" tab and choosing "Traffic rate per second".
+4. Click the "Graph" tab on the left side to see the a visual service graph of the various services in your Istio mesh. You may need to select a `namespace` in the dropdown.
+
+5. You can see request rates as well by clicking the "Edge Labels" tab and choosing "Traffic rate per second".
 
 Kiali has a number of views to help you visualize your services. Click through the various tabs to explore the service graph, and the various views for workloads, applications and services.
 
 ![](../README_images/kiali.png) 
-
-
-#### Forward logs to LogDNA
-
-LogDNA enables administrators, devops teams, and developers to filter, search, and tail log data. Define alerts and design custom views to monitor application and system logs. After you provision an instance of IBM Log Analysis with LogDNA on IBM Cloud, an account is created in LogDNA, and you receive the ingestion key for your account. Then, you must configure a LogDNA agent for each log source.
-
-1. In your [IBM Cloud Dashboard](https://cloud.ibm.com) switch to your account using the drop down in the upper right corner.
-2. Click on **Create Resource**, search for `logDNA` and **Create** an instance.
-3. Click on **Edit Log Sources**
-4. Copy and paste the two commands in to your terminal.
-5. Return to the LogDNA window and click on **View LogDNA**
-5. Visit your guestbook application in another window.
-6. In the LogDNA dashboard, select guestbook in the All Apps dropdown.
-
-You should see live logs in the dashboard.
-
-![](../README_images/logDNA.jpg)
-
-
-## Understand what happened
-
-Although Istio proxies are able to automatically send spans, they need some hints to tie together the entire trace. Apps need to propagate the appropriate HTTP headers so that when the proxies send span information to Zipkin or Jaeger, the spans can be correlated correctly into a single trace.
-
-In the example, when a user visits the Guestbook app, the HTTP request is sent from the guestbook service to Watson Tone Analyzer. In order for the individual spans of guestbook service and Watson Tone Analyzer to be tied together, we have modified the guestbook service to extract the required headers (x-request-id, x-b3-traceid, x-b3-spanid, x-b3-parentspanid, x-b3-sampled, x-b3-flags, x-ot-span-context) and forward them onto the analyzer service when calling the analyzer service from the guestbook service. The change is in the `v2/guestbook/main.go`. By using the `getForwardHeaders()` method, we are able to extract the required headers, and then we use the required headers further when calling the analyzer service via the `getPrimaryTone()` method.
 
 #### [Continue to Exercise 5 - Expose the service mesh with the Istio Ingress Gateway](../exercise-5/README.md)
