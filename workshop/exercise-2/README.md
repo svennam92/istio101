@@ -4,7 +4,7 @@ In this module, you will download the Istio installation files and then deploy i
 1. Install Istio to your Kubernetes Cluster:
 
     ```
-    ibmcloud ks cluster-addon-enable istio --cluster <your_cluster_name>
+    ibmcloud ks cluster-addon-enable istio --cluster $MYCLUSTER
     ```
 2. Download the `istioctl` client:
 

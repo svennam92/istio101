@@ -25,10 +25,16 @@ Learn how to set the context to work with your cluster by using the `kubectl` CL
 
     > Note: If no clusters are shown, make sure you are targeting the right region with `ibmcloud ks region-set`. Choose the same region that you chose when creating the cluster on the [Get Cluster](https://get-cluster.mybluemix.net/) page.
 
-    b. Download the configuration file and certificates for your cluster using the `cluster-config` command.
+    b. Set an environment variable for your cluster name:
 
     ```shell
-    ibmcloud ks cluster-config <your_cluster_name>
+    export MYCLUSTER=<your_cluster_name>
+    ```
+
+    c. Download the configuration file and certificates for your cluster using the `cluster-config` command.
+
+    ```shell
+    ibmcloud ks cluster-config $MYCLUSTER
     ```
 
     c. Copy and paste the output export command from the previous step to set the `KUBECONFIG` environment variable and configure your CLI to run `kubectl` commands against your cluster. Example:
@@ -39,13 +45,13 @@ Learn how to set the context to work with your cluster by using the `kubectl` CL
     a.  View details of your cluster.
 
     ```shell
-    ibmcloud ks cluster-get <your_cluster_name>
+    ibmcloud ks cluster-get $MYCLUSTER
     ```
 
     b.  Verify the worker nodes in the cluster.
 
     ```shell
-    ibmcloud ks workers <your_cluster_name>
+    ibmcloud ks workers $MYCLUSTER
     ibmcloud ks worker-get <worker_ID>
     ```
 
