@@ -5,7 +5,7 @@ In this module, you will download the Istio installation files and then deploy i
 1. Download the `istioctl` client:
 
     ```shell
-    curl -L https://git.io/getLatestIstio | sh -
+    curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.0.4 sh -
     ```
 
 2. Add the `istioctl` client to your PATH by copying and pasting the `export PATH=` line in the output of the previous command. Your command will look something like `export PATH="$PATH:/h...`
@@ -13,7 +13,7 @@ In this module, you will download the Istio installation files and then deploy i
 3. Change the directory to the Istio installation files location.	
 
     ```shell	
-    cd istio-1.0.6	
+    cd istio-1.0.4	
     ```	
 
 4. Install Istio’s Custom Resource Definitions via kubectl apply, and wait a few seconds for the CRDs to be committed in the kube-apiserver:	
