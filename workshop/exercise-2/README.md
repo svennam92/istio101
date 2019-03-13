@@ -1,7 +1,8 @@
 # Exercise 2 - Installing Istio on IBM Cloud Kubernetes Service
-In this module, you will download the Istio installation files and then deploy it to your cluster.
 
-1. Install Istio to your Kubernetes Cluster:
+In this module, you will install Istio on your cluster and configure the `istioctl` CLI. 
+
+1. Install the managed Istio add-on to your Kubernetes Cluster:
 
     ```
     ibmcloud ks cluster-addon-enable istio-extras --cluster $MYCLUSTER
