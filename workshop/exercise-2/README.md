@@ -12,19 +12,19 @@ In this module, you will download the Istio installation files and then deploy i
 
 3. Change the directory to the Istio installation files location.	
 
-     ```shell	
+    ```shell	
     cd istio-1.0.6	
     ```	
 
 4. Install Istio’s Custom Resource Definitions via kubectl apply, and wait a few seconds for the CRDs to be committed in the kube-apiserver:	
 
-     ```shell	
+    ```shell	
     kubectl apply -f $PWD/install/kubernetes/helm/istio/templates/crds.yaml	
     ```	
 
 5. Now let's deploy Istio into the `istio-system` namespace in your Kubernetes cluster:	
 
-     ```shell	
+    ```shell	
     kubectl apply -f $PWD/install/kubernetes/istio-demo.yaml	
     ```
 6. Ensure that the `istio-*` Kubernetes services are deployed before you continue.
