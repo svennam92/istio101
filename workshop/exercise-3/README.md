@@ -72,23 +72,11 @@ The Redis database is a service that you can use to persist the data of your app
 In Kubernetes, a sidecar is a utility container in the pod, and its purpose is to support the main container. For Istio to work, Envoy proxies must be deployed as sidecars to each pod of the deployment. There are two ways of injecting the Istio sidecar into a pod: manually using the istioctl CLI tool or automatically using the Istio Initializer. In this exercise, we will use the manual injection. Manual injection modifies the controller configuration, e.g. deployment. It does this by modifying the pod template spec such that all pods for that deployment are created with the injected sidecar.
 
 ## Install the Guestbook app with manual sidecar injection
-
-4. Verify and wait until the pods are up and running. 
+4. Verify and wait until the redis pods are up and running. 
 
     ```shell
     kubectl get pods --show-labels
     ```
-    Output:
-```shell
-NAME                            READY   STATUS    LABELS
-guestbook-v1-8495f7ff7-8xjxp    2/2     Running   app=guestbook,pod-template-hash=405193993,version=1.0
-guestbook-v1-8495f7ff7-cdtn6    2/2     Running   app=guestbook,pod-template-hash=405193993,version=1.0
-guestbook-v1-8495f7ff7-z7qn4    2/2     Running   app=guestbook,pod-template-hash=405193993,version=1.0
-guestbook-v2-7d88fcd7f-8rq56    2/2     Running   app=guestbook,pod-template-hash=384497839,version=2.0
-guestbook-v2-7d88fcd7f-mks4n    2/2     Running   app=guestbook,pod-template-hash=384497839,version=2.0
-guestbook-v2-7d88fcd7f-stw67    2/2     Running   app=guestbook,pod-template-hash=384497839,version=2.0
-```
-
     Note that each guestbook pod has 2 containers in it. One is the guestbook container, and the other is the Envoy proxy sidecar.
 
     Note the version label. This will be used to route traffic in later exercises.
