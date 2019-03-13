@@ -3,7 +3,8 @@ In this section, you will create your own IBM Cloud account, and then get access
 
 1. Create your own [IBM Cloud account](https://cloud.ibm.com).
 2. After the email verification, confirm by logging in to https://cloud.ibm.com
-3. [REMOVED - email rvennam@us.ibm.com] Go to [Get Cluster](https://get-cluster.mybluemix.net) web page and enter your IBM ID (the email you used to sign up) and the lab key `istiorocks`.
+3. Go to [Get Cluster](https://gov-think-istio.mybluemix.net/) web page and enter your IBM ID (the email you used to sign up) and the lab key `gov-think-istio19`.
+4. Make sure you have selected `Washington, US-East` for the region.
 
     ![](README_images/get-cluster.png)
 
