@@ -46,24 +46,6 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
 
 ## View guestbook telemetry data
 
-#### Jaeger
-
-1. Establish port forwarding from local port 8081 to the Tracing instance:
-
-    ```shell
-    kubectl port-forward -n istio-system \
-      $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') \
-      8081:16686
-    ```
-2. Click on the web preview icon and select port 8081. ![](../README_images/webpreview1.png)
-> Note: You may need to add browser exceptions to access the dashboards in this exercise.
-
-3. From the **Services** menu, select either the **guestbook** or **analyzer** service.
-4. Scroll to the bottom and click on **Find Traces** button to see traces
-
-![](../README_images/jaeger.png)
-
-Use Ctrl-C to exit the port-foward when you are done.
 
 #### Grafana
 
