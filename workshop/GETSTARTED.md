@@ -8,7 +8,7 @@ In this section, you will create your own IBM Cloud account, and then get access
 
     ![](README_images/get-cluster.png)
 
-3. You will be added to the IBM Lab account and granted access to a cluster. Note the name of your cluster. It will be something like: `mycluster1`.
+3. You will be added to the IBM Lab account and granted access to a cluster. Note the name of your cluster. It will be something like: `gov-think-istio01`.
 4. Refresh your [IBM Cloud Dashboard](https://cloud.ibm.com)
 5. Switch to the **IBM** account by clicking on the account selection drop down in the top nav bar.
 6. Click on **Kubernetes Clusters** in the Resource Summary tile.
