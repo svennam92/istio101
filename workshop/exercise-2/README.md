@@ -1,13 +1,8 @@
 # Exercise 2 - Installing Istio on IBM Cloud Kubernetes Service
 
-In this module, you will install Istio on your cluster and configure the `istioctl` CLI. 
+In this module, you will download the Istio installation files and then deploy it to your cluster.
 
-1. Install the managed Istio add-on to your Kubernetes Cluster:
-
-    ```
-    ibmcloud ks cluster-addon-enable istio-extras --cluster $MYCLUSTER
-    ```
-2. Download the `istioctl` client:
+1. Download the `istioctl` client:
 
     ```shell
     curl -L https://git.io/getLatestIstio | sh -
@@ -15,6 +10,23 @@ In this module, you will install Istio on your cluster and configure the `istioc
 
 2. Add the `istioctl` client to your PATH by copying and pasting the `export PATH=` line in the output of the previous command. Your command will look something like `export PATH="$PATH:/h...`
 
+3. Change the directory to the Istio installation files location.	
+
+     ```shell	
+    cd istio-1.0.6	
+    ```	
+
+4. Install Istio’s Custom Resource Definitions via kubectl apply, and wait a few seconds for the CRDs to be committed in the kube-apiserver:	
+
+     ```shell	
+    kubectl apply -f $PWD/install/kubernetes/helm/istio/templates/crds.yaml	
+    ```	
+
+5. Now let's deploy Istio into the `istio-system` namespace in your Kubernetes cluster:	
+
+     ```shell	
+    kubectl apply -f $PWD/install/kubernetes/istio-demo.yaml	
+    ```
 6. Ensure that the `istio-*` Kubernetes services are deployed before you continue.
 
     ```shell
