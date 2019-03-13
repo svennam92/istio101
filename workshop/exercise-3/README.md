@@ -146,7 +146,7 @@ Create Watson Tone Analyzer in your own account.
     ibmcloud resource service-key tone-analyzer-key
     ```
 6. Open the web file browser by clicking the Pen icon. ![](../README_images/fileeditor.png)
-7. Navigate to `istio101/workshop/guestbook/v2/analyzer-deployment.yaml`  
+7. Click on `Files` and navigate to `istio101/workshop/guestbook/v2/analyzer-deployment.yaml`  
 ![](../README_images/fileeditor2.png)
 8. Find the env section near the end of the file. Replace YOUR_API_KEY with your API key, and replace YOUR_URL with the url from the steps above. YOUR_URL should look something like `https://gateway.watsonplatform.net/tone-analyzer/api`. Save the file.
 
