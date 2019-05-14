@@ -9,7 +9,7 @@ The Guestbook app is a sample app for users to leave comments. It consists of a 
 
     ```shell
     cd ..
-    git clone https://github.com/IBM/guestbook.git
+    git clone -b kubecon2019 https://github.com/IBM/guestbook
     ```
 
 2. Navigate into the app directory.
@@ -133,13 +133,7 @@ Create Watson Tone Analyzer in your own account.
 ![](../README_images/fileeditor2.png)
 8. Find the env section near the end of the file. Replace YOUR_API_KEY with your API key, and replace YOUR_URL with the url from the steps above. YOUR_URL should look something like `https://gateway.watsonplatform.net/tone-analyzer/api`. Save the file and close the web file browser.
 
-9.  The analyzer service will use IBM Cloud Identity and Access management (IAM) tokens to make authenticated requests to the Tone Analyzer service. IAM authentication uses access tokens for authentication, which are acquired by sending a request to a url with an API key. As a result, we will need to set up egress rules to allow the analyzer service access to those external urls. Apply the egress rules found in the `istio101/workshop/plans` directory
-
-    ```shell
-    kubectl apply -f ../../plans/analyzer-egress.yaml
-    ```
-
-10.  Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message. Ensure you are still in the `guestbook/v2` directory.
+9.   Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message. Ensure you are still in the `guestbook/v2` directory.
 
       ```shell
       kubectl apply -f <(istioctl kube-inject -f analyzer-deployment.yaml)
