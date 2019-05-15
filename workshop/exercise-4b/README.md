@@ -35,8 +35,6 @@ Find more about IBM Log Analysis with LogDNA in the [IBM Cloud documentation](ht
 
 Sysdig monitor is a third-party cloud-native container-intelligence management system. You can use this to gain operational visibility for your applications, services, and platform. Sysdig offers administrators, DevOps teams and developers advanced features to monitor and troubleshoot, define alerts, and design custom views.
 
-![Sysdig in catalog](./images/observability-monitoring-sysdig-catalog.png)
-
 ## Create a Sysdig service instance
 
 1. From the IBM Cloud Dashboard, select your Account from the top menu bar.
