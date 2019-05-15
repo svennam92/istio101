@@ -12,7 +12,7 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
 
 ### Configure Istio to receive telemetry data
 
-1. Verify that the Grafana, Prometheus, ServiceGraph and Jaeger add-ons were installed successfully. All add-ons are installed into the `istio-system` namespace.
+1. Verify that the Grafana, Prometheus, Kiali and Jaeger add-ons were installed successfully. All add-ons are installed into the `istio-system` namespace.
 
     ```shell
     kubectl get pods -n istio-system
@@ -60,13 +60,13 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
 2. Click on the web preview icon and select port 8082.
 3. Click on Home -> Istio -> Istio Service Dashboard.
 4. Select guestbook in the Service drop down.
-5. In a different tab, visit the guestbook application and refresh the page multiple times to generate some load, or run the load script from above.
+5. In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.
 
 ![](../README_images/grafana.png)
 
 This Grafana dashboard provides metrics for each workload. Explore the other dashboard provided as well.
 
-Use Ctrl-C to exit the port-foward when you are done.
+6. Use Ctrl-C to exit the port-foward when you are done.
 
 #### Prometheus
 
@@ -82,7 +82,8 @@ Use Ctrl-C to exit the port-foward when you are done.
 
 ![](../README_images/prometheus.jpg)
 
-Use Ctrl-C to exit the port-foward when you are done.
+4. Explore the Graph tab as well.
+5. Use Ctrl-C to exit the port-foward when you are done.
 
 #### Kiali
 
@@ -95,9 +96,10 @@ Kiali is an open-source project that installs as an add-on on top of Istio to vi
         $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') \
         8084:20001
     ```
-2. Click on the web preview icon and select port 8084 to access the Kiali dashboard. Login with the following username/password: `admin/admin`.
-
-3. Click the "Graph" tab on the left side to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the "Edge Labels" tab and choosing "Traffic rate per second".
+2. Click on the web preview icon and select port 8084 to access the Kiali dashboard. 
+3. If you see a `404`, add `/kiali` at the end of the URL. Login with the following username/password: `admin/admin`.
+4. Click the "Graph" tab on the left side and select the default namespace to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the "Edge Labels" tab and choosing "Traffic rate per second".
+5. In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.
 
 Kiali has a number of views to help you visualize your services. Click through the various tabs to explore the service graph, and the various views for workloads, applications and services.
 

@@ -144,7 +144,7 @@ Create Watson Tone Analyzer in your own account.
     ibmcloud login
     ```
 
-2. Choose your own account (NOT IBM)
+2. Choose your own account (NOT IBM) and `eu-de` as the region.
 3. Create Watson Tone Analyzer service.
 
     ```shell
