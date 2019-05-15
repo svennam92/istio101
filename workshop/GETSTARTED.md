@@ -13,9 +13,7 @@ In this section, you will create your own IBM Cloud account, and then get access
 7. Switch to the **IBM** account by clicking on the account selection drop down in the top nav bar.
 8. Click on **Kubernetes Clusters** in the Resource Summary tile.
 
-    ![](../README_images/kubernetesResources.png)
+    ![](README_images/dashboard.png)
 
 9. Under **Kubernetes Clusters**, click on the cluster that has been assigned to you.
 10. Launch the **Kubernetes Dashboard** and have a look around! You can come back to this dashboard throughout your lab.
-
-![](README_images/dashboard.png)
