@@ -72,15 +72,15 @@ Managed Istio is available as part of IBM Cloud™ Kubernetes Service. The servi
 
     Congratulations! You successfully installed Istio into your cluster.
 
-## Download the istioctl CLI
-1. Download the latest Istio installation files:
+## Verify Installation
+<!-- 1. Download the latest Istio installation files:
 
     ```shell
     curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.5 sh -
     ```
 
-2. Add the `istioctl` client to your PATH by copying and pasting the `export PATH=` line in the output of the previous command. Your command will look something like `export PATH="$PATH:/h...`
-3. Verify the client and server version:
+2. Add the `istioctl` client to your PATH by copying and pasting the `export PATH=` line in the output of the previous command. Your command will look something like `export PATH="$PATH:/h...` -->
+1. Verify the client and server version using the istioctl CLI:
    ```shell
    istioctl version --remote -s
    ```

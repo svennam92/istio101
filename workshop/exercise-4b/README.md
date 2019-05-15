@@ -22,7 +22,7 @@ The service plan that you choose for an IBM Log Analysis with LogDNA instance de
 ## View logs in the LogDNA dashboard
 
 1. Click **View LogDNA** to open the LogDNA console
-1. Use `namespace:<namespace name>` to view only the logs of the applications deployed to the specified namespace, such as `namespace:default`
+1. Use `namespace:default` to view only the logs of the applications deployed to the default namespace.
 1. As you go through the next steps, keep an eye on the LogDNA console for new log statements coming from your apps deployed in this namespace.
 
 ![LogDNA dashboard](./images/observability-logging-logdna.png)
