@@ -8,7 +8,7 @@ For this lab, a web shell is provided for you with all the necessary tools. Use 
 1. Using Chrome or Firefox, go to the [Cloud Shell](https://cloudshell-console-ikslab.us-south.cf.cloud.ibm.com/) and login using the Login button.
 2. Passcode is `ikslab`
    ![](../README_images/cloudshell.png)
-3. Using the account drop down, choose the `IBM` account.
+3. Using the account drop down, choose the **183569-IBM** account.
 4. Click on the Terminal icon to launch your web shell.
 
 ## Access your cluster
