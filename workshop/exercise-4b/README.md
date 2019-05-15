@@ -25,7 +25,7 @@ The service plan that you choose for an IBM Log Analysis with LogDNA instance de
 2. Generate some load on your application by visiting it in another browser window.
 3. Keep an eye on the LogDNA console for new log statements coming from your apps. Use the filters to select guestbook.
 
-![LogDNA dashboard](./images/observability-logging-logdna.png)
+![LogDNA dashboard](../README_images/observability-logging-logdna.png)
 
 {% hint style='tip' %}
 Find more about IBM Log Analysis with LogDNA in the [IBM Cloud documentation](https://cloud.ibm.com/docs/services/Log-Analysis-with-LogDNA/index.html#getting-started).
@@ -48,36 +48,28 @@ Sysdig monitor is a third-party cloud-native container-intelligence management s
    5. Click **Create**.
 3. Click **Edit sources**:
    1. Select **Kubernetes** as a source
-   2. Run the listed commands against your Kubernetes cluster in the web terminal window.
+   2. Run the listed command in the **Install Sysdig Agent to your cluster** section.
 
 
-## Configure your cluster with Sysdig
+## View SysDig Dashboard
 
-1. On IBM Cloud Dashboard, click on Catalog. 
+1. Scroll down and click on **View SysDig**
 
-2. Search for SysDig and create an instance using the Trial plan.
-
-3. Follow the instructions on the Sysdig dashboard to configure your cluster.
-
-## View metrics with Sysdig
-
-1. Click **View Sysdig** to open the Sysdig console
 2. In the Sysdig _Welcome_ wizard
    1. Select **Kubernetes** as the installation method.
    2. It should show one or more agents already connected.
    3. Select **GO TO NEXT STEP**.
    4. And finally **LET'S GET STARTED**
-3. Navigate the Sysdig console to get metrics on your Kubernetes cluster, nodes, deployments, pods, containers.
+3. Navigate the Sysdig console to get metrics on your Kubernetes cluster, nodes, deployments, pods, containers. Explore the following:
    1. Under **Explore**, select **Containerized Apps** to view raw metrics for all workloads running on the cluster.
    2. Under **Dashboard**, select **My Shared Dashboards / HTTP Overview** to get a global view of the cluster HTTP load.
    3. Under **Dashboard**, select **My Shared Dashboards / Overview by Host** to understand how nodes are currently performing.
+   4. Under **Dashboard**, select **Add Dashboard** and add the **Istio 1.0 Service** to get Istio specific metrics. 
 
-   {% hint style='info' %}
-   If Kubernetes-specific views do not show data, wait till your cluster starts sending metrics to Sysdig and refresh the Sysdig monitor console.
-   {% endhint %}
-
-![Sysdig dashboard](./images/observability-monitoring-sysdig.png)
+![Sysdig dashboard](../README_images/observability-monitoring-sysdig.png)
 
 {% hint style='tip' %}
 Find more about IBM Cloud Monitoring with Sysdig in the [IBM Cloud documentation](https://cloud.ibm.com/docs/services/Monitoring-with-Sysdig/index.html#getting-started).
 {% endhint %}
+
+#### [Continue to Exercise 5 - Expose the service mesh with the Istio Ingress Gateway](../exercise-5/README.md)

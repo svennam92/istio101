@@ -106,4 +106,4 @@ Kiali has a number of views to help you visualize your services. Click through t
 ![](../README_images/kiali.png) 
  
 
-#### [Continue to Exercise 5 - Expose the service mesh with the Istio Ingress Gateway](../exercise-5/README.md)
+#### [Continue to Exercise 4B - Logging and Monitoring](../exercise-4b/README.md)
