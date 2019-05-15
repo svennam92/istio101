@@ -8,22 +8,22 @@ The service plan that you choose for an IBM Log Analysis with LogDNA instance de
 
 ## Configure your cluster with LogDNA
 
-1. Switch to your personal IBM Cloud account.
-1. Create an instance of [IBM Log Analysis with LogDNA](https://cloud.ibm.com/observe/logging/create) from the catalog:
-   1. Set the **Service name** to **YOUR_IBM_ID-logdna**.
-   1. Select the location where your cluster is created. If the location is not in the list, pick Dallas (us-south).
-   1. Use the default resource group.
-   1. Click **Create**.
-1. In the [**Observability** category, under Logging](https://cloud.ibm.com/observe/logging), locate the service instance you created.
-1. Click **Edit log sources**:
+1. From the IBM Cloud Dashboard, select your Account from the top menu bar.
+2. Create an instance of LogDNA
+   1. Click on **Catalog** in the top menu bar.
+   2. Search for `IBM Log Analysis with LogDNA`
+   3. Select the location where your cluster is created (eu-de).
+   4. Use the default resource group.
+   5. Click **Create**.
+3. Click **Edit log sources**:
    1. Select **Kubernetes** as a source
-   1. Run the listed commands against your Kubernetes cluster.
+   2. Run the listed commands against your Kubernetes cluster in the web terminal window.
 
 ## View logs in the LogDNA dashboard
 
 1. Click **View LogDNA** to open the LogDNA console
-1. Use `namespace:default` to view only the logs of the applications deployed to the default namespace.
-1. As you go through the next steps, keep an eye on the LogDNA console for new log statements coming from your apps deployed in this namespace.
+2. Generate some load on your application by visiting it in another browser window.
+3. Keep an eye on the LogDNA console for new log statements coming from your apps. Use the filters to select guestbook.
 
 ![LogDNA dashboard](./images/observability-logging-logdna.png)
 
@@ -39,14 +39,16 @@ Sysdig monitor is a third-party cloud-native container-intelligence management s
 
 ## Create a Sysdig service instance
 
-1. Switch to your personal IBM Cloud account.
-2. Create an instance of [IBM Cloud Monitoring with Sysdig](https://cloud.ibm.com/observe/monitoring/create) from the catalog:
-   1. Set the **Service name** to **YOUR_IBM_ID-sysdig**.
-   2. Select the location where your cluster is created. If the location is not in the list, pick Dallas (us-south).
-   3. Use the default resource group.
-   4. Click **Create**.
-3. In the [**Observability** category, under Monitoring](https://cloud.ibm.com/observe/monitoring), locate the service instance you created.
-4. Click **View access keys** and copy your access key as it will be needed in later steps.
+1. From the IBM Cloud Dashboard, select your Account from the top menu bar.
+2. Create an instance of SysDig:
+   1. Click on **Catalog** in the top menu bar.
+   2. Search for `IBM Cloud Monitoring with Sysdig`
+   3. Select the location where your cluster is created (eu-de).
+   4. Use the default resource group.
+   5. Click **Create**.
+3. Click **Edit sources**:
+   1. Select **Kubernetes** as a source
+   2. Run the listed commands against your Kubernetes cluster in the web terminal window.
 
 
 ## Configure your cluster with Sysdig
