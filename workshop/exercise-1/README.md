@@ -19,7 +19,6 @@ Learn how to set the context to work with your cluster by using the `kubectl` CL
     a. List the available clusters. You should see the cluster you were assigned.
 
     ```shell
-    ibmcloud ks region-set eu-central
     ibmcloud ks clusters
     ```
 

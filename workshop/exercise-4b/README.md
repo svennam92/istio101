@@ -23,7 +23,7 @@ The service plan that you choose for an IBM Log Analysis with LogDNA instance de
 
 1. Click **View LogDNA** to open the LogDNA console
 2. Generate some load on your application by visiting it in another browser window.
-3. Keep an eye on the LogDNA console for new log statements coming from your apps. Use the filters to select guestbook.
+3. Keep an eye on the LogDNA console for new log statements coming from your apps. Use the filters to select guestbook. Refresh the page if you do not see any filters.
 
 ![LogDNA dashboard](../README_images/observability-logging-logdna.png)
 
