@@ -1,4 +1,4 @@
-# Exercise 4 - Observe service telemetry: metrics and tracing
+# Observe service telemetry: metrics and tracing
 
 ### Challenges with microservices
 
@@ -118,5 +118,3 @@ Kiali is an open-source project that installs as an add-on on top of Istio to vi
 Kiali has a number of views to help you visualize your services. Click through the various tabs to explore the service graph, and the various views for workloads, applications and services.
 
 ![](../README_images/kiali.png) 
-
-#### [Continue to the next Exercise](../exercise-4b/README.md)

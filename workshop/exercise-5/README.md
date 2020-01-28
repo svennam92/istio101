@@ -1,4 +1,4 @@
-# Exercise 5 - Expose the service mesh with the Istio Ingress Gateway
+# Expose the service mesh with the Istio Ingress Gateway
 
 The components deployed on the service mesh by default are not exposed outside the cluster. External access to individual services so far has been provided by creating an external load balancer or node port on each service.
 
@@ -117,5 +117,3 @@ Congratulations! You extended the base Ingress features by providing a DNS entry
 [Kubernetes Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 [Istio Ingress](https://istio.io/docs/tasks/traffic-management/ingress.html)
 [Bring your own ALB](https://www.ibm.com/blogs/bluemix/2019/04/bring-your-own-alb-dns-with-health-checks-and-ssl-certificates-beta/)
-
-#### [Continue to Exercise 6 - Traffic Management](../exercise-6/README.md)

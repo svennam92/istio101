@@ -1,4 +1,4 @@
-# Exercise 3 - Deploy the Guestbook app with Istio Proxy
+# Deploy the Guestbook app with Istio Proxy
 
 The Guestbook app is a sample app for users to leave comments. It consists of a web front end, Redis master for storage, and a replicated set of Redis slaves. We will also integrate the app with Watson Tone Analyzer which detects the sentiment in users' comments and replies with emoticons.
 
@@ -164,5 +164,3 @@ We've created a shared Tone Analyzer service for you to use for this lab. Refer 
     ```
 
 Great! Your guestbook app is up and running. In Exercise 4, you'll be able to see the app in action by directly accessing the service endpoint. You'll also be able to view Telemetry data for the app.
-
-#### [Continue to Exercise 4 - Telemetry](../exercise-4/README.md)

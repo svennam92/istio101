@@ -1,4 +1,4 @@
-# Exercise 2 - Installing Istio on IBM Cloud Kubernetes Service
+# Installing Istio on IBM Cloud Kubernetes Service
 
 In this module, you will use the Managed Istio add-on to install Istio on your cluster. 
 
@@ -67,5 +67,3 @@ Managed Istio is available as part of IBM Cloud™ Kubernetes Service. The servi
     Before you continue, make sure all the pods are deployed and either in the **`Running`** or **`Completed`** state. If they're in `pending` state, wait a few minutes to let the installation and deployment finish.
 
     Congratulations! You successfully installed Istio into your cluster.
-
-#### [Continue to Exercise 3 - Deploy Guestbook with Istio Proxy](../exercise-3/README.md)

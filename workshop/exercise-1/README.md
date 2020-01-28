@@ -1,4 +1,4 @@
-# Exercise 1 - Accessing a Kubernetes cluster with IBM Cloud Kubernetes Service
+# Accessing a Kubernetes cluster with IBM Cloud Kubernetes Service
 
 ## Connect to your cluster using the Cloud Shell
 For this lab, a web shell is provided for you with all the necessary tools. Use this web shell to perform the tasks in this lab. If you are having problems with this web shell, you can use a local docker container and follow the instructions [here](https://github.com/rvennam/istio101/blob/docker-env/workshop/exercise-1/README.md) instead.
@@ -72,5 +72,3 @@ Learn how to set the context to work with your cluster by using the `kubectl` CL
     ```
 
     This is the working directory for the workshop. You will use the example `.yaml` files that are located in the `workshop/plans` directory in the following exercises.
-
-### [Continue to Exercise 2 - Installing Istio](../exercise-2/README.md)
