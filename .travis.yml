@@ -1,15 +1,18 @@
-language: script
+language: node_js
+dist: trusty
+sudo: required
 
-services:
-  - docker
+node_js:
+  - "6.9.1"
 
 script:
-- bash -n $(find . -name *.sh)
-- ./.verify-links.sh -v
+  - ./publish.sh
 
 deploy:
-  - provider: script
-    skip_cleanup: true
-    script: echo hi
-    on:
-      all_branches: true
+- provider: pages
+  local-dir: _book
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: master

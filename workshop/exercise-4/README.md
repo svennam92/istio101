@@ -85,14 +85,33 @@ This Grafana dashboard provides metrics for each workload. Explore the other das
 
 Kiali is an open-source project that installs as an add-on on top of Istio to visualize your service mesh. It provides deeper insight into how your microservices interact with one another, and provides features such as circuit breakers and request rates for your services.
 
-1. Establish port forwarding to the Kiali pod from local port 8084.
+
+1. Create a secret which will be used to set the login credentials for Kiali
+
+    > ```shell
+    > cat <<EOF | kubectl apply -f -
+    > apiVersion: v1
+    > kind: Secret
+    > metadata:
+    >   name: kiali
+    >   namespace: istio-system
+    >   labels:
+    >     app: kiali
+    > type: Opaque
+    > data:
+    >   username: "YWRtaW4="
+    >   passphrase: "YWRtaW4="
+    > EOF
+    > ```
+
+2. Establish port forwarding to the Kiali pod from local port 8084.
 
     ```shell
     kubectl -n istio-system port-forward \
         $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') \
         8084:20001
     ```
-2. Click on the web preview icon and select port 8084 to access the Kiali dashboard. Login with the following username/password: `admin/admin`.
+3. Click on the web preview icon and select port 8084 to access the Kiali dashboard. Login with the following username/password: `admin/admin`.
 4. Click the "Graph" tab on the left side and select the default namespace to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the "Edge Labels" tab and choosing "Traffic rate per second".
 5. In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.
 

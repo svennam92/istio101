@@ -10,6 +10,8 @@ Managed Istio is available as part of IBM Cloud™ Kubernetes Service. The servi
     ibmcloud ks cluster addon enable istio --cluster $MYCLUSTER
     ```
 
+    > It can take up to 5 minutes for the install to begin.
+
 2. Ensure that the `istio-*` Kubernetes services are deployed before you continue. This generally takes 30 seconds, but can take up to 5 min.
 
     ```shell

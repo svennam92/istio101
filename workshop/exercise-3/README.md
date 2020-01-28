@@ -144,7 +144,7 @@ Watson Tone Analyzer detects the tone from the words that users enter into the G
 
 We've created a shared Tone Analyzer service for you to use for this lab. Refer back to the API_KEY and URL given by the "Grant Cluster" app.
 
-1. Open the `analyzer-deployment.yaml` with `vi` or a similar editor and find the env section near the end of the file. Replace `YOUR_API_KEY` with the API key from Grant Cluster, and replace `YOUR_URL` with `https://gateway.watsonplatform.net/tone-analyzer/api`. Save the file.
+1. Open the `analyzer-deployment.yaml` with `vi` or a similar editor and find the env section near the end of the file. Replace `YOUR_API_KEY` with the API key from Grant Cluster, and replace `YOUR_URL` with `https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f`. Save the file.
 
     > You can do also do this with the sed command:
 
@@ -153,7 +153,7 @@ We've created a shared Tone Analyzer service for you to use for this lab. Refer 
     ```
 
     ```
-    sed -i '' 's+YOUR_URL+https://api.us-south.tone-analyzer.watson.cloud.ibm.com+g' analyzer-deployment.yaml
+    sed -i '' 's+YOUR_URL+https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f+g' analyzer-deployment.yaml
     ```
 
 2. Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.
