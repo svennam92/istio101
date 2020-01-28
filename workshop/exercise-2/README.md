@@ -40,7 +40,7 @@ Managed Istio is available as part of IBM Cloud™ Kubernetes Service. The servi
 
     ```
 
-**Note: If your istio-ingressgateway service IP is <pending>, confirm that you are using a standard/paid cluster. Free cluster is not supported for this lab.**
+**Note: If your istio-ingressgateway service IP is `<pending>`, confirm that you are using a standard/paid cluster. Free cluster is not supported for this lab.**
 
 1. Ensure the corresponding pods `istio-citadel-*`, `istio-ingressgateway-*`, `istio-pilot-*`, and `istio-policy-*` are all in **`Running`** state before you continue.
 
