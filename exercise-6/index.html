@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Exercise 6 - Perform traffic management · Istio at Fast Start</title>
+        <title>Perform traffic management · Istio at Fast Start</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -144,7 +144,7 @@
                     
                         <b>2.1.</b>
                     
-                    Exercise 0 - Get Started
+                    Get Started
             
                 </a>
             
@@ -159,7 +159,7 @@
                     
                         <b>2.2.</b>
                     
-                    Exercise 1 - Access IKS Cluster
+                    Access IKS Cluster
             
                 </a>
             
@@ -174,7 +174,7 @@
                     
                         <b>2.3.</b>
                     
-                    Exercise 2 - Installing Istio
+                    Installing Istio
             
                 </a>
             
@@ -189,7 +189,7 @@
                     
                         <b>2.4.</b>
                     
-                    Exercise 3 - Deploying Guestbook App
+                    Deploying Guestbook App
             
                 </a>
             
@@ -211,7 +211,7 @@
                     
                         <b>3.1.</b>
                     
-                    Exercise 4 - Metrics and Tracing
+                    Metrics and Tracing
             
                 </a>
             
@@ -226,7 +226,7 @@
                     
                         <b>3.2.</b>
                     
-                    Exercise 5 - Expose with Istio Ingress
+                    Expose with Istio Ingress
             
                 </a>
             
@@ -241,7 +241,7 @@
                     
                         <b>3.3.</b>
                     
-                    Exercise 6 - Perform traffic management
+                    Perform traffic management
             
                 </a>
             
@@ -279,7 +279,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Exercise 6 - Perform traffic management</a>
+        <a href=".." >Perform traffic management</a>
     </h1>
 </div>
 
@@ -294,7 +294,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="exercise-6---perform-traffic-management">Exercise 6 - Perform traffic management</h1>
+                                <h1 id="perform-traffic-management">Perform traffic management</h1>
 <h2 id="using-rules-to-manage-traffic">Using rules to manage traffic</h2>
 <p>The core component used for traffic management in Istio is Pilot, which manages and configures all the Envoy proxy instances deployed in a particular Istio service mesh. It lets you specify what rules you want to use to route traffic between Envoy proxies, which run as sidecars to each service in the mesh. Each service consists of any number of instances running on pods, containers, VMs etc. Each service can have any number of versions (a.k.a. subsets). There can be distinct subsets of service instances running different variants of the app binary. These variants are not necessarily different API versions. They could be iterative changes to the same service, deployed in different environments (prod, staging, dev, etc.). Pilot translates high-level rules into low-level configurations and distributes this config to Envoy instances. Pilot uses three types of configuration resources to manage traffic within its service mesh: Virtual Services, Destination Rules, and Service Entries.</p>
 <h3 id="virtual-services">Virtual Services</h3>
@@ -465,7 +465,7 @@ EOF
 
             
                 
-                <a href="../exercise-5/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Exercise 5 - Expose with Istio Ingress">
+                <a href="../exercise-5/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Expose with Istio Ingress">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -477,7 +477,7 @@ EOF
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Exercise 6 - Perform traffic management","level":"3.3","depth":1,"previous":{"title":"Exercise 5 - Expose with Istio Ingress","level":"3.2","depth":1,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-6/README.md","mtime":"2020-01-28T21:25:09.470Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-28T21:26:26.569Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Perform traffic management","level":"3.3","depth":1,"previous":{"title":"Expose with Istio Ingress","level":"3.2","depth":1,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-6/README.md","mtime":"2020-01-28T22:41:12.268Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-28T22:42:17.558Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
