@@ -164,6 +164,10 @@ Istio `DestinationRules` allow users to configure Envoy's implementation of [cir
 
 Depending on whether a service handles [HTTP](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#ConnectionPoolSettings.HTTPSettings) requests or [TCP](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#ConnectionPoolSettings.TCPSettings) connections, `DestinationRules` expose a number of ways for Envoy to limit traffic to a particular service as well as define failure recovery behavior for services initiating the connection to an unhealthy service.
 
+## That's all!
+
+This was the abridged version of the full Istio 101 workshop. To see more, check out the [Istio 101 Repository](https://github.com/IBM/istio101).
+
 ## Further reading
 * [Istio Concept](https://istio.io/docs/concepts/traffic-management/)
 * [Istio Rules API](https://istio.io/docs/reference/config/istio.networking.v1alpha3)
@@ -172,13 +176,3 @@ Depending on whether a service handles [HTTP](https://istio.io/docs/reference/co
 * [Traffic Management](https://blog.openshift.com/istio-traffic-management-diving-deeper/)
 * [Circuit Breaking](https://blog.openshift.com/microservices-patterns-envoy-part-i/)
 * [Timeouts and Retries](https://blog.openshift.com/microservices-patterns-envoy-proxy-part-ii-timeouts-retries/)
-
-
-
-## Questions
-1. Where are routing rules defined?  Options: (VirtualService, DestinationRule, ServiceEntry)  Answer: VirtualService
-1. Where are service versions (subsets) defined?  Options: (VirtualService, DestinationRule, ServiceEntry)  Answer: DestinationRule
-1. Which Istio component is responsible for sending traffic management configurations to Istio sidecars?  Options: (Mixer, Citadel, Pilot, Kubernetes)  Answer: Pilot
-1. What is the name of the default proxy that runs in Istio sidecars and routes requests within the service mesh?  Options: (NGINX, Envoy, HAProxy)  Answer: Envoy
-
-#### [Continue to Exercise 7 - Security](../exercise-7/README.md)

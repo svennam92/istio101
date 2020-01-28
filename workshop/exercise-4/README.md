@@ -27,112 +27,77 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
     kubectl get service guestbook -n default
     ```
 
-    Go to this EXTERNAL-IP address in the browser to try out your guestbook. This service will route you to either v1 or v2, at random. If you wish to see a different version, you'll need to do a hard refresh (`cmd + shift + r` on a mac, or `ctrl + f5` on a PC).
+    Go to this external ip address in the browser to try out your guestbook. This service will route you to either v1 or v2, at random. If you wish to see a different version, you'll need to do a hard refresh (`cmd + shift + r` on a mac, or `ctrl + f5` on a PC). Alternatively, you can `curl` the address.
 
 ![](../README_images/guestbook1.png)
 
-1. Generate a small load to the app, replacing guestbook_IP with the EXTERNAL-IP.
+1. Generate a small load to the app, replacing guestbook_IP with your own IP.
 
     ```shell
-    for i in {1..40}; do sleep 0.2; curl -I http://<guestbook_IP>/; done
+    for i in {1..20}; do sleep 0.5; curl http://<guestbook_IP>/; done
     ```
 
 ## View guestbook telemetry data
 
-#### Jaeger
-
-1. Launch the Jaeger dashboard:
-
-    ```shell
-    istioctl dashboard jaeger
-    ```
-2. From the **Services** menu, select either the **guestbook** or **analyzer** service.
-3. Scroll to the bottom and click on **Find Traces** button to see traces.
-4. Use Ctrl-C in the terminal to exit the port-foward when you are done.
-
-Read more about [Jaeger](https://www.jaegertracing.io/docs/)
 
 #### Grafana
 
-1. Establish port forwarding from local port 3000 to the Grafana instance:
+1. Establish port forwarding from local port 8082 to the Grafana instance:
 
     ```shell
-    istioctl dashboard grafana
+    kubectl -n istio-system port-forward \
+      $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') \
+      8082:3000
     ```
+
+2. Click on the web preview icon (an eye) and select port 8082.
+
+![](../README_images/webpreview1.png)
+
+3. Click on Home -> Istio -> Istio Service Dashboard.
+4. Select guestbook in the Service drop down.
+5. In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.
+
 ![](../README_images/grafana.png)
 
-2. Navigate to the `Istio Service Dashboard` by clicking on the Home menu on the top left, then Istio, then Istio Service Dashboard.
+This Grafana dashboard provides metrics for each workload. Explore the other dashboard provided as well.
 
-3. Select guestbook in the Service drop down.
-
-4. In a different tab, visit the guestbook application and refresh the page multiple times to generate some load, or run the load script you used previously. Switch back to the Grafana tab.
-   
-5. Use Ctrl-C in the terminal to exit the port-foward when you are done.
-
-This Grafana dashboard provides metrics for each workload. Explore the other dashboard provided as well. 
-
-Read more about [Grafana](http://docs.grafana.org/).
+6. Use Ctrl-C in the cloudshell to exit the port-foward when you are done.
 
 #### Prometheus
 
-1. Establish port forwarding from local port 9090 to the Prometheus instance.
+1. Establish port forwarding from local port 8083 to the Prometheus pod.
 
     ```shell
-    istioctl dashboard prometheus
+    kubectl -n istio-system port-forward \
+      $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') \
+      8083:9090
     ```
-![](../README_images/prometheus.jpg)
-
-2. In the “Expression” input box, enter: `istio_request_bytes_count`. Click Execute and then select Graph.
-
+2. Click on the web preview icon and select port 8083, and in the “Expression” input box, enter: `istio_request_bytes_count`. Click Execute.
 3. Then try another query: `istio_requests_total{destination_service="guestbook.default.svc.cluster.local", destination_version="2.0"}`
 
-4. Use Ctrl-C in the terminal to exit the port-foward when you are done.
+![](../README_images/prometheus.jpg)
+
+4. Explore the Graph tab as well.
+5. Use Ctrl-C to exit the port-foward when you are done.
 
 #### Kiali
 
-Kiali is an open-source project that installs on top of Istio to visualize your service mesh. It provides deeper insight into how your microservices interact with one another, and provides features such as circuit breakers and request rates for your services
+Kiali is an open-source project that installs as an add-on on top of Istio to visualize your service mesh. It provides deeper insight into how your microservices interact with one another, and provides features such as circuit breakers and request rates for your services.
 
-1. Create a secret which will be used to set the login credentials for Kiali
-```
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: Secret
-metadata:
-  name: kiali
-  namespace: istio-system
-  labels:
-    app: kiali
-type: Opaque
-data:
-  username: "YWRtaW4="
-  passphrase: "YWRtaW4="
-EOF
-```
-2. Establish port forwarding from local port 20001 to the Kiali instance.
+1. Establish port forwarding to the Kiali pod from local port 8084.
 
     ```shell
-    istioctl dashboard kiali
+    kubectl -n istio-system port-forward \
+        $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.name}') \
+        8084:20001
     ```
+2. Click on the web preview icon and select port 8084 to access the Kiali dashboard. Login with the following username/password: `admin/admin`.
+4. Click the "Graph" tab on the left side and select the default namespace to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the "Edge Labels" tab and choosing "Traffic rate per second".
+5. In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.
+
+Kiali has a number of views to help you visualize your services. Click through the various tabs to explore the service graph, and the various views for workloads, applications and services.
+
 ![](../README_images/kiali.png) 
 
-3. Login with `admin` for both username and password.
-4. Select Graph and then choose `default` namespace. You should see a visual service graph of the various services in your Istio mesh.
-5. Use the `Edge Labels` dropdown and select `Traffic rate per second` to see the request rates as well.
-6. Kiali has a number of views to help you visualize your services. Click through the vairous tabs to explore the service graph, and the various views for workloads, applications, and services.
-
-## Understand what happened
-
-Although Istio proxies are able to automatically send spans, they need some hints to tie together the entire trace. Apps need to propagate the appropriate HTTP headers so that when the proxies send span information to Zipkin or Jaeger, the spans can be correlated correctly into a single trace.
-
-In the example, when a user visits the Guestbook app, the HTTP request is sent from the guestbook service to Watson Tone Analyzer. In order for the individual spans of guestbook service and Watson Tone Analyzer to be tied together, we have modified the guestbook service to extract the required headers (x-request-id, x-b3-traceid, x-b3-spanid, x-b3-parentspanid, x-b3-sampled, x-b3-flags, x-ot-span-context) and forward them onto the analyzer service when calling the analyzer service from the guestbook service. The change is in the `v2/guestbook/main.go`. By using the `getForwardHeaders()` method, we are able to extract the required headers, and then we use the required headers further when calling the analyzer service via the `getPrimaryTone()` method.
-
-
-## Questions
-
-1. Does a user need to modify their app to get metrics for their apps?   A: 1. Yes 2. No. (2 is correct)
-
-2. Does a user need to modify their app to get distributed tracing for their app to work properly? A: 1. Yes 2. No. (1 is correct)
-
-3. What distributed tracing system does Istio support by default?  A: 1. Zipkin 2. Kibana 3. LogStash 4. Jaeger. (1 and 4 are correct)
-
-#### [Continue to Exercise 5 - Expose the service mesh with the Istio Ingress Gateway](../exercise-5/README.md)
+#### [Continue to the next Exercise](../exercise-4b/README.md)

@@ -1,20 +1,15 @@
 # Exercise 1 - Accessing a Kubernetes cluster with IBM Cloud Kubernetes Service
 
-You must already have a [cluster created](https://cloud.ibm.com/docs/containers?topic=containers-clusters#clusters_standard). Your cluster must have **3 or more worker nodes** with at least **4 cores and 16GB RAM**, and run Kubernetes version 1.16 or later.
+## Connect to your cluster using the Cloud Shell
+For this lab, a web shell is provided for you with all the necessary tools. Use this web shell to perform the tasks in this lab. If you are having problems with this web shell, you can use a local docker container and follow the instructions [here](https://github.com/rvennam/istio101/blob/docker-env/workshop/exercise-1/README.md) instead.
 
-## Install IBM Cloud Kubernetes Service command line utilities
+1. Using Chrome or Firefox, go to the [Cloud Shell](https://workshop.shell.cloud.ibm.com/) and enter the passcode provided by the lab instructors. Click Continue.
 
-1.  Download and install the required CLI tools.
+1. Using the account drop down, choose the **IBM** account.
 
-    ```shell
-    curl -sL https://ibm.biz/idt-installer | bash
-    ```
-
-2.  Log in to the IBM Cloud CLI. (If you have a federated account, include the `--sso` flag.)
-
-    ```shell
-    ibmcloud login
-    ```
+   ![](../README_images/cloudshell.png)
+   
+1. Click on the Terminal icon to launch your web shell.
 
 ## Access your cluster
 Learn how to set the context to work with your cluster by using the `kubectl` CLI, access the Kubernetes dashboard, and gather basic information about your cluster.
@@ -41,7 +36,7 @@ Learn how to set the context to work with your cluster by using the `kubectl` CL
 
     d. Copy and paste the output command from the previous step to set the `KUBECONFIG` environment variable and configure your CLI to run `kubectl` commands against your cluster.
 
-    Example:
+    Example: (_Do not copy/paste this exact command, but your result from the previous command_)
     ```shell
     export KUBECONFIG=/Users/user-name/.bluemix/plugins/container-service/clusters/mycluster/kube-config-hou02-mycluster.yml
     ```
