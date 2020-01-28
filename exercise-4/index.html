@@ -1,0 +1,528 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Exercise 4 - Metrics and Tracing · Istio at Fast Start</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-collapsible-chapters/collapsible-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fancybox/jquery.fancybox.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fancybox/jquery.fancybox-buttons.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-web-header/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-codetabs/codetabs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../exercise-5/" />
+    
+    
+    <link rel="prev" href="../exercise-3/" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                        <b>1.1.</b>
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Workshop setup</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../GETSTARTED.html">
+            
+                <a href="../GETSTARTED.html">
+            
+                    
+                        <b>2.1.</b>
+                    
+                    Exercise 0 - Get Started
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../exercise-1/">
+            
+                <a href="../exercise-1/">
+            
+                    
+                        <b>2.2.</b>
+                    
+                    Exercise 1 - Access IKS Cluster
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../exercise-2/">
+            
+                <a href="../exercise-2/">
+            
+                    
+                        <b>2.3.</b>
+                    
+                    Exercise 2 - Installing Istio
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../exercise-3/">
+            
+                <a href="../exercise-3/">
+            
+                    
+                        <b>2.4.</b>
+                    
+                    Exercise 3 - Deploying Guestbook App
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Creating a service mesh with Istio</li>
+        
+        
+    
+        <li class="chapter active" data-level="3.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                        <b>3.1.</b>
+                    
+                    Exercise 4 - Metrics and Tracing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../exercise-5/">
+            
+                <a href="../exercise-5/">
+            
+                    
+                        <b>3.2.</b>
+                    
+                    Exercise 5 - Expose with Istio Ingress
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../exercise-6/">
+            
+                <a href="../exercise-6/">
+            
+                    
+                        <b>3.3.</b>
+                    
+                    Exercise 6 - Perform traffic management
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Exercise 4 - Metrics and Tracing</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="exercise-4---observe-service-telemetry-metrics-and-tracing">Exercise 4 - Observe service telemetry: metrics and tracing</h1>
+<h3 id="challenges-with-microservices">Challenges with microservices</h3>
+<p>We all know that microservice architecture is the perfect fit for cloud native applications and it increases the delivery velocities greatly. Envision you have many microservices that are delivered by multiple teams, how do you observe the the overall platform and each of the service to find out exactly what is going on with each of the services?  When something goes wrong, how do you know which service or which communication among the few services are causing the problem?</p>
+<h3 id="istio-telemetry">Istio telemetry</h3>
+<p>Istio&apos;s tracing and metrics features are designed to provide broad and granular insight into the health of all services. Istio&apos;s role as a service mesh makes it the ideal data source for observability information, particularly in a microservices environment. As requests pass through multiple services, identifying performance bottlenecks becomes increasingly difficult using traditional debugging techniques. Distributed tracing provides a holistic view of requests transiting through multiple services, allowing for immediate identification of latency issues. With Istio, distributed tracing comes by default. This will expose latency, retry, and failure information for each hop in a request.</p>
+<p>You can read more about how <a href="https://istio.io/docs/concepts/policy-and-control/mixer.html" target="_blank">Istio mixer enables telemetry reporting</a>.</p>
+<h3 id="configure-istio-to-receive-telemetry-data">Configure Istio to receive telemetry data</h3>
+<ol>
+<li><p>Verify that the Grafana, Prometheus, Kiali and Jaeger add-ons were installed successfully. All add-ons are installed into the <code>istio-system</code> namespace.</p>
+<pre class="language-"><code class="lang-shell"> kubectl get pods -n istio-system
+ kubectl get services -n istio-system
+</code></pre>
+</li>
+<li><p>Obtain the guestbook endpoint to access the guestbook.</p>
+<p> You can access the guestbook via the external IP for your service as guestbook is deployed as a load balancer service. Get the EXTERNAL-IP of the guestbook service via output below:</p>
+<pre class="language-"><code class="lang-shell"> kubectl get service guestbook -n default
+</code></pre>
+<p> Go to this external ip address in the browser to try out your guestbook. This service will route you to either v1 or v2, at random. If you wish to see a different version, you&apos;ll need to do a hard refresh (<code>cmd + shift + r</code> on a mac, or <code>ctrl + f5</code> on a PC). Alternatively, you can <code>curl</code> the address.</p>
+</li>
+</ol>
+<p>     <a href="../README_images/guestbook1.png" rel="grouped" title="" target="_self" class="fancybox">
+       <img src="../README_images/guestbook1.png" alt="">
+     </a></p>
+<ol>
+<li><p>Generate a small load to the app, replacing guestbook_IP with your own IP.</p>
+<pre class="language-"><code class="lang-shell"> for i in {1..20}; do sleep 0.5; curl http://<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>guestbook_IP</span><span class="token punctuation">&gt;</span></span>/; done
+</code></pre>
+</li>
+</ol>
+<h2 id="view-guestbook-telemetry-data">View guestbook telemetry data</h2>
+<h4 id="grafana">Grafana</h4>
+<ol>
+<li><p>Establish port forwarding from local port 8082 to the Grafana instance:</p>
+<pre class="language-"><code class="lang-shell"> kubectl -n istio-system port-forward \
+   $(kubectl -n istio-system get pod -l app=grafana -o jsonpath=&apos;{.items[0].metadata.name}&apos;) \
+   8082:3000
+</code></pre>
+</li>
+<li><p>Click on the web preview icon (an eye) and select port 8082.</p>
+</li>
+</ol>
+<p>     <a href="../README_images/webpreview1.png" rel="grouped" title="" target="_self" class="fancybox">
+       <img src="../README_images/webpreview1.png" alt="">
+     </a></p>
+<ol>
+<li>Click on Home -&gt; Istio -&gt; Istio Service Dashboard.</li>
+<li>Select guestbook in the Service drop down.</li>
+<li>In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.</li>
+</ol>
+<p>     <a href="../README_images/grafana.png" rel="grouped" title="" target="_self" class="fancybox">
+       <img src="../README_images/grafana.png" alt="">
+     </a></p>
+<p>This Grafana dashboard provides metrics for each workload. Explore the other dashboard provided as well.</p>
+<ol>
+<li>Use Ctrl-C in the cloudshell to exit the port-foward when you are done.</li>
+</ol>
+<h4 id="prometheus">Prometheus</h4>
+<ol>
+<li><p>Establish port forwarding from local port 8083 to the Prometheus pod.</p>
+<pre class="language-"><code class="lang-shell"> kubectl -n istio-system port-forward \
+   $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath=&apos;{.items[0].metadata.name}&apos;) \
+   8083:9090
+</code></pre>
+</li>
+<li>Click on the web preview icon and select port 8083, and in the &#x201C;Expression&#x201D; input box, enter: <code>istio_request_bytes_count</code>. Click Execute.</li>
+<li>Then try another query: <code>istio_requests_total{destination_service=&quot;guestbook.default.svc.cluster.local&quot;, destination_version=&quot;2.0&quot;}</code></li>
+</ol>
+<p>     <a href="../README_images/prometheus.jpg" rel="grouped" title="" target="_self" class="fancybox">
+       <img src="../README_images/prometheus.jpg" alt="">
+     </a></p>
+<ol>
+<li>Explore the Graph tab as well.</li>
+<li>Use Ctrl-C to exit the port-foward when you are done.</li>
+</ol>
+<h4 id="kiali">Kiali</h4>
+<p>Kiali is an open-source project that installs as an add-on on top of Istio to visualize your service mesh. It provides deeper insight into how your microservices interact with one another, and provides features such as circuit breakers and request rates for your services.</p>
+<ol>
+<li><p>Create a secret which will be used to set the login credentials for Kiali</p>
+<blockquote>
+<pre class="language-"><code class="lang-shell">cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kiali
+  namespace: istio-system
+  labels:
+    app: kiali
+type: Opaque
+data:
+  username: &quot;YWRtaW4=&quot;
+  passphrase: &quot;YWRtaW4=&quot;
+EOF
+</code></pre>
+</blockquote>
+</li>
+<li><p>Establish port forwarding to the Kiali pod from local port 8084.</p>
+<pre class="language-"><code class="lang-shell"> kubectl -n istio-system port-forward \
+     $(kubectl -n istio-system get pod -l app=kiali -o jsonpath=&apos;{.items[0].metadata.name}&apos;) \
+     8084:20001
+</code></pre>
+</li>
+<li>Click on the web preview icon and select port 8084 to access the Kiali dashboard. Login with the following username/password: <code>admin/admin</code>.</li>
+<li>Click the &quot;Graph&quot; tab on the left side and select the default namespace to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the &quot;Edge Labels&quot; tab and choosing &quot;Traffic rate per second&quot;.</li>
+<li>In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.</li>
+</ol>
+<p>Kiali has a number of views to help you visualize your services. Click through the various tabs to explore the service graph, and the various views for workloads, applications and services.</p>
+<p>     <a href="../README_images/kiali.png" rel="grouped" title="" target="_self" class="fancybox">
+       <img src="../README_images/kiali.png" alt="">
+     </a> </p>
+<h4 id="continue-to-the-next-exercise"><a href="../exercise-4b/README.md">Continue to the next Exercise</a></h4>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../exercise-3/" class="navigation navigation-prev " aria-label="Previous page: Exercise 3 - Deploying Guestbook App">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../exercise-5/" class="navigation navigation-next " aria-label="Next page: Exercise 5 - Expose with Istio Ingress">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Exercise 4 - Metrics and Tracing","level":"3.1","depth":1,"next":{"title":"Exercise 5 - Expose with Istio Ingress","level":"3.2","depth":1,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"previous":{"title":"Exercise 3 - Deploying Guestbook App","level":"2.4","depth":1,"path":"exercise-3/README.md","ref":"exercise-3/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-4/README.md","mtime":"2020-01-28T18:25:21.173Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-28T18:26:52.820Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-collapsible-chapters/collapsible-chapters.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fancybox/jquery.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fancybox/jquery.mousewheel.pack.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fancybox/jquery.fancybox.pack.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fancybox/jquery.fancybox-buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fancybox/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-web-header/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-codetabs/codetabs.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
