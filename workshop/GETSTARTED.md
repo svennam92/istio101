@@ -22,5 +22,3 @@ In this section, you will login to your own IBM Cloud account, and then get acce
     ![](README_images/resource_list.png)
 
 1. Launch the **Kubernetes Dashboard** and have a look around! You can come back to this dashboard throughout your lab.
-
-### [Continue to Exercise 1](exercise-1/README.md)
