@@ -67,13 +67,13 @@ Let's leverage this feature with Istio ingress gateway:
 
     Example output:
     ```
-   Retrieving host names, certificates, IPs, and health check monitors for network load balancer (NLB) pods in cluster <cluster_name>...
     OK
-    Hostname                                                                             IP(s)               Health Monitor   SSL Cert Status   SSL Cert Secret Name   
-    mycluster-85f044fc29ce613c264409c04a76c95d-0001.us-east.containers.appdomain.cloud   ["169.1.1.1"]   None             created           mycluster-85f044fc29ce613c264409c04a76c95d-0001   
+    Hostname                                                                           IP(s)          Health Monitor   SSL Cert Status   SSL Cert Secret Name                              Secret Namespace   
+    fsistio41-0fe39ebd24140556c131d0790c06cdbc-0000.eu-gb.containers.appdomain.cloud   159.8.190.74   None             created           fsistio41-0fe39ebd24140556c131d0790c06cdbc-0000   default   
+    fsistio41-0fe39ebd24140556c131d0790c06cdbc-0001.eu-gb.containers.appdomain.cloud   159.8.190.75   None             created           fsistio41-0fe39ebd24140556c131d0790c06cdbc-0001   default   
     ```
 
-4. Make note of the NLB host name (<nlb_host_name>), as it will be used to access your Guestbook app in later parts of the course. Create an environment variable for it and test using curl or visit in your browser.
+4. Make note of the NLB host name ending in 0001 (<nlb_host_name>), as it will be used to access your Guestbook app in later parts of the course. Create an environment variable for it and test using curl or visit in your browser.
 
     Example:
     ```
