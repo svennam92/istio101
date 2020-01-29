@@ -11,6 +11,10 @@ After you complete this course, you'll be able to:
 - Set up the Istio Ingress Gateway
 - Perform simple traffic management, such as A/B tests and canary deployments
 
+
+## Architecture
+![](README_images/architecture.png)
+
 [Get Started](GETSTARTED.md)
 
 ## Workshop setup
