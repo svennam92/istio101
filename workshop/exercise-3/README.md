@@ -144,7 +144,10 @@ Watson Tone Analyzer detects the tone from the words that users enter into the G
 
 We've created a shared Tone Analyzer service for you to use for this lab. Refer back to the API_KEY and URL given by the "Grant Cluster" app.
 
-1. Open the `analyzer-deployment.yaml` with `vi` or a similar editor and find the env section near the end of the file. Replace `YOUR_API_KEY` with the API key from Grant Cluster, and replace `YOUR_URL` with `https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f`. Save the file.
+1. Edit `analyzer-deployment.yaml` with `vi`, a similar edtior, or the `sed` commands below:
+    * Replace `YOUR_API_KEY` with the API key from Grant Cluster
+    * Replace `YOUR_URL` with `https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f`
+    * Save the file.
 
     > You can do also do this with the sed command:
 
