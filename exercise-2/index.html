@@ -300,14 +300,18 @@
 <p>In this module, you will use the Managed Istio add-on to install Istio on your cluster. </p>
 <p>Managed Istio is available as part of IBM Cloud&#x2122; Kubernetes Service. The service provides seamless installation of Istio, automatic updates and lifecycle management of control plane components, and integration with platform logging and monitoring tools.</p>
 <ol>
-<li><p>Run this commmand to install Managed Istio:</p>
-<pre class="language-"><code class="lang-shell"> ibmcloud ks cluster addon enable istio --cluster $MYCLUSTER
-</code></pre>
+<li><p>Navigate to your cluster in the <a href="https://cloud.ibm.com/kubernetes/clusters" target="_blank">IBM Cloud Dashboard</a>, switch to the <code>Add-ons</code> tab and install Istio:</p>
+<p>      <a href="../README_images/istioinstall.png" rel="grouped" title="" target="_self" class="fancybox">
+       <img src="../README_images/istioinstall.png" alt="">
+     </a></p>
+ <!-- ```shell
+ ibmcloud ks cluster addon enable istio --cluster $MYCLUSTER
+ ``` -->
 <blockquote>
-<p>It can take up to 5 minutes for the install to begin.</p>
+<p>Remember to switch to the IBM account where the cluster exists. It can take up to 5 minutes for the install to begin.</p>
 </blockquote>
 </li>
-<li><p>Ensure that the <code>istio-*</code> Kubernetes services are deployed before you continue. This generally takes 30 seconds, but can take up to 5 min.</p>
+<li><p>After waiting, check that the <code>istio-*</code> Kubernetes services are deployed before you continue.</p>
 <pre class="language-"><code class="lang-shell"> kubectl get svc -n istio-system
 </code></pre>
 <p> Sample output:</p>
@@ -329,10 +333,8 @@
  tracing                  ClusterIP      172.21.210.248   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          80/TCP                                                                                                                                       1s
  zipkin                   ClusterIP      172.21.214.67    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          9411/TCP                                                                                                                                     1s
 </code></pre>
+<p> <strong>Note: If your istio-ingressgateway service IP is <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pending</span><span class="token punctuation">&gt;</span></span></code>, confirm that you are using a standard/paid cluster. Free cluster is not supported for this lab.</strong></p>
 </li>
-</ol>
-<p><strong>Note: If your istio-ingressgateway service IP is <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pending</span><span class="token punctuation">&gt;</span></span></code>, confirm that you are using a standard/paid cluster. Free cluster is not supported for this lab.</strong></p>
-<ol>
 <li><p>Ensure the corresponding pods <code>istio-citadel-*</code>, <code>istio-ingressgateway-*</code>, <code>istio-pilot-*</code>, and <code>istio-policy-*</code> are all in <strong><code>Running</code></strong> state before you continue.</p>
 <pre class="language-"><code class="lang-shell"> kubectl get pods -n istio-system
 </code></pre>
@@ -398,7 +400,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Installing Istio","level":"2.3","depth":1,"next":{"title":"Deploying Guestbook App","level":"2.4","depth":1,"path":"exercise-3/README.md","ref":"exercise-3/README.md","articles":[]},"previous":{"title":"Access IKS Cluster","level":"2.2","depth":1,"path":"exercise-1/README.md","ref":"exercise-1/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-2/README.md","mtime":"2020-01-29T11:52:06.314Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-29T11:53:32.969Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Installing Istio","level":"2.3","depth":1,"next":{"title":"Deploying Guestbook App","level":"2.4","depth":1,"path":"exercise-3/README.md","ref":"exercise-3/README.md","articles":[]},"previous":{"title":"Access IKS Cluster","level":"2.2","depth":1,"path":"exercise-1/README.md","ref":"exercise-1/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-2/README.md","mtime":"2020-01-29T12:50:12.779Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-29T12:51:24.126Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
