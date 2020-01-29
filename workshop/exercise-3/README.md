@@ -152,11 +152,11 @@ We've created a shared Tone Analyzer service for you to use for this lab. Refer 
     > You can do also do this with the sed command:
 
     ```
-    sed -i '' 's/YOUR_API_KEY/{replace_with_api_key}/g' analyzer-deployment.yaml
+    sed -i 's/YOUR_API_KEY/{replace_with_api_key}/g' analyzer-deployment.yaml
     ```
 
     ```
-    sed -i '' 's+YOUR_URL+https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f+g' analyzer-deployment.yaml
+    sed -i 's+YOUR_URL+https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f+g' analyzer-deployment.yaml
     ```
 
 2. Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.
