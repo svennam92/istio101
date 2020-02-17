@@ -304,7 +304,7 @@
 <p>You can read more about how <a href="https://istio.io/docs/concepts/policy-and-control/mixer.html" target="_blank">Istio mixer enables telemetry reporting</a>.</p>
 <h3 id="configure-istio-to-receive-telemetry-data">Configure Istio to receive telemetry data</h3>
 <ol>
-<li><p>Verify that the Grafana, Prometheus, Kiali and Jaeger add-ons were installed successfully. All add-ons are installed into the <code>istio-system</code> namespace.</p>
+<li><p>Verify that the Grafana and Kiali add-ons were installed successfully. All add-ons are installed into the <code>istio-system</code> namespace.</p>
 <pre class="language-"><code class="lang-shell"> kubectl get pods -n istio-system
  kubectl get services -n istio-system
 </code></pre>
@@ -328,48 +328,59 @@
 <h2 id="view-guestbook-telemetry-data">View guestbook telemetry data</h2>
 <h4 id="grafana">Grafana</h4>
 <ol>
-<li><p>Establish port forwarding from local port 8082 to the Grafana instance:</p>
-<pre class="language-"><code class="lang-shell"> kubectl -n istio-system port-forward \
-   $(kubectl -n istio-system get pod -l app=grafana -o jsonpath=&apos;{.items[0].metadata.name}&apos;) \
-   8082:3000
+<li><p>Expose Grafana on the Load Balancer so you can access it over the web:</p>
+<pre class="language-"><code class="lang-shell"> kubectl expose deployment grafana -n istio-system --name=grafana-external --type=LoadBalancer
 </code></pre>
+<blockquote>
+<p>Note: Generally, you would want to secure Grafana before you do this. You could also securely port-forward Grafana to your local machine if you&apos;re using <code>kubectl</code> on your local terminal.</p>
+</blockquote>
 </li>
-<li><p>Click on the web preview icon (an eye) and select port 8082.</p>
+<li><p>Grab the URL to access your Grafana dashboard:</p>
+<pre class="language-"><code class="lang-shell"> kubectl get svc/grafana-external -n istio-system
+</code></pre>
+<p> Sample output:</p>
+<pre class="language-"><code> NAME               TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
+ grafana-external   LoadBalancer   172.21.177.42   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>your_ip_here</span><span class="token punctuation">&gt;</span></span>  3000:32011/TCP   114s
+</code></pre><p> Combine the External IP and the port 3000 to access Grafana: <code>http://your-ip-here:3000</code></p>
 </li>
-</ol>
-<p>     <a href="../README_images/webpreview1.png" rel="grouped" title="" target="_self" class="fancybox">
-       <img src="../README_images/webpreview1.png" alt="">
-     </a></p>
-<ol>
-<li>Click on Home -&gt; Istio -&gt; Istio Service Dashboard.</li>
+<li><p>Click on Home -&gt; Istio -&gt; Istio Service Dashboard.</p>
+</li>
 <li>Select guestbook in the Service drop down.</li>
 <li>In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.</li>
 </ol>
 <p>     <a href="../README_images/grafana.png" rel="grouped" title="" target="_self" class="fancybox">
        <img src="../README_images/grafana.png" alt="">
      </a></p>
-<p>This Grafana dashboard provides metrics for each workload. Explore the other dashboard provided as well.</p>
-<ol>
-<li>Use Ctrl-C in the cloudshell to exit the port-foward when you are done.</li>
-</ol>
-<h4 id="prometheus">Prometheus</h4>
-<ol>
-<li><p>Establish port forwarding from local port 8083 to the Prometheus pod.</p>
-<pre class="language-"><code class="lang-shell"> kubectl -n istio-system port-forward \
-   $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath=&apos;{.items[0].metadata.name}&apos;) \
-   8083:9090
-</code></pre>
-</li>
-<li>Click on the web preview icon and select port 8083, and in the &#x201C;Expression&#x201D; input box, enter: <code>istio_request_bytes_count</code>. Click Execute.</li>
-<li>Then try another query: <code>istio_requests_total{destination_service=&quot;guestbook.default.svc.cluster.local&quot;, destination_version=&quot;2.0&quot;}</code></li>
-</ol>
-<p>     <a href="../README_images/prometheus.jpg" rel="grouped" title="" target="_self" class="fancybox">
-       <img src="../README_images/prometheus.jpg" alt="">
-     </a></p>
-<ol>
-<li>Explore the Graph tab as well.</li>
-<li>Use Ctrl-C to exit the port-foward when you are done.</li>
-</ol>
+<p>This Grafana dashboard provides metrics for each workload. Explore the other dashboards provided as well.</p>
+<!-- #### Prometheus
+
+1. Expose Prometheus on the Load Balancer so you can access it over the web:
+
+    ```shell
+    kubectl expose deployment prometheus -n istio-system --name=prometheus-external --type=LoadBalancer
+    ```
+
+2. Grab the URL to access your Prometheus dashboard:
+
+    ```shell
+    kubectl get svc/prometheus-external -n istio-system
+    ```
+
+    Sample output:
+    ```
+    NAME                  TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
+    prometheus-external   LoadBalancer   172.21.177.42   <your_ip_here>  9090:32357/TCP   8s
+    ```
+
+    Combine the External IP and the port 9090 to access Prometheus: `http://your-ip-here:3000`
+
+3. Click on the web preview icon and select port 8083, and in the “Expression” input box, enter: `istio_request_bytes_count`. Click Execute.
+4. Then try another query: `istio_requests_total{destination_service="guestbook.default.svc.cluster.local", destination_version="2.0"}`
+
+![](../README_images/prometheus.jpg)
+
+5. Explore the Graph tab as well.
+6. Use Ctrl-C to exit the port-foward when you are done. -->
 <h4 id="kiali">Kiali</h4>
 <p>Kiali is an open-source project that installs as an add-on on top of Istio to visualize your service mesh. It provides deeper insight into how your microservices interact with one another, and provides features such as circuit breakers and request rates for your services.</p>
 <ol>
@@ -391,13 +402,20 @@ EOF
 </code></pre>
 </blockquote>
 </li>
-<li><p>Establish port forwarding to the Kiali pod from local port 8084.</p>
-<pre class="language-"><code class="lang-shell"> kubectl -n istio-system port-forward \
-     $(kubectl -n istio-system get pod -l app=kiali -o jsonpath=&apos;{.items[0].metadata.name}&apos;) \
-     8084:20001
+<li><p>Expose Kiali on the Load Balancer so you can access it over the web:</p>
+<pre class="language-"><code class="lang-shell"> kubectl expose deployment kiali -n istio-system --name=kiali-external --type=LoadBalancer --port=20001
 </code></pre>
 </li>
-<li>Click on the web preview icon and select port 8084 to access the Kiali dashboard. Login with the following username/password: <code>admin/admin</code>.</li>
+<li><p>Grab the URL to access your Kiali dashboard:</p>
+<pre class="language-"><code class="lang-shell"> kubectl get svc/kiali-external -n istio-system
+</code></pre>
+<p> Sample output:</p>
+<pre class="language-"><code> NAME             TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)           AGE
+ kiali-external   LoadBalancer   172.21.18.146   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>your_ip_here</span><span class="token punctuation">&gt;</span></span>  20001:31374/TCP   3m52s
+</code></pre><p> Combine the External IP and the port 20001 to access Kiali: <code>http://your-ip-here:20001</code></p>
+</li>
+<li><p>Login with the following username/password: <code>admin/admin</code>.</p>
+</li>
 <li>Click the &quot;Graph&quot; tab on the left side and select the default namespace to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the &quot;Edge Labels&quot; tab and choosing &quot;Traffic rate per second&quot;.</li>
 <li>In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.</li>
 </ol>
@@ -448,7 +466,7 @@ EOF
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Metrics and Tracing","level":"3.1","depth":1,"next":{"title":"Expose with Istio Ingress","level":"3.2","depth":1,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"previous":{"title":"Deploying Guestbook App","level":"2.4","depth":1,"path":"exercise-3/README.md","ref":"exercise-3/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-4/README.md","mtime":"2020-01-29T12:59:12.889Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-29T13:00:20.347Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Metrics and Tracing","level":"3.1","depth":1,"next":{"title":"Expose with Istio Ingress","level":"3.2","depth":1,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"previous":{"title":"Deploying Guestbook App","level":"2.4","depth":1,"path":"exercise-3/README.md","ref":"exercise-3/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-4/README.md","mtime":"2020-02-17T03:01:38.192Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-17T03:02:55.090Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
