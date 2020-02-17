@@ -159,7 +159,22 @@ We've created a shared Tone Analyzer service for you to use for this lab. Refer 
     sed -i 's+YOUR_URL+https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f+g' analyzer-deployment.yaml
     ```
 
-2. Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.
+2. Run `cat analyzer-deployment.yaml` and make sure the values under `env:` are all properly set.
+
+    For example:
+    ```
+            ...
+            env:
+            - name: VCAP_SERVICES_TONE_ANALYZER_API_KEY
+            value: <you should see your API key here>
+            - name : VCAP_SERVICES_TONE_ANALYZER_TOKEN_ADDRESS
+            value: "https://iam.bluemix.net/identity/token"
+            - name: VCAP_SERVICES_TONE_ANALYZER_SERVICE_API
+            value: https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f
+            ...
+    ```
+
+3. Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.
 
     ```shell
     kubectl apply -f analyzer-deployment.yaml

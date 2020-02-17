@@ -73,7 +73,7 @@ Let's leverage this feature with Istio ingress gateway:
     fsistio41-0fe39ebd24140556c131d0790c06cdbc-0001.eu-gb.containers.appdomain.cloud   159.8.190.75   None             created           fsistio41-0fe39ebd24140556c131d0790c06cdbc-0001   default   
     ```
 
-4. Make note of the NLB host name ending in 0001 (<nlb_host_name>), as it will be used to access your Guestbook app in later parts of the course. Create an environment variable for it and test using curl or visit in your browser.
+4. Make note of the NLB host name ending in 0001, as it will be used to access your Guestbook app in later parts of the course. Create an environment variable for it and test using curl or visit in your browser.
 
     Example:
     ```
@@ -86,13 +86,13 @@ Let's leverage this feature with Istio ingress gateway:
 5. Enable health check of the NLB host for Istio ingress gateway:
 
     ```shell
-    ibmcloud ks nlb-dns-monitor-configure --cluster $MYCLUSTER --nlb-host $NLB_HOSTNAME --type HTTP --description "Istio ingress gateway health check" --path "/healthz/ready" --port 15020 --enable
+    ibmcloud ks nlb-dns monitor configure --cluster $MYCLUSTER --nlb-host $NLB_HOSTNAME --type HTTP --description "Istio ingress gateway health check" --path "/healthz/ready" --port 15020 --enable
     ```
 
 6. Monitor the health check of the NLB host for Istio ingress gateway:
 
     ```shell
-    ibmcloud ks nlb-dns-monitor-status --cluster $MYCLUSTER
+    ibmcloud ks nlb-dns monitor status --cluster $MYCLUSTER
     ```
     
     After waiting for a bit, you should start to see the health monitor's status changed to Enabled.

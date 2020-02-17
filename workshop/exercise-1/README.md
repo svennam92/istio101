@@ -3,13 +3,13 @@
 ## Connect to your cluster using the Cloud Shell
 For this lab, a web shell is provided for you with all the necessary tools. Use this web shell to perform the tasks in this lab. If you are having problems with this web shell, you can use a local docker container and follow the instructions [here](https://github.com/rvennam/istio101/blob/docker-env/workshop/exercise-1/README.md) instead.
 
-1. Using Chrome or Firefox, go to the [Cloud Shell](https://workshop.shell.cloud.ibm.com/) and enter the passcode provided by the lab instructors. Click Continue.
+Using Chrome or Firefox:
 
-1. Using the account drop down, choose the **IBM** account.
+1. Navigate to [IBM Cloud](cloud.ibm.com)
+2. Choose the IBM account
+3. Click the Cloud Shell icon on the top right.
 
-   ![](../README_images/cloudshell.png)
-   
-1. Click on the Terminal icon to launch your web shell.
+    ![](../README_images/cloudshell.png)
 
 ## Access your cluster
 Learn how to set the context to work with your cluster by using the `kubectl` CLI, access the Kubernetes dashboard, and gather basic information about your cluster.
