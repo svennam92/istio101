@@ -5,9 +5,9 @@ For this lab, a web shell is provided for you with all the necessary tools. Use 
 
 Using Chrome or Firefox:
 
-1. Navigate to [IBM Cloud](cloud.ibm.com)
-2. Choose the IBM account
-3. Click the Cloud Shell icon on the top right.
+1.  Navigate to [IBM Cloud](cloud.ibm.com)
+2.  Choose the IBM account
+3.  Click the Cloud Shell icon on the top right.
 
     ![](../README_images/cloudshell.png)
 
@@ -37,6 +37,7 @@ Learn how to set the context to work with your cluster by using the `kubectl` CL
     d. Copy and paste the output command from the previous step to set the `KUBECONFIG` environment variable and configure your CLI to run `kubectl` commands against your cluster.
 
     Example: (_Do not copy/paste this exact command, but your result from the previous command_)
+    
     ```shell
     export KUBECONFIG=/Users/user-name/.bluemix/plugins/container-service/clusters/mycluster/kube-config-hou02-mycluster.yml
     ```
@@ -63,7 +64,7 @@ Learn how to set the context to work with your cluster by using the `kubectl` CL
 
 ## Clone the lab repo
 
-1. From your command line, run:
+1.  From your command line, run:
 
     ```shell
     git clone https://github.com/IBM/istio101

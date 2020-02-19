@@ -12,14 +12,14 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
 
 ### Configure Istio to receive telemetry data
 
-1. Verify that the Grafana and Kiali add-ons were installed successfully. All add-ons are installed into the `istio-system` namespace.
+1.  Verify that the Grafana and Kiali add-ons were installed successfully. All add-ons are installed into the `istio-system` namespace.
 
     ```shell
     kubectl get pods -n istio-system
     kubectl get services -n istio-system
     ```
 
-3. Obtain the guestbook endpoint to access the guestbook.
+3.  Obtain the guestbook endpoint to access the guestbook.
 
     You can access the guestbook via the external IP for your service as guestbook is deployed as a load balancer service. Get the EXTERNAL-IP of the guestbook service via output below:
 
@@ -31,7 +31,7 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
 
 ![](../README_images/guestbook1.png)
 
-1. Generate a small load to the app, replacing guestbook_IP with your own IP.
+1.  Generate a small load to the app, replacing guestbook_IP with your own IP.
 
     ```shell
     for i in {1..20}; do sleep 0.5; curl http://<guestbook_IP>/; done
@@ -42,14 +42,14 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
 
 #### Grafana
 
-1. Expose Grafana on the Load Balancer so you can access it over the web:
+1.  Expose Grafana on the Load Balancer so you can access it over the web:
 
     ```shell
     kubectl expose deployment grafana -n istio-system --name=grafana-external --type=LoadBalancer
     ```
     > Note: Generally, you would want to secure Grafana before you do this. You could also securely port-forward Grafana to your local machine if you're using `kubectl` on your local terminal.
 
-2. Grab the URL to access your Grafana dashboard:
+2.  Grab the URL to access your Grafana dashboard:
 
     ```shell
     kubectl get svc/grafana-external -n istio-system
@@ -63,9 +63,9 @@ You can read more about how [Istio mixer enables telemetry reporting](https://is
 
     Combine the External IP and the port 3000 to access Grafana: `http://your-ip-here:3000`
 
-3. Click on Home -> Istio -> Istio Service Dashboard.
-4. Select guestbook in the Service drop down.
-5. In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.
+3.  Click on Home -> Istio -> Istio Service Dashboard.
+4.  Select `guestbook` in the Service drop down.
+5.  In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.
 
 ![](../README_images/grafana.png)
 
@@ -106,7 +106,7 @@ This Grafana dashboard provides metrics for each workload. Explore the other das
 Kiali is an open-source project that installs as an add-on on top of Istio to visualize your service mesh. It provides deeper insight into how your microservices interact with one another, and provides features such as circuit breakers and request rates for your services.
 
 
-1. Create a secret which will be used to set the login credentials for Kiali
+1.  Create a secret which will be used to set the login credentials for Kiali
 
     > ```shell
     > cat <<EOF | kubectl apply -f -
@@ -124,13 +124,13 @@ Kiali is an open-source project that installs as an add-on on top of Istio to vi
     > EOF
     > ```
 
-1. Expose Kiali on the Load Balancer so you can access it over the web:
+1.  Expose Kiali on the Load Balancer so you can access it over the web:
 
     ```shell
     kubectl expose deployment kiali -n istio-system --name=kiali-external --type=LoadBalancer --port=20001
     ```
 
-2. Grab the URL to access your Kiali dashboard:
+2.  Grab the URL to access your Kiali dashboard:
 
     ```shell
     kubectl get svc/kiali-external -n istio-system
@@ -144,9 +144,12 @@ Kiali is an open-source project that installs as an add-on on top of Istio to vi
 
     Combine the External IP and the port 20001 to access Kiali: `http://your-ip-here:20001`
 
-3. Login with the following username/password: `admin/admin`.
-4. Click the "Graph" tab on the left side and select the default namespace to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the "Edge Labels" tab and choosing "Traffic rate per second".
-5. In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.
+3.  Login with the following username/password: `admin/admin`.
+4.  Click the "Graph" tab on the left side and select the default namespace to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the "Edge Labels" tab and choosing "Traffic rate per second".
+
+    > Info: You'll need to access your Guestbook application and type an entry for the graph to be generated and connected properly.
+    
+5.  In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.
 
 Kiali has a number of views to help you visualize your services. Click through the various tabs to explore the service graph, and the various views for workloads, applications and services.
 

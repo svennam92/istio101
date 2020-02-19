@@ -8,14 +8,14 @@ An Ingress Gateway resource can be created to allow external requests through th
 
 ### Expose the Guestbook app with Ingress Gateway
 
-1. Configure the guestbook default route with the Istio Ingress Gateway. The `guestbook-gateway.yaml` file is in this repository (istio101) in the `workshop/plans` directory.
+1.  Configure the guestbook default route with the Istio Ingress Gateway. The `guestbook-gateway.yaml` file is in this repository (istio101) in the `workshop/plans` directory.
 
 ```shell
 cd ../../plans
 kubectl create -f guestbook-gateway.yaml
 ```
 
-2. Get the **EXTERNAL-IP** of the Istio Ingress Gateway.
+2.  Get the **EXTERNAL-IP** of the Istio Ingress Gateway.
 
 ```shell
 kubectl get service istio-ingressgateway -n istio-system
@@ -27,7 +27,7 @@ istio-ingressgateway   LoadBalancer   172.21.254.53    169.6.1.1       80:31380/
 2d
 ```
 
-3. Make note of the external IP address that you retrieved in the previous step, as it will be used to access the Guestbook app in later parts of the course. Create an environment variable called $INGRESS_IP with your IP address.
+3.  Make note of the external IP address that you retrieved in the previous step, as it will be used to access the Guestbook app in later parts of the course. Create an environment variable called $INGRESS_IP with your IP address.
 
 Example:
 ```
@@ -46,20 +46,20 @@ You can run the IBM Cloud Kubernetes Service ALB, an API gateway of your choice,
     
 Let's leverage this feature with Istio ingress gateway:
 
-1. Let's first check if you have any NLB host names for your cluster:
+1.  Let's first check if you have any NLB host names for your cluster:
 
     ```shell
     ibmcloud ks nlb-dnss --cluster $MYCLUSTER
     ```
    If you haven't used this feature before, you will get an empty list.
     
-2. Create the NLB host with the Istio ingress gateway's public IP address:
+2.  Create the NLB host with the Istio ingress gateway's public IP address:
 
     ```shell
     ibmcloud ks nlb-dns-create --cluster $MYCLUSTER --ip $INGRESS_IP
     ```
 
-3. List the NLB host names for your cluster:
+3.  List the NLB host names for your cluster:
 
     ```shell
     ibmcloud ks nlb-dnss --cluster $MYCLUSTER
@@ -73,7 +73,7 @@ Let's leverage this feature with Istio ingress gateway:
     fsistio41-0fe39ebd24140556c131d0790c06cdbc-0001.eu-gb.containers.appdomain.cloud   159.8.190.75   None             created           fsistio41-0fe39ebd24140556c131d0790c06cdbc-0001   default   
     ```
 
-4. Make note of the NLB host name ending in 0001, as it will be used to access your Guestbook app in later parts of the course. Create an environment variable for it and test using curl or visit in your browser.
+4.  Make note of the NLB host name ending in 0001, as it will be used to access your Guestbook app in later parts of the course. Create an environment variable for it and test using curl or visit in your browser.
 
     Example:
     ```
@@ -83,13 +83,13 @@ Let's leverage this feature with Istio ingress gateway:
     curl $NLB_HOSTNAME
     ```
 
-5. Enable health check of the NLB host for Istio ingress gateway:
+5.  Enable health check of the NLB host for Istio ingress gateway:
 
     ```shell
     ibmcloud ks nlb-dns monitor configure --cluster $MYCLUSTER --nlb-host $NLB_HOSTNAME --type HTTP --description "Istio ingress gateway health check" --path "/healthz/ready" --port 15020 --enable
     ```
 
-6. Monitor the health check of the NLB host for Istio ingress gateway:
+6.  Monitor the health check of the NLB host for Istio ingress gateway:
 
     ```shell
     ibmcloud ks nlb-dns monitor status --cluster $MYCLUSTER

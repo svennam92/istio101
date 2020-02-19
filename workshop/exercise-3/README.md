@@ -5,13 +5,13 @@ The Guestbook app is a sample app for users to leave comments. It consists of a 
 ![](../README_images/istio1.jpg)
 
 ### Download the Guestbook app
-1. Clone the Guestbook app into the `workshop` directory.
+1.  Clone the Guestbook app into the `workshop` directory.
 
     ```shell
     git clone https://github.com/IBM/guestbook.git
     ```
 
-2. Navigate into the app directory.
+2.  Navigate into the app directory.
 
     ```shell
     cd guestbook/v2
@@ -20,13 +20,13 @@ The Guestbook app is a sample app for users to leave comments. It consists of a 
 ### Enable the automatic sidecar injection for the default namespace
 In Kubernetes, a sidecar is a utility container in the pod, and its purpose is to support the main container. For Istio to work, Envoy proxies must be deployed as sidecars to each pod of the deployment. There are two ways of injecting the Istio sidecar into a pod: manually using the istioctl CLI tool or automatically using the Istio sidecar injector. In this exercise, we will use the automatic sidecar injection provided by Istio.
 
-1. Annotate the default namespace to enable automatic sidecar injection:
+1.  Annotate the default namespace to enable automatic sidecar injection:
     
     ``` shell
     kubectl label namespace default istio-injection=enabled
     ```
     
-2. Validate the namespace is annotated for automatic sidecar injection:
+2.  Validate the namespace is annotated for automatic sidecar injection:
     
     ``` shell
     kubectl get namespace -L istio-injection
@@ -43,7 +43,7 @@ In Kubernetes, a sidecar is a utility container in the pod, and its purpose is t
 ### Create a Redis database
 The Redis database is a service that you can use to persist the data of your app. The Redis database comes with a master and slave modules.
 
-1. Create the Redis controllers and services for both the master and the slave.
+1.  Create the Redis controllers and services for both the master and the slave.
 
     ``` shell
     kubectl create -f redis-master-deployment.yaml
@@ -52,7 +52,7 @@ The Redis database is a service that you can use to persist the data of your app
     kubectl create -f redis-slave-service.yaml
     ```
 
-2. Verify that the Redis controllers for the master and the slave are created.
+2.  Verify that the Redis controllers for the master and the slave are created.
 
     ```shell
     kubectl get deployment
@@ -64,7 +64,7 @@ The Redis database is a service that you can use to persist the data of your app
     redis-slave    2/2     2            2           2m15s
     ```
 
-3. Verify that the Redis services for the master and the slave are created.
+3.  Verify that the Redis services for the master and the slave are created.
 
     ```shell
     kubectl get svc
@@ -76,7 +76,7 @@ The Redis database is a service that you can use to persist the data of your app
     redis-slave    ClusterIP      172.21.205.35   <none>          6379/TCP       5d
     ```
 
-4. Verify that the Redis pods for the master and the slave are up and running.
+4.  Verify that the Redis pods for the master and the slave are up and running.
 
     ```shell
     kubectl get pods
@@ -91,7 +91,7 @@ The Redis database is a service that you can use to persist the data of your app
 
 ## Install the Guestbook app
 
-1. Inject the Istio Envoy sidecar into the guestbook pods, and deploy the Guestbook app on to the Kubernetes cluster. Deploy both the v1 and v2 versions of the app:
+1.  Inject the Istio Envoy sidecar into the guestbook pods, and deploy the Guestbook app on to the Kubernetes cluster. Deploy both the v1 and v2 versions of the app:
 
     ```shell
     kubectl apply -f ../v1/guestbook-deployment.yaml
@@ -100,13 +100,13 @@ The Redis database is a service that you can use to persist the data of your app
 
     These commands deploy the Guestbook app on to the Kubernetes cluster. Since we enabled automation sidecar injection, these pods will be also include an Envoy sidecar as they are started in the cluster. Here we have two versions of deployments, a new version (`v2`) in the current directory, and a previous version (`v1`) in a sibling directory. They will be used in future sections to showcase the Istio traffic routing capabilities.
 
-2. Create the guestbook service.
+2.  Create the guestbook service.
 
     ```shell
     kubectl create -f guestbook-service.yaml
     ```
 
-3. Verify that the service was created.
+3.  Verify that the service was created.
 
     ```shell
     kubectl get svc
@@ -118,7 +118,7 @@ The Redis database is a service that you can use to persist the data of your app
     ...
     ```
 
-4. Verify that the pods are up and running.
+4.  Verify that the pods are up and running.
 
     ```shell
     kubectl get pods
@@ -144,7 +144,7 @@ Watson Tone Analyzer detects the tone from the words that users enter into the G
 
 We've created a shared Tone Analyzer service for you to use for this lab. Refer back to the API_KEY and URL given by the "Grant Cluster" app.
 
-1. Edit `analyzer-deployment.yaml` with `vi`, a similar editor, or the `sed` commands below:
+1.  Edit `analyzer-deployment.yaml` with `vi`, a similar editor, or the `sed` commands below:
     * Replace `YOUR_API_KEY` with the API key from Grant Cluster
     * Replace `YOUR_URL` with `https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f`
     * Save the file.
@@ -159,7 +159,7 @@ We've created a shared Tone Analyzer service for you to use for this lab. Refer 
     sed -i 's+YOUR_URL+https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f+g' analyzer-deployment.yaml
     ```
 
-2. Run `cat analyzer-deployment.yaml` and make sure the values under `env:` are all properly set.
+2.  Run `cat analyzer-deployment.yaml` and make sure the values under `env:` are all properly set.
 
     For example:
     ```
@@ -174,7 +174,7 @@ We've created a shared Tone Analyzer service for you to use for this lab. Refer 
             ...
     ```
 
-3. Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.
+3.  Deploy the analyzer pods and service, using the `analyzer-deployment.yaml` and `analyzer-service.yaml` files found in the `guestbook/v2` directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.
 
     ```shell
     kubectl apply -f analyzer-deployment.yaml
