@@ -41,7 +41,7 @@ Managed Istio is available as part of IBM Cloud™ Kubernetes Service. The servi
 
     ```
 
-    **Note: If your istio-ingressgateway service IP is `<pending>`, confirm that you are using a standard/paid cluster. Free cluster is not supported for this lab.**
+    **Note: If your istio-ingressgateway service IP is `<pending>`, please check with the lab instructor before proceeding.**
 
 1.  Ensure the corresponding pods `istio-citadel-*`, `istio-ingressgateway-*`, `istio-pilot-*`, and `istio-policy-*` are all in **`Running`** state before you continue.
 
@@ -67,4 +67,15 @@ Managed Istio is available as part of IBM Cloud™ Kubernetes Service. The servi
 
     Before you continue, make sure all the pods are deployed and either in the **`Running`** or **`Completed`** state. If they're in `pending` state, wait a few minutes to let the installation and deployment finish.
 
-    Congratulations! You successfully installed Istio into your cluster.
+2. Check the version of your Istio:
+    ```shell
+    istioctl version
+    ```
+    Sample output:
+    ```shell
+    client version: 1.4.4
+    control plane version: 1.4.4
+    data plane version: none
+    ```
+    
+Congratulations! You successfully installed Istio into your cluster.
