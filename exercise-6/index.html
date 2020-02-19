@@ -17,10 +17,6 @@
     
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-collapsible-chapters/collapsible-chapters.css">
                 
             
@@ -46,6 +42,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-codetabs/codetabs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -307,71 +307,71 @@
 <p>In the Guestbook app, there is one service: guestbook. The guestbook service has two distinct versions: the base version (version 1) and the modernized version (version 2). Each version of the service has three instances based on the number of replicas in <a href="https://github.com/linsun/examples/blob/master/guestbook-go/guestbook-deployment.yaml" target="_blank">guestbook-deployment.yaml</a> and <a href="https://github.com/linsun/examples/blob/master/guestbook-go/guestbook-v2-deployment.yaml" target="_blank">guestbook-v2-deployment.yaml</a>. By default, prior to creating any rules, Istio will route requests equally across version 1 and version 2 of the guestbook service and their respective instances in a round robin manner. However, new versions of a service can easily introduce bugs to the service mesh, so following A/B Testing and Canary Deployments is good practice.</p>
 <h3 id="ab-testing-with-istio">A/B testing with Istio</h3>
 <p>A/B testing is a method of performing identical tests against two separate service versions in order to determine which performs better. To prevent Istio from performing the default routing behavior between the original and modernized guestbook service, define the following rules (found in <a href="https://github.com/IBM/istio101/tree/master/workshop/plans" target="_blank">istio101/workshop/plans</a>):</p>
-<pre class="language-"><code class="lang-shell">kubectl create -f guestbook-destination.yaml
+<pre><code class="lang-shell">kubectl create -f guestbook-destination.yaml
 </code></pre>
 <p>Let&apos;s examine the rule:</p>
-<pre class="language-"><code class="lang-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> DestinationRule
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> destination<span class="token punctuation">-</span>guestbook
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">host</span><span class="token punctuation">:</span> guestbook
-  <span class="token key atrule">subsets</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> v1
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&apos;1.0&apos;</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> v2
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&apos;2.0&apos;</span>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> networking.istio.io/v1alpha3
+<span class="hljs-attr">kind:</span> DestinationRule
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> destination-rule-guestbook
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  host:</span> guestbook
+<span class="hljs-attr">  subsets:</span>
+<span class="hljs-attr">    - name:</span> v1
+<span class="hljs-attr">      labels:</span>
+<span class="hljs-attr">        version:</span> <span class="hljs-string">&apos;1.0&apos;</span>
+<span class="hljs-attr">    - name:</span> v2
+<span class="hljs-attr">      labels:</span>
+<span class="hljs-attr">        version:</span> <span class="hljs-string">&apos;2.0&apos;</span>
 </code></pre>
 <p>Next, apply the VirtualService</p>
-<pre class="language-"><code class="lang-shell">kubectl replace -f virtualservice-all-v1.yaml
+<pre><code class="lang-shell">kubectl replace -f virtualservice-all-v1.yaml
 </code></pre>
 <p>Let&apos;s examine the rule:</p>
-<pre class="language-"><code class="lang-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> virtual<span class="token punctuation">-</span>service<span class="token punctuation">-</span>guestbook
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token string">&apos;*&apos;</span>
-  <span class="token key atrule">gateways</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> guestbook<span class="token punctuation">-</span>gateway
-  <span class="token key atrule">http</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">route</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
-            <span class="token key atrule">host</span><span class="token punctuation">:</span> guestbook
-            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> networking.istio.io/v1alpha3
+<span class="hljs-attr">kind:</span> VirtualService
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> virtual-service-guestbook
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  hosts:</span>
+<span class="hljs-bullet">    -</span> <span class="hljs-string">&apos;*&apos;</span>
+<span class="hljs-attr">  gateways:</span>
+<span class="hljs-bullet">    -</span> guestbook-gateway
+<span class="hljs-attr">  http:</span>
+<span class="hljs-attr">    - route:</span>
+<span class="hljs-attr">        - destination:</span>
+<span class="hljs-attr">            host:</span> guestbook
+<span class="hljs-attr">            subset:</span> v1
 </code></pre>
 <p>The <code>VirtualService</code> defines a rule that captures all HTTP traffic coming in through the Istio ingress gateway, <code>guestbook-gateway</code>, and routes 100% of the traffic to pods of the guestbook service with label &quot;version: v1&quot;. A subset or version of a route destination is identified with a reference to a named service subset which must be declared in a corresponding <code>DestinationRule</code>. Since there are three instances matching the criteria of hostname <code>guestbook</code> and subset <code>version: v1</code>, by default Envoy will send traffic to all three instances in a round robin manner.</p>
 <p>View the guestbook application using the <code>$NLB_HOSTNAME</code> specified in <a href="../exercise-5/">Exercise 5</a> and enter it as a URL in Firefox or Chrome web browsers. You can use the echo command to get this value, if you don&apos;t remember it.</p>
-<pre class="language-"><code>echo $NLB_HOSTNAME
+<pre><code>echo $NLB_HOSTNAME
 </code></pre><p>To enable the Istio service mesh for A/B testing against the new service version, modify the original <code>VirtualService</code> rule:</p>
-<pre class="language-"><code class="lang-shell">kubectl replace -f virtualservice-test.yaml
+<pre><code class="lang-shell">kubectl replace -f virtualservice-test.yaml
 </code></pre>
 <p>Let&apos;s examine the rule:</p>
-<pre class="language-"><code class="lang-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> virtual<span class="token punctuation">-</span>service<span class="token punctuation">-</span>guestbook
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token string">&apos;*&apos;</span>
-  <span class="token key atrule">gateways</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> guestbook<span class="token punctuation">-</span>gateway
-  <span class="token key atrule">http</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">match</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">headers</span><span class="token punctuation">:</span>
-            <span class="token key atrule">user-agent</span><span class="token punctuation">:</span>
-              <span class="token key atrule">regex</span><span class="token punctuation">:</span> <span class="token string">&apos;.*Firefox.*&apos;</span>
-      <span class="token key atrule">route</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
-            <span class="token key atrule">host</span><span class="token punctuation">:</span> guestbook
-            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v2
-    <span class="token punctuation">-</span> <span class="token key atrule">route</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
-            <span class="token key atrule">host</span><span class="token punctuation">:</span> guestbook
-            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> networking.istio.io/v1alpha3
+<span class="hljs-attr">kind:</span> VirtualService
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> virtual-service-guestbook
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  hosts:</span>
+<span class="hljs-bullet">    -</span> <span class="hljs-string">&apos;*&apos;</span>
+<span class="hljs-attr">  gateways:</span>
+<span class="hljs-bullet">    -</span> guestbook-gateway
+<span class="hljs-attr">  http:</span>
+<span class="hljs-attr">    - match:</span>
+<span class="hljs-attr">        - headers:</span>
+<span class="hljs-attr">            user-agent:</span>
+<span class="hljs-attr">              regex:</span> <span class="hljs-string">&apos;.*Firefox.*&apos;</span>
+<span class="hljs-attr">      route:</span>
+<span class="hljs-attr">        - destination:</span>
+<span class="hljs-attr">            host:</span> guestbook
+<span class="hljs-attr">            subset:</span> v2
+<span class="hljs-attr">    - route:</span>
+<span class="hljs-attr">        - destination:</span>
+<span class="hljs-attr">            host:</span> guestbook
+<span class="hljs-attr">            subset:</span> v1
 </code></pre>
 <p>     <a href="../README_images/firefoxchrome.png" rel="grouped" title="" target="_self" class="fancybox">
        <img src="../README_images/firefoxchrome.png" alt="">
@@ -379,34 +379,34 @@
 <p>In Istio <code>VirtualService</code> rules, there can be only one rule for each service and therefore when defining multiple <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3/#HTTPRoute" target="_blank">HTTPRoute</a> blocks, the order in which they are defined in the yaml matters. Hence, the original <code>VirtualService</code> rule is modified rather than creating a new rule. With the modified rule, incoming requests originating from <code>Firefox</code> browsers will go to the newer version of guestbook. All other requests fall-through to the next block, which routes all traffic to the original version of guestbook.</p>
 <h3 id="canary-deployment">Canary deployment</h3>
 <p>In <code>Canary Deployments</code>, newer versions of services are incrementally rolled out to users to minimize the risk and impact of any bugs introduced by the newer version. To begin incrementally routing traffic to the newer version of the guestbook service, modify the original <code>VirtualService</code> rule:</p>
-<pre class="language-"><code class="lang-shell">kubectl replace -f virtualservice-80-20.yaml
+<pre><code class="lang-shell">kubectl replace -f virtualservice-80-20.yaml
 </code></pre>
 <p>Let&apos;s examine the rule:</p>
-<pre class="language-"><code class="lang-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> virtual<span class="token punctuation">-</span>service<span class="token punctuation">-</span>guestbook
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token string">&apos;*&apos;</span>
-  <span class="token key atrule">gateways</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> guestbook<span class="token punctuation">-</span>gateway
-  <span class="token key atrule">http</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">route</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
-            <span class="token key atrule">host</span><span class="token punctuation">:</span> guestbook
-            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
-          <span class="token key atrule">weight</span><span class="token punctuation">:</span> <span class="token number">80</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
-            <span class="token key atrule">host</span><span class="token punctuation">:</span> guestbook
-            <span class="token key atrule">subset</span><span class="token punctuation">:</span> v2
-          <span class="token key atrule">weight</span><span class="token punctuation">:</span> <span class="token number">20</span>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> networking.istio.io/v1alpha3
+<span class="hljs-attr">kind:</span> VirtualService
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> virtual-service-guestbook
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  hosts:</span>
+<span class="hljs-bullet">    -</span> <span class="hljs-string">&apos;*&apos;</span>
+<span class="hljs-attr">  gateways:</span>
+<span class="hljs-bullet">    -</span> guestbook-gateway
+<span class="hljs-attr">  http:</span>
+<span class="hljs-attr">    - route:</span>
+<span class="hljs-attr">        - destination:</span>
+<span class="hljs-attr">            host:</span> guestbook
+<span class="hljs-attr">            subset:</span> v1
+<span class="hljs-attr">          weight:</span> <span class="hljs-number">80</span>
+<span class="hljs-attr">        - destination:</span>
+<span class="hljs-attr">            host:</span> guestbook
+<span class="hljs-attr">            subset:</span> v2
+<span class="hljs-attr">          weight:</span> <span class="hljs-number">20</span>
 </code></pre>
 <p>In the modified rule, the routed traffic is split between two different subsets of the guestbook service. In this manner, traffic to the modernized version 2 of guestbook is controlled on a percentage basis to limit the impact of any unforeseen bugs. This rule can be modified over time until eventually all traffic is directed to the newer version of the service.</p>
 <p>View the guestbook application using the <code>$NLB_HOSTNAME</code> specified in <a href="../exercise-5/">Exercise 5</a> and enter it as a URL in Firefox or Chrome web browsers. <strong>Ensure that you are using a hard refresh (command + Shift + R on Mac or Ctrl + F5 on windows) to remove any browser caching.</strong> You should notice that the guestbook should swap between V1 or V2 at about the weight you specified.</p>
 <h3 id="route-all-traffic-to-v2">Route all traffic to v2</h3>
 <p>Route all traffic to guestbook v2 with a new VirtualService rule:</p>
-<pre class="language-"><code class="lang-shell">cat &lt;&lt;EOF | kubectl replace -f -
+<pre><code class="lang-shell">cat &lt;&lt;EOF | kubectl replace -f -
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -423,9 +423,49 @@ spec:
             subset: v2
 EOF
 </code></pre>
-<h3 id="implementing-circuit-breakers-with-destination-rules">Implementing circuit breakers with destination rules</h3>
-<p>Istio <code>DestinationRules</code> allow users to configure Envoy&apos;s implementation of <a href="https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/circuit_breaking" target="_blank">circuit breakers</a>. Circuit breakers are critical for defining the behavior for service-to-service communication in the service mesh. In the event of a failure for a particular service, circuit breakers allow users to set global defaults for failure recovery on a per service and/or per service version basis. Users can apply a <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3.html#TrafficPolicy" target="_blank">traffic policy</a> at the top level of the <code>DestinationRule</code> to create circuit breaker settings for an entire service, or it can be defined at the subset level to create settings for a particular version of a service.</p>
-<p>Depending on whether a service handles <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3/#ConnectionPoolSettings.HTTPSettings" target="_blank">HTTP</a> requests or <a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3/#ConnectionPoolSettings.TCPSettings" target="_blank">TCP</a> connections, <code>DestinationRules</code> expose a number of ways for Envoy to limit traffic to a particular service as well as define failure recovery behavior for services initiating the connection to an unhealthy service.</p>
+<h3 id="secure-your-mesh-enable-mtls-between-your-microservices">Secure your mesh! Enable mTLS between your microservices</h3>
+<ol>
+<li>To set a mesh-wide authentication policy that enables mutual TLS, submit the following policy. This policy specifies that all workloads in the mesh will only accept encrypted requests using TLS.<pre><code class="lang-shell">kubectl apply -f - &lt;&lt;EOF
+apiVersion: &quot;authentication.istio.io/v1alpha1&quot;
+kind: &quot;MeshPolicy&quot;
+metadata:
+name: &quot;default&quot;
+spec:
+peers:
+- mtls: {}
+EOF
+</code></pre>
+</li>
+<li>To configure the client side, we need to modify our previous destination rules to use ISTIO_MUTUAL. Note: In the next version of Istio (1.5 with auto-mTLS), this step is no longer requried.<pre><code class="lang-shell">kubectl replace -f - &lt;&lt;EOF
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+name: destination-rule-guestbook
+spec:
+host: guestbook
+trafficPolicy:
+ tls:
+   mode: ISTIO_MUTUAL
+subsets:
+ - name: v1
+   labels:
+     version: &apos;1.0&apos;
+ - name: v2
+   labels:
+     version: &apos;2.0&apos;
+EOF
+</code></pre>
+</li>
+<li>Visit your guestbook application by going to it in your browser. Everything should be working as expected! To confirm mTLS is infact enabled, you can run:<pre><code class="lang-shell">istioctl x describe service guestbook
+</code></pre>
+Example output<pre><code>Service: guestbook
+Port: http 80/HTTP targets pod port 3000
+DestinationRule: destination-rule-guestbook for &quot;guestbook&quot;
+Matching subsets: v1,v2
+Traffic Policy TLS Mode: ISTIO_MUTUAL
+Pod is STRICT and clients are ISTIO_MUTUAL
+</code></pre></li>
+</ol>
 <h2 id="thats-all">That&apos;s all!</h2>
 <p>This was the abridged version of the full Istio 101 workshop. To see more, check out the <a href="https://github.com/IBM/istio101" target="_blank">Istio 101 Repository</a>.</p>
 <h2 id="further-reading">Further reading</h2>
@@ -477,7 +517,7 @@ EOF
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Perform traffic management","level":"3.3","depth":1,"previous":{"title":"Expose with Istio Ingress","level":"3.2","depth":1,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-6/README.md","mtime":"2020-02-17T03:01:38.192Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-17T03:02:55.090Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Perform traffic management","level":"3.3","depth":1,"previous":{"title":"Expose with Istio Ingress","level":"3.2","depth":1,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-6/README.md","mtime":"2020-02-19T17:03:23.220Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-19T17:04:32.160Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

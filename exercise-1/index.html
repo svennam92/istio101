@@ -17,10 +17,6 @@
     
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-collapsible-chapters/collapsible-chapters.css">
                 
             
@@ -46,6 +42,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-codetabs/codetabs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -298,13 +298,13 @@
                                 
                                 <h1 id="accessing-a-kubernetes-cluster-with-ibm-cloud-kubernetes-service">Accessing a Kubernetes cluster with IBM Cloud Kubernetes Service</h1>
 <h2 id="connect-to-your-cluster-using-the-cloud-shell">Connect to your cluster using the Cloud Shell</h2>
-<p>For this lab, a web shell is provided for you with all the necessary tools. Use this web shell to perform the tasks in this lab. If you are having problems with this web shell, you can use a local docker container and follow the instructions <a href="https://github.com/rvennam/istio101/blob/docker-env/workshop/exercise-1/README.md" target="_blank">here</a> instead.</p>
+<p>For this lab, a web shell is provided for you with all the necessary tools. Use this web shell to perform the tasks in this lab.</p>
 <p>Using Chrome or Firefox:</p>
 <ol>
-<li>Navigate to <a href="cloud.ibm.com">IBM Cloud</a></li>
-<li>Choose the IBM account</li>
+<li>Navigate to <a href="https://cloud.ibm.com" target="_blank">IBM Cloud</a></li>
+<li>Choose the <code>1835659 - IBM</code> account</li>
 <li><p>Click the Cloud Shell icon on the top right.</p>
-<p>      <a href="../README_images/cloudshell.png" rel="grouped" title="" target="_self" class="fancybox">
+<p>     <a href="../README_images/cloudshell.png" rel="grouped" title="" target="_self" class="fancybox">
        <img src="../README_images/cloudshell.png" alt="">
      </a></p>
 </li>
@@ -314,40 +314,40 @@
 <ol>
 <li><p>Set the context for your cluster in your CLI. Every time you log in to the IBM Cloud Kubernetes Service CLI to work with the cluster, you must run these commands to set the path to the cluster&apos;s configuration file as a session variable. The Kubernetes CLI uses this variable to find a local configuration file and certificates that are necessary to connect with the cluster in IBM Cloud.</p>
 <p>a. List the available clusters.</p>
-<pre class="language-"><code class="lang-shell">ibmcloud ks clusters
+<pre><code class="lang-shell">ibmcloud ks clusters
 </code></pre>
 <p>b. Set an environment variable for your cluster name:</p>
-<pre class="language-"><code class="lang-shell">export MYCLUSTER=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>your_cluster_name</span><span class="token punctuation">&gt;</span></span>
+<pre><code class="lang-shell">export MYCLUSTER=&lt;your_cluster_name&gt;
 </code></pre>
 <p>c. Download the configuration file and certificates for your cluster using the <code>cluster-config</code> command.</p>
-<pre class="language-"><code class="lang-shell">ibmcloud ks cluster config $MYCLUSTER
+<pre><code class="lang-shell">ibmcloud ks cluster config $MYCLUSTER
 </code></pre>
 <p>d. Copy and paste the output command from the previous step to set the <code>KUBECONFIG</code> environment variable and configure your CLI to run <code>kubectl</code> commands against your cluster.</p>
 <p>Example: (<em>Do not copy/paste this exact command, but your result from the previous command</em>)</p>
-<pre class="language-"><code class="lang-shell">export KUBECONFIG=/Users/user-name/.bluemix/plugins/container-service/clusters/mycluster/kube-config-hou02-mycluster.yml
+<pre><code class="lang-shell">export KUBECONFIG=/Users/user-name/.bluemix/plugins/container-service/clusters/mycluster/kube-config-hou02-mycluster.yml
 </code></pre>
 </li>
 <li><p>Get basic information about your cluster and its worker nodes. This information can help you manage your cluster and troubleshoot issues.</p>
 <p>a.  View details of your cluster.</p>
-<pre class="language-"><code class="lang-shell">ibmcloud ks cluster get $MYCLUSTER
+<pre><code class="lang-shell">ibmcloud ks cluster get $MYCLUSTER
 </code></pre>
 <p>b.  Verify the worker nodes in the cluster.</p>
-<pre class="language-"><code class="lang-shell">ibmcloud ks workers $MYCLUSTER
+<pre><code class="lang-shell">ibmcloud ks workers $MYCLUSTER
 </code></pre>
 </li>
 <li><p>Validate access to your cluster by viewing the nodes in the cluster.</p>
-<pre class="language-"><code class="lang-shell">kubectl get node
+<pre><code class="lang-shell">kubectl get node
 </code></pre>
 </li>
 </ol>
 <h2 id="clone-the-lab-repo">Clone the lab repo</h2>
 <ol>
 <li><p>From your command line, run:</p>
-<pre class="language-"><code class="lang-shell"> git clone https://github.com/IBM/istio101
+<pre><code class="lang-shell">git clone https://github.com/IBM/istio101
 
- cd istio101/workshop
+cd istio101/workshop
 </code></pre>
-<p> This is the working directory for the workshop. You will use the example <code>.yaml</code> files that are located in the <code>workshop/plans</code> directory in the following exercises.</p>
+<p>This is the working directory for the workshop. You will use the example <code>.yaml</code> files that are located in the <code>workshop/plans</code> directory in the following exercises.</p>
 </li>
 </ol>
 
@@ -393,7 +393,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Access IKS Cluster","level":"2.2","depth":1,"next":{"title":"Installing Istio","level":"2.3","depth":1,"path":"exercise-2/README.md","ref":"exercise-2/README.md","articles":[]},"previous":{"title":"Get Started","level":"2.1","depth":1,"path":"GETSTARTED.md","ref":"GETSTARTED.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-1/README.md","mtime":"2020-02-17T03:01:38.192Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-17T03:02:55.090Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Access IKS Cluster","level":"2.2","depth":1,"next":{"title":"Installing Istio","level":"2.3","depth":1,"path":"exercise-2/README.md","ref":"exercise-2/README.md","articles":[]},"previous":{"title":"Get Started","level":"2.1","depth":1,"path":"GETSTARTED.md","ref":"GETSTARTED.md","articles":[]},"dir":"ltr"},"config":{"plugins":["collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-1/README.md","mtime":"2020-02-19T17:03:23.216Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-19T17:04:32.160Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

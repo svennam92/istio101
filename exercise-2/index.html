@@ -17,10 +17,6 @@
     
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-collapsible-chapters/collapsible-chapters.css">
                 
             
@@ -46,6 +42,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-codetabs/codetabs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -301,62 +301,70 @@
 <p>Managed Istio is available as part of IBM Cloud&#x2122; Kubernetes Service. The service provides seamless installation of Istio, automatic updates and lifecycle management of control plane components, and integration with platform logging and monitoring tools.</p>
 <ol>
 <li><p>Navigate to your cluster in the <a href="https://cloud.ibm.com/kubernetes/clusters" target="_blank">IBM Cloud Dashboard</a>, switch to the <code>Add-ons</code> tab and install Istio:</p>
-<p>      <a href="../README_images/istioinstall.png" rel="grouped" title="" target="_self" class="fancybox">
+<p>     <a href="../README_images/istioinstall.png" rel="grouped" title="" target="_self" class="fancybox">
        <img src="../README_images/istioinstall.png" alt="">
      </a></p>
- <!-- ```shell
- ibmcloud ks cluster addon enable istio --cluster $MYCLUSTER
- ``` -->
+<!-- ```shell
+ibmcloud ks cluster addon enable istio --cluster $MYCLUSTER
+``` -->
 <blockquote>
 <p>Remember to switch to the IBM account where the cluster exists. It can take up to 5 minutes for the install to begin.</p>
 </blockquote>
 </li>
 <li><p>After waiting, check that the <code>istio-*</code> Kubernetes services are deployed before you continue.</p>
-<pre class="language-"><code class="lang-shell"> kubectl get svc -n istio-system
+<pre><code>kubectl get svc -n istio-system
+</code></pre><p>Sample output:</p>
+<pre><code class="lang-shell">NAME                     TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)                                                                                                                                      AGE
+grafana                  ClusterIP      172.21.248.16    &lt;none&gt;          3000/TCP                                                                                                                                     2s
+istio-citadel            ClusterIP      172.21.86.151    &lt;none&gt;          8060/TCP,15014/TCP                                                                                                                           6m56s
+istio-egressgateway      ClusterIP      172.21.197.125   &lt;none&gt;          80/TCP,443/TCP,15443/TCP                                                                                                                     6m56s
+istio-galley             ClusterIP      172.21.29.234    &lt;none&gt;          443/TCP,15014/TCP,9901/TCP                                                                                                                   6m56s
+istio-ingressgateway     LoadBalancer   172.21.161.24    169.61.10.106   15020:31167/TCP,80:31380/TCP,443:31390/TCP,31400:31400/TCP,15029:30889/TCP,15030:31326/TCP,15031:30961/TCP,15032:31491/TCP,15443:30967/TCP   6m55s
+istio-pilot              ClusterIP      172.21.168.110   &lt;none&gt;          15010/TCP,15011/TCP,8080/TCP,15014/TCP                                                                                                       6m55s
+istio-policy             ClusterIP      172.21.147.132   &lt;none&gt;          9091/TCP,15004/TCP,15014/TCP                                                                                                                 6m55s
+istio-sidecar-injector   ClusterIP      172.21.57.81     &lt;none&gt;          443/TCP                                                                                                                                      6m55s
+istio-telemetry          ClusterIP      172.21.231.56    &lt;none&gt;          9091/TCP,15004/TCP,15014/TCP,42422/TCP                                                                                                       6m55s
+jaeger-agent             ClusterIP      None             &lt;none&gt;          5775/UDP,6831/UDP,6832/UDP                                                                                                                   2s
+jaeger-collector         ClusterIP      172.21.0.87      &lt;none&gt;          14267/TCP,14268/TCP                                                                                                                          2s
+jaeger-query             ClusterIP      172.21.157.12    &lt;none&gt;          16686/TCP                                                                                                                                    2s
+kiali                    ClusterIP      172.21.156.209   &lt;none&gt;          20001/TCP                                                                                                                                    2s
+prometheus               ClusterIP      172.21.159.166   &lt;none&gt;          9090/TCP                                                                                                                                     6m55s
+tracing                  ClusterIP      172.21.210.248   &lt;none&gt;          80/TCP                                                                                                                                       1s
+zipkin                   ClusterIP      172.21.214.67    &lt;none&gt;          9411/TCP                                                                                                                                     1s
 </code></pre>
-<p> Sample output:</p>
-<pre class="language-"><code class="lang-shell"> NAME                     TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)                                                                                                                                      AGE
- grafana                  ClusterIP      172.21.248.16    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          3000/TCP                                                                                                                                     2s
- istio-citadel            ClusterIP      172.21.86.151    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          8060/TCP,15014/TCP                                                                                                                           6m56s
- istio-egressgateway      ClusterIP      172.21.197.125   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          80/TCP,443/TCP,15443/TCP                                                                                                                     6m56s
- istio-galley             ClusterIP      172.21.29.234    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          443/TCP,15014/TCP,9901/TCP                                                                                                                   6m56s
- istio-ingressgateway     LoadBalancer   172.21.161.24    169.61.10.106   15020:31167/TCP,80:31380/TCP,443:31390/TCP,31400:31400/TCP,15029:30889/TCP,15030:31326/TCP,15031:30961/TCP,15032:31491/TCP,15443:30967/TCP   6m55s
- istio-pilot              ClusterIP      172.21.168.110   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          15010/TCP,15011/TCP,8080/TCP,15014/TCP                                                                                                       6m55s
- istio-policy             ClusterIP      172.21.147.132   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          9091/TCP,15004/TCP,15014/TCP                                                                                                                 6m55s
- istio-sidecar-injector   ClusterIP      172.21.57.81     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          443/TCP                                                                                                                                      6m55s
- istio-telemetry          ClusterIP      172.21.231.56    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          9091/TCP,15004/TCP,15014/TCP,42422/TCP                                                                                                       6m55s
- jaeger-agent             ClusterIP      None             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          5775/UDP,6831/UDP,6832/UDP                                                                                                                   2s
- jaeger-collector         ClusterIP      172.21.0.87      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          14267/TCP,14268/TCP                                                                                                                          2s
- jaeger-query             ClusterIP      172.21.157.12    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          16686/TCP                                                                                                                                    2s
- kiali                    ClusterIP      172.21.156.209   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          20001/TCP                                                                                                                                    2s
- prometheus               ClusterIP      172.21.159.166   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          9090/TCP                                                                                                                                     6m55s
- tracing                  ClusterIP      172.21.210.248   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          80/TCP                                                                                                                                       1s
- zipkin                   ClusterIP      172.21.214.67    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          9411/TCP                                                                                                                                     1s
-</code></pre>
-<p> <strong>Note: If your istio-ingressgateway service IP is <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pending</span><span class="token punctuation">&gt;</span></span></code>, confirm that you are using a standard/paid cluster. Free cluster is not supported for this lab.</strong></p>
+<p><strong>Note: If your istio-ingressgateway service IP is <code>&lt;pending&gt;</code>, please check with the lab instructor before proceeding.</strong></p>
 </li>
 <li><p>Ensure the corresponding pods <code>istio-citadel-*</code>, <code>istio-ingressgateway-*</code>, <code>istio-pilot-*</code>, and <code>istio-policy-*</code> are all in <strong><code>Running</code></strong> state before you continue.</p>
-<pre class="language-"><code class="lang-shell"> kubectl get pods -n istio-system
+<pre><code class="lang-shell">kubectl get pods -n istio-system
+</code></pre>
+<p>Sample output:</p>
+<pre><code class="lang-shell">NAME                                     READY   STATUS    RESTARTS   AGE
+grafana-6c89cb48cf-v767v                 1/1     Running   0          33s
+istio-citadel-66dff76d4-r9gsf            1/1     Running   0          7m27s
+istio-egressgateway-55fc547574-svkkr     1/1     Running   0          7m27s
+istio-galley-7d9dbfd4b9-fw2qk            1/1     Running   0          7m27s
+istio-ingressgateway-9c4856497-rpxvs     1/1     Running   0          7m27s
+istio-pilot-7ff6949955-d9hbw             2/2     Running   0          7m27s
+istio-policy-6b88dd467b-hxhqx            2/2     Running   1          7m27s
+istio-sidecar-injector-bc8dddd65-bwhbq   1/1     Running   0          7m27s
+istio-telemetry-5f9df6d9cc-wppmf         2/2     Running   1          7m26s
+istio-tracing-5777dc949f-k2lhc           1/1     Running   0          33s
+kiali-8c696cc97-2cwk2                    1/1     Running   0          33s
+prometheus-65c985bf4c-g8ch5              1/1     Running   0          7m26s
+</code></pre>
+<p>Before you continue, make sure all the pods are deployed and either in the <strong><code>Running</code></strong> or <strong><code>Completed</code></strong> state. If they&apos;re in <code>pending</code> state, wait a few minutes to let the installation and deployment finish.</p>
+</li>
+<li><p>Check the version of your Istio:</p>
+<pre><code class="lang-shell"> istioctl version
 </code></pre>
 <p> Sample output:</p>
-<pre class="language-"><code class="lang-shell"> NAME                                     READY   STATUS    RESTARTS   AGE
- grafana-6c89cb48cf-v767v                 1/1     Running   0          33s
- istio-citadel-66dff76d4-r9gsf            1/1     Running   0          7m27s
- istio-egressgateway-55fc547574-svkkr     1/1     Running   0          7m27s
- istio-galley-7d9dbfd4b9-fw2qk            1/1     Running   0          7m27s
- istio-ingressgateway-9c4856497-rpxvs     1/1     Running   0          7m27s
- istio-pilot-7ff6949955-d9hbw             2/2     Running   0          7m27s
- istio-policy-6b88dd467b-hxhqx            2/2     Running   1          7m27s
- istio-sidecar-injector-bc8dddd65-bwhbq   1/1     Running   0          7m27s
- istio-telemetry-5f9df6d9cc-wppmf         2/2     Running   1          7m26s
- istio-tracing-5777dc949f-k2lhc           1/1     Running   0          33s
- kiali-8c696cc97-2cwk2                    1/1     Running   0          33s
- prometheus-65c985bf4c-g8ch5              1/1     Running   0          7m26s
+<pre><code class="lang-shell"> client version: 1.4.4
+ control plane version: 1.4.4
+ data plane version: none
 </code></pre>
-<p> Before you continue, make sure all the pods are deployed and either in the <strong><code>Running</code></strong> or <strong><code>Completed</code></strong> state. If they&apos;re in <code>pending</code> state, wait a few minutes to let the installation and deployment finish.</p>
-<p> Congratulations! You successfully installed Istio into your cluster.</p>
 </li>
 </ol>
+<p>Congratulations! You successfully installed Istio into your cluster.</p>
 
                                 
                                 </section>
@@ -400,7 +408,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Installing Istio","level":"2.3","depth":1,"next":{"title":"Deploying Guestbook App","level":"2.4","depth":1,"path":"exercise-3/README.md","ref":"exercise-3/README.md","articles":[]},"previous":{"title":"Access IKS Cluster","level":"2.2","depth":1,"path":"exercise-1/README.md","ref":"exercise-1/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-2/README.md","mtime":"2020-02-17T03:01:38.192Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-17T03:02:55.090Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Installing Istio","level":"2.3","depth":1,"next":{"title":"Deploying Guestbook App","level":"2.4","depth":1,"path":"exercise-3/README.md","ref":"exercise-3/README.md","articles":[]},"previous":{"title":"Access IKS Cluster","level":"2.2","depth":1,"path":"exercise-1/README.md","ref":"exercise-1/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-2/README.md","mtime":"2020-02-19T17:03:23.216Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-19T17:04:32.160Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

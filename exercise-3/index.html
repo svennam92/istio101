@@ -17,10 +17,6 @@
     
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-collapsible-chapters/collapsible-chapters.css">
                 
             
@@ -46,6 +42,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-codetabs/codetabs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -304,11 +304,11 @@
 <h3 id="download-the-guestbook-app">Download the Guestbook app</h3>
 <ol>
 <li><p>Clone the Guestbook app into the <code>workshop</code> directory.</p>
-<pre class="language-"><code class="lang-shell"> git clone https://github.com/IBM/guestbook.git
+<pre><code class="lang-shell">git clone https://github.com/IBM/guestbook.git
 </code></pre>
 </li>
 <li><p>Navigate into the app directory.</p>
-<pre class="language-"><code class="lang-shell"> cd guestbook/v2
+<pre><code class="lang-shell">cd guestbook/v2
 </code></pre>
 </li>
 </ol>
@@ -316,17 +316,17 @@
 <p>In Kubernetes, a sidecar is a utility container in the pod, and its purpose is to support the main container. For Istio to work, Envoy proxies must be deployed as sidecars to each pod of the deployment. There are two ways of injecting the Istio sidecar into a pod: manually using the istioctl CLI tool or automatically using the Istio sidecar injector. In this exercise, we will use the automatic sidecar injection provided by Istio.</p>
 <ol>
 <li><p>Annotate the default namespace to enable automatic sidecar injection:</p>
-<pre class="language-"><code class="lang-shell"> kubectl label namespace default istio-injection=enabled
+<pre><code class="lang-shell">kubectl label namespace default istio-injection=enabled
 </code></pre>
 </li>
 <li><p>Validate the namespace is annotated for automatic sidecar injection:</p>
-<pre class="language-"><code class="lang-shell"> kubectl get namespace -L istio-injection
+<pre><code class="lang-shell">kubectl get namespace -L istio-injection
 </code></pre>
-<p> Sample output:</p>
-<pre class="language-"><code class="lang-shell"> NAME             STATUS   AGE    ISTIO-INJECTION
- default          Active   271d   enabled
- istio-system     Active   5d2h
- ...
+<p>Sample output:</p>
+<pre><code class="lang-shell">NAME             STATUS   AGE    ISTIO-INJECTION
+default          Active   271d   enabled
+istio-system     Active   5d2h
+...
 </code></pre>
 </li>
 </ol>
@@ -334,78 +334,78 @@
 <p>The Redis database is a service that you can use to persist the data of your app. The Redis database comes with a master and slave modules.</p>
 <ol>
 <li><p>Create the Redis controllers and services for both the master and the slave.</p>
-<pre class="language-"><code class="lang-shell"> kubectl create -f redis-master-deployment.yaml
- kubectl create -f redis-master-service.yaml
- kubectl create -f redis-slave-deployment.yaml
- kubectl create -f redis-slave-service.yaml
+<pre><code class="lang-shell">kubectl create -f redis-master-deployment.yaml
+kubectl create -f redis-master-service.yaml
+kubectl create -f redis-slave-deployment.yaml
+kubectl create -f redis-slave-service.yaml
 </code></pre>
 </li>
 <li><p>Verify that the Redis controllers for the master and the slave are created.</p>
-<pre class="language-"><code class="lang-shell"> kubectl get deployment
+<pre><code class="lang-shell">kubectl get deployment
 </code></pre>
-<p> Output:</p>
-<pre class="language-"><code class="lang-shell"> NAME           READY   UP-TO-DATE   AVAILABLE   AGE
- redis-master   1/1     1            1           2m16s
- redis-slave    2/2     2            2           2m15s
+<p>Output:</p>
+<pre><code class="lang-shell">NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+redis-master   1/1     1            1           2m16s
+redis-slave    2/2     2            2           2m15s
 </code></pre>
 </li>
 <li><p>Verify that the Redis services for the master and the slave are created.</p>
-<pre class="language-"><code class="lang-shell"> kubectl get svc
+<pre><code class="lang-shell">kubectl get svc
 </code></pre>
-<p> Output:</p>
-<pre class="language-"><code class="lang-shell"> NAME           TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
- redis-master   ClusterIP      172.21.85.39    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          6379/TCP       5d
- redis-slave    ClusterIP      172.21.205.35   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>          6379/TCP       5d
+<p>Output:</p>
+<pre><code class="lang-shell">NAME           TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
+redis-master   ClusterIP      172.21.85.39    &lt;none&gt;          6379/TCP       5d
+redis-slave    ClusterIP      172.21.205.35   &lt;none&gt;          6379/TCP       5d
 </code></pre>
 </li>
 <li><p>Verify that the Redis pods for the master and the slave are up and running.</p>
-<pre class="language-"><code class="lang-shell"> kubectl get pods
+<pre><code class="lang-shell">kubectl get pods
 </code></pre>
-<p> Output:</p>
-<pre class="language-"><code class="lang-shell"> NAME                            READY     STATUS    RESTARTS   AGE
- redis-master-4sswq              2/2       Running   0          5d
- redis-slave-kj8jp               2/2       Running   0          5d
- redis-slave-nslps               2/2       Running   0          5d
+<p>Output:</p>
+<pre><code class="lang-shell">NAME                            READY     STATUS    RESTARTS   AGE
+redis-master-4sswq              2/2       Running   0          5d
+redis-slave-kj8jp               2/2       Running   0          5d
+redis-slave-nslps               2/2       Running   0          5d
 </code></pre>
 </li>
 </ol>
 <h2 id="install-the-guestbook-app">Install the Guestbook app</h2>
 <ol>
-<li><p>Inject the Istio Envoy sidecar into the guestbook pods, and deploy the Guestbook app on to the Kubernetes cluster. Deploy both the v1 and v2 versions of the app:</p>
-<pre class="language-"><code class="lang-shell"> kubectl apply -f ../v1/guestbook-deployment.yaml
- kubectl apply -f guestbook-deployment.yaml
+<li><p>Deploy the Guestbook app on to the Kubernetes cluster. Deploy both the v1 and v2 versions of the app:</p>
+<pre><code class="lang-shell">kubectl apply -f ../v1/guestbook-deployment.yaml
+kubectl apply -f guestbook-deployment.yaml
 </code></pre>
-<p> These commands deploy the Guestbook app on to the Kubernetes cluster. Since we enabled automation sidecar injection, these pods will be also include an Envoy sidecar as they are started in the cluster. Here we have two versions of deployments, a new version (<code>v2</code>) in the current directory, and a previous version (<code>v1</code>) in a sibling directory. They will be used in future sections to showcase the Istio traffic routing capabilities.</p>
+<p>These commands deploy the Guestbook app on to the Kubernetes cluster. Since we enabled automation sidecar injection, these pods will be also include an Envoy sidecar as they are started in the cluster. Here we have two versions of deployments, a new version (<code>v2</code>) in the current directory, and a previous version (<code>v1</code>) in a sibling directory. They will be used in future sections to showcase the Istio traffic routing capabilities.</p>
 </li>
 <li><p>Create the guestbook service.</p>
-<pre class="language-"><code class="lang-shell"> kubectl create -f guestbook-service.yaml
+<pre><code class="lang-shell">kubectl create -f guestbook-service.yaml
 </code></pre>
 </li>
 <li><p>Verify that the service was created.</p>
-<pre class="language-"><code class="lang-shell"> kubectl get svc
+<pre><code class="lang-shell">kubectl get svc
 </code></pre>
-<p> Output:</p>
-<pre class="language-"><code class="lang-shell"> NAME           TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
- guestbook      LoadBalancer   172.21.36.181   169.61.37.140   80:32149/TCP   5d
- ...
+<p>Output:</p>
+<pre><code class="lang-shell">NAME           TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
+guestbook      LoadBalancer   172.21.36.181   169.61.37.140   80:32149/TCP   5d
+...
 </code></pre>
 </li>
 <li><p>Verify that the pods are up and running.</p>
-<pre class="language-"><code class="lang-shell"> kubectl get pods
+<pre><code class="lang-shell">kubectl get pods
 </code></pre>
-<p> Sample output:</p>
-<pre class="language-"><code class="lang-shell"> NAME                            READY   STATUS    RESTARTS   AGE
- guestbook-v1-98dd9c654-dz8dq    2/2     Running   0          30s
- guestbook-v1-98dd9c654-mgfv6    2/2     Running   0          30s
- guestbook-v1-98dd9c654-x8gxx    2/2     Running   0          30s
- guestbook-v2-8689f6c559-5ntgv   2/2     Running   0          28s
- guestbook-v2-8689f6c559-fpzb7   2/2     Running   0          28s
- guestbook-v2-8689f6c559-wqbnl   2/2     Running   0          28s
- redis-master-577bc6fbb-zh5v8    2/2     Running   0          4m47s
- redis-slave-7779c6f75b-bshvs    2/2     Running   0          4m46s
- redis-slave-7779c6f75b-nvsd6    2/2     Running   0          4m46s
+<p>Sample output:</p>
+<pre><code class="lang-shell">NAME                            READY   STATUS    RESTARTS   AGE
+guestbook-v1-98dd9c654-dz8dq    2/2     Running   0          30s
+guestbook-v1-98dd9c654-mgfv6    2/2     Running   0          30s
+guestbook-v1-98dd9c654-x8gxx    2/2     Running   0          30s
+guestbook-v2-8689f6c559-5ntgv   2/2     Running   0          28s
+guestbook-v2-8689f6c559-fpzb7   2/2     Running   0          28s
+guestbook-v2-8689f6c559-wqbnl   2/2     Running   0          28s
+redis-master-577bc6fbb-zh5v8    2/2     Running   0          4m47s
+redis-slave-7779c6f75b-bshvs    2/2     Running   0          4m46s
+redis-slave-7779c6f75b-nvsd6    2/2     Running   0          4m46s
 </code></pre>
-<p> Note that each guestbook pod has 2 containers in it. One is the guestbook container, and the other is the Envoy proxy sidecar.</p>
+<p>Note that each guestbook pod has 2 containers in it. One is the guestbook container, and the other is the Envoy proxy sidecar.</p>
 </li>
 </ol>
 <h3 id="use-watson-tone-analyzer">Use Watson Tone Analyzer</h3>
@@ -416,30 +416,29 @@
 <ul>
 <li>Replace <code>YOUR_API_KEY</code> with the API key from Grant Cluster</li>
 <li>Replace <code>YOUR_URL</code> with <code>https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f</code></li>
-<li><p>Save the file.</p>
+<li>Save the file.</li>
+</ul>
 <blockquote>
 <p>You can do also do this with the sed command:</p>
 </blockquote>
-<pre class="language-"><code>sed -i &apos;s/YOUR_API_KEY/{replace_with_api_key}/g&apos; analyzer-deployment.yaml
-</code></pre><pre class="language-"><code>sed -i &apos;s+YOUR_URL+https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f+g&apos; analyzer-deployment.yaml
+<pre><code>sed -i &apos;s/YOUR_API_KEY/{replace_with_api_key}/g&apos; analyzer-deployment.yaml
+</code></pre><pre><code>sed -i &apos;s+YOUR_URL+https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f+g&apos; analyzer-deployment.yaml
 </code></pre></li>
-</ul>
-</li>
 <li><p>Run <code>cat analyzer-deployment.yaml</code> and make sure the values under <code>env:</code> are all properly set.</p>
-<p> For example:</p>
-<pre class="language-"><code>         ...
-         env:
-         - name: VCAP_SERVICES_TONE_ANALYZER_API_KEY
-         value: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>you</span> <span class="token attr-name">should</span> <span class="token attr-name">see</span> <span class="token attr-name">your</span> <span class="token attr-name">API</span> <span class="token attr-name">key</span> <span class="token attr-name">here</span><span class="token punctuation">&gt;</span></span>
-         - name : VCAP_SERVICES_TONE_ANALYZER_TOKEN_ADDRESS
-         value: &quot;https://iam.bluemix.net/identity/token&quot;
-         - name: VCAP_SERVICES_TONE_ANALYZER_SERVICE_API
-         value: https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f
-         ...
+<p>For example:</p>
+<pre><code>        ...
+        env:
+        - name: VCAP_SERVICES_TONE_ANALYZER_API_KEY
+        value: &lt;you should see your API key here&gt;
+        - name : VCAP_SERVICES_TONE_ANALYZER_TOKEN_ADDRESS
+        value: &quot;https://iam.bluemix.net/identity/token&quot;
+        - name: VCAP_SERVICES_TONE_ANALYZER_SERVICE_API
+        value: https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/4cdbea2d-9236-4f58-8a43-1280bfbdfb3f
+        ...
 </code></pre></li>
 <li><p>Deploy the analyzer pods and service, using the <code>analyzer-deployment.yaml</code> and <code>analyzer-service.yaml</code> files found in the <code>guestbook/v2</code> directory. The analyzer service talks to Watson Tone Analyzer to help analyze the tone of a message.</p>
-<pre class="language-"><code class="lang-shell"> kubectl apply -f analyzer-deployment.yaml
- kubectl apply -f analyzer-service.yaml
+<pre><code class="lang-shell">kubectl apply -f analyzer-deployment.yaml
+kubectl apply -f analyzer-service.yaml
 </code></pre>
 </li>
 </ol>
@@ -487,7 +486,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Deploying Guestbook App","level":"2.4","depth":1,"next":{"title":"Metrics and Tracing","level":"3.1","depth":1,"path":"exercise-4/README.md","ref":"exercise-4/README.md","articles":[]},"previous":{"title":"Installing Istio","level":"2.3","depth":1,"path":"exercise-2/README.md","ref":"exercise-2/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-3/README.md","mtime":"2020-02-17T03:01:38.192Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-17T03:02:55.090Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Deploying Guestbook App","level":"2.4","depth":1,"next":{"title":"Metrics and Tracing","level":"3.1","depth":1,"path":"exercise-4/README.md","ref":"exercise-4/README.md","articles":[]},"previous":{"title":"Installing Istio","level":"2.3","depth":1,"path":"exercise-2/README.md","ref":"exercise-2/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-3/README.md","mtime":"2020-02-19T17:03:23.216Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-19T17:04:32.160Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

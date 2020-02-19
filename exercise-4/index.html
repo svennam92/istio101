@@ -17,10 +17,6 @@
     
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-collapsible-chapters/collapsible-chapters.css">
                 
             
@@ -46,6 +42,10 @@
             
                 
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-codetabs/codetabs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
                 
             
                 
@@ -305,15 +305,15 @@
 <h3 id="configure-istio-to-receive-telemetry-data">Configure Istio to receive telemetry data</h3>
 <ol>
 <li><p>Verify that the Grafana and Kiali add-ons were installed successfully. All add-ons are installed into the <code>istio-system</code> namespace.</p>
-<pre class="language-"><code class="lang-shell"> kubectl get pods -n istio-system
- kubectl get services -n istio-system
+<pre><code class="lang-shell">kubectl get pods -n istio-system
+kubectl get services -n istio-system
 </code></pre>
 </li>
 <li><p>Obtain the guestbook endpoint to access the guestbook.</p>
-<p> You can access the guestbook via the external IP for your service as guestbook is deployed as a load balancer service. Get the EXTERNAL-IP of the guestbook service via output below:</p>
-<pre class="language-"><code class="lang-shell"> kubectl get service guestbook -n default
+<p>You can access the guestbook via the external IP for your service as guestbook is deployed as a load balancer service. Get the EXTERNAL-IP of the guestbook service via output below:</p>
+<pre><code class="lang-shell">kubectl get service guestbook -n default
 </code></pre>
-<p> Go to this external ip address in the browser to try out your guestbook. This service will route you to either v1 or v2, at random. If you wish to see a different version, you&apos;ll need to do a hard refresh (<code>cmd + shift + r</code> on a mac, or <code>ctrl + f5</code> on a PC). Alternatively, you can <code>curl</code> the address.</p>
+<p>Go to this external ip address in the browser to try out your guestbook. This service will route you to either v1 or v2, at random. If you wish to see a different version, you&apos;ll need to do a hard refresh (<code>cmd + shift + r</code> on a mac, or <code>ctrl + f5</code> on a PC). Alternatively, you can <code>curl</code> the address.</p>
 </li>
 </ol>
 <p>     <a href="../README_images/guestbook1.png" rel="grouped" title="" target="_self" class="fancybox">
@@ -321,7 +321,7 @@
      </a></p>
 <ol>
 <li><p>Generate a small load to the app, replacing guestbook_IP with your own IP.</p>
-<pre class="language-"><code class="lang-shell"> for i in {1..20}; do sleep 0.5; curl http://<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>guestbook_IP</span><span class="token punctuation">&gt;</span></span>/; done
+<pre><code class="lang-shell">for i in {1..20}; do sleep 0.5; curl http://&lt;guestbook_IP&gt;/; done
 </code></pre>
 </li>
 </ol>
@@ -329,23 +329,23 @@
 <h4 id="grafana">Grafana</h4>
 <ol>
 <li><p>Expose Grafana on the Load Balancer so you can access it over the web:</p>
-<pre class="language-"><code class="lang-shell"> kubectl expose deployment grafana -n istio-system --name=grafana-external --type=LoadBalancer
+<pre><code class="lang-shell">kubectl expose deployment grafana -n istio-system --name=grafana-external --type=LoadBalancer --port=80 --target-port=3000
 </code></pre>
 <blockquote>
-<p>Note: Generally, you would want to secure Grafana before you do this. You could also securely port-forward Grafana to your local machine if you&apos;re using <code>kubectl</code> on your local terminal.</p>
+<p>Note: Normally, you would securely port-forward to Grafana on your local machine by running <code>istioctl dashboard grafana</code>.</p>
 </blockquote>
 </li>
 <li><p>Grab the URL to access your Grafana dashboard:</p>
-<pre class="language-"><code class="lang-shell"> kubectl get svc/grafana-external -n istio-system
+<pre><code class="lang-shell">kubectl get svc/grafana-external -n istio-system
 </code></pre>
-<p> Sample output:</p>
-<pre class="language-"><code> NAME               TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
- grafana-external   LoadBalancer   172.21.177.42   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>your_ip_here</span><span class="token punctuation">&gt;</span></span>  3000:32011/TCP   114s
-</code></pre><p> Combine the External IP and the port 3000 to access Grafana: <code>http://your-ip-here:3000</code></p>
+<p>Sample output:</p>
+<pre><code>NAME               TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
+grafana-external   LoadBalancer   172.21.177.42   &lt;your_ip_here&gt;  3000:32011/TCP   114s
+</code></pre><p>Go to the External IP to access Grafana: <code>http://your-ip-here/</code></p>
 </li>
 <li><p>Click on Home -&gt; Istio -&gt; Istio Service Dashboard.</p>
 </li>
-<li>Select guestbook in the Service drop down.</li>
+<li>Select <code>guestbook</code> in the Service drop down.</li>
 <li>In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.</li>
 </ol>
 <p>     <a href="../README_images/grafana.png" rel="grouped" title="" target="_self" class="fancybox">
@@ -386,7 +386,7 @@
 <ol>
 <li><p>Create a secret which will be used to set the login credentials for Kiali</p>
 <blockquote>
-<pre class="language-"><code class="lang-shell">cat &lt;&lt;EOF | kubectl apply -f -
+<pre><code class="lang-shell">cat &lt;&lt;EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
@@ -403,21 +403,27 @@ EOF
 </blockquote>
 </li>
 <li><p>Expose Kiali on the Load Balancer so you can access it over the web:</p>
-<pre class="language-"><code class="lang-shell"> kubectl expose deployment kiali -n istio-system --name=kiali-external --type=LoadBalancer --port=20001
+<pre><code class="lang-shell">kubectl expose deployment kiali -n istio-system --name=kiali-external --type=LoadBalancer --port=80 --target-port=20001
 </code></pre>
 </li>
 <li><p>Grab the URL to access your Kiali dashboard:</p>
-<pre class="language-"><code class="lang-shell"> kubectl get svc/kiali-external -n istio-system
+<pre><code class="lang-shell">kubectl get svc/kiali-external -n istio-system
 </code></pre>
-<p> Sample output:</p>
-<pre class="language-"><code> NAME             TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)           AGE
- kiali-external   LoadBalancer   172.21.18.146   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>your_ip_here</span><span class="token punctuation">&gt;</span></span>  20001:31374/TCP   3m52s
-</code></pre><p> Combine the External IP and the port 20001 to access Kiali: <code>http://your-ip-here:20001</code></p>
+<p>Sample output:</p>
+<pre><code>NAME             TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)           AGE
+kiali-external   LoadBalancer   172.21.18.146   &lt;your_ip_here&gt;  20001:31374/TCP   3m52s
+</code></pre><p>Visit the External IP to access Kiali: <code>http://your-ip-here/</code></p>
 </li>
-<li><p>Login with the following username/password: <code>admin/admin</code>.</p>
+<li><p>If you see an error message &quot;The Kiali secret is missing...&quot;, wait a couple of minutes and hit Refresh.</p>
 </li>
-<li>Click the &quot;Graph&quot; tab on the left side and select the default namespace to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the &quot;Edge Labels&quot; tab and choosing &quot;Traffic rate per second&quot;.</li>
-<li>In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.</li>
+<li>Login with the following username/password: <code>admin/admin</code>.</li>
+<li><p>Click the &quot;Graph&quot; tab on the left side and select the default namespace to see the a visual service graph of the various services in your Istio mesh. You can see request rates as well by clicking the &quot;Edge Labels&quot; tab and choosing &quot;Traffic rate per second&quot;.</p>
+<blockquote>
+<p>Info: You&apos;ll need to access your Guestbook application and type an entry for the graph to be generated and connected properly.</p>
+</blockquote>
+</li>
+<li><p>In a different tab, visit the guestbook application and refresh the page multiple times to generate some load.</p>
+</li>
 </ol>
 <p>Kiali has a number of views to help you visualize your services. Click through the various tabs to explore the service graph, and the various views for workloads, applications and services.</p>
 <p>     <a href="../README_images/kiali.png" rel="grouped" title="" target="_self" class="fancybox">
@@ -466,7 +472,7 @@ EOF
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Metrics and Tracing","level":"3.1","depth":1,"next":{"title":"Expose with Istio Ingress","level":"3.2","depth":1,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"previous":{"title":"Deploying Guestbook App","level":"2.4","depth":1,"path":"exercise-3/README.md","ref":"exercise-3/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-4/README.md","mtime":"2020-02-17T03:01:38.192Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-17T03:02:55.090Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Metrics and Tracing","level":"3.1","depth":1,"next":{"title":"Expose with Istio Ingress","level":"3.2","depth":1,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"previous":{"title":"Deploying Guestbook App","level":"2.4","depth":1,"path":"exercise-3/README.md","ref":"exercise-3/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-4/README.md","mtime":"2020-02-19T17:03:23.220Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-19T17:04:32.160Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
