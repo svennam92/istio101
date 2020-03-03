@@ -86,7 +86,7 @@ Let's leverage this feature with Istio ingress gateway:
 5.  Enable health check of the NLB host for Istio ingress gateway:
 
     ```shell
-    ibmcloud ks nlb-dns monitor configure --cluster $MYCLUSTER --nlb-host $NLB_HOSTNAME --type HTTP --description "Istio ingress gateway health check" --path "/healthz/ready" --port 15020 --enable
+    ibmcloud ks nlb-dns monitor configure --cluster $MYCLUSTER --nlb-host $NLB_HOSTNAME --type HTTP --description "Istio ingress gateway health check" --port 15020 --enable
     ```
 
 6.  Monitor the health check of the NLB host for Istio ingress gateway:
