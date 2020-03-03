@@ -176,6 +176,7 @@ EOF
 ```
 
 2.  To configure the client side, we need to modify our previous destination rules to use ISTIO_MUTUAL. Note: In the next version of Istio (1.5 with auto-mTLS), this step is no longer requried.
+
 ```shell
 kubectl replace -f - <<EOF
 apiVersion: networking.istio.io/v1alpha3
@@ -196,6 +197,7 @@ spec:
         version: '2.0'
 EOF
 ```
+
 3. Visit your guestbook application by going to it in your browser. Everything should be working as expected! To confirm mTLS is infact enabled, you can run:
 ```shell
 istioctl x describe service guestbook
