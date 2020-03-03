@@ -161,7 +161,8 @@ EOF
 
 ### Secure your mesh! Enable mTLS between your microservices
 
-1. To set a mesh-wide authentication policy that enables mutual TLS, submit the following policy. This policy specifies that all workloads in the mesh will only accept encrypted requests using TLS.
+1.  To set a mesh-wide authentication policy that enables mutual TLS, submit the following policy. This policy specifies that all workloads in the mesh will only accept encrypted requests using TLS.
+
 ```shell
 kubectl apply -f - <<EOF
 apiVersion: "authentication.istio.io/v1alpha1"
@@ -173,7 +174,8 @@ spec:
   - mtls: {}
 EOF
 ```
-2. To configure the client side, we need to modify our previous destination rules to use ISTIO_MUTUAL. Note: In the next version of Istio (1.5 with auto-mTLS), this step is no longer requried.
+
+2.  To configure the client side, we need to modify our previous destination rules to use ISTIO_MUTUAL. Note: In the next version of Istio (1.5 with auto-mTLS), this step is no longer requried.
 ```shell
 kubectl replace -f - <<EOF
 apiVersion: networking.istio.io/v1alpha3
