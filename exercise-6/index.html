@@ -425,17 +425,19 @@ EOF
 </code></pre>
 <h3 id="secure-your-mesh-enable-mtls-between-your-microservices">Secure your mesh! Enable mTLS between your microservices</h3>
 <ol>
-<li>To set a mesh-wide authentication policy that enables mutual TLS, submit the following policy. This policy specifies that all workloads in the mesh will only accept encrypted requests using TLS.<pre><code class="lang-shell">kubectl apply -f - &lt;&lt;EOF
+<li>To set a mesh-wide authentication policy that enables mutual TLS, submit the following policy. This policy specifies that all workloads in the mesh will only accept encrypted requests using TLS.</li>
+</ol>
+<pre><code class="lang-shell">kubectl apply -f - &lt;&lt;EOF
 apiVersion: &quot;authentication.istio.io/v1alpha1&quot;
 kind: &quot;MeshPolicy&quot;
 metadata:
-name: &quot;default&quot;
+  name: &quot;default&quot;
 spec:
-peers:
-- mtls: {}
+  peers:
+  - mtls: {}
 EOF
 </code></pre>
-</li>
+<ol>
 <li>To configure the client side, we need to modify our previous destination rules to use ISTIO_MUTUAL. Note: In the next version of Istio (1.5 with auto-mTLS), this step is no longer requried.<pre><code class="lang-shell">kubectl replace -f - &lt;&lt;EOF
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -444,15 +446,15 @@ name: destination-rule-guestbook
 spec:
 host: guestbook
 trafficPolicy:
- tls:
-   mode: ISTIO_MUTUAL
+tls:
+  mode: ISTIO_MUTUAL
 subsets:
- - name: v1
-   labels:
-     version: &apos;1.0&apos;
- - name: v2
-   labels:
-     version: &apos;2.0&apos;
+- name: v1
+  labels:
+    version: &apos;1.0&apos;
+- name: v2
+  labels:
+    version: &apos;2.0&apos;
 EOF
 </code></pre>
 </li>
@@ -517,7 +519,7 @@ Pod is STRICT and clients are ISTIO_MUTUAL
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Perform traffic management","level":"3.3","depth":1,"previous":{"title":"Expose with Istio Ingress","level":"3.2","depth":1,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-6/README.md","mtime":"2020-02-19T18:35:40.089Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-02-19T18:36:44.225Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Perform traffic management","level":"3.3","depth":1,"previous":{"title":"Expose with Istio Ingress","level":"3.2","depth":1,"path":"exercise-5/README.md","ref":"exercise-5/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Istio at Fast Start"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Istio at Fast Start","gitbook":"3.2.3"},"file":{"path":"exercise-6/README.md","mtime":"2020-03-03T00:55:12.223Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-03T00:56:19.959Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
